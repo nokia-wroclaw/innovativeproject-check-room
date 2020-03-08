@@ -2,9 +2,10 @@ const express = require( 'express' );
 
 const router = express.Router();
 
-/* GET home page. */
-router.get( '/', function ( req, res, next ) {
-   res.send( 'respond with a resource' );
+router.get( '/config', function ( req, res, next ) {
+   res.send( {
+      appName: 'Check Room',
+   } );
 } );
 
 module.exports = router;
