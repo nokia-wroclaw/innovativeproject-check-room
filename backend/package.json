@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "DEBUG=backend:* nodemon ./bin/www"
+    "start": "node ./server.js",
+    "dev": "DEBUG=backend:* nodemon ./server.js"
   },
   "dependencies": {
     "debug": "~2.6.9",

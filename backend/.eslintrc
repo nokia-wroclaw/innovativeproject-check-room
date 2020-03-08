@@ -14,8 +14,7 @@
       "import/resolver": {
          "node": {
             "paths": [
-               "./routes",
-               "./app.js"
+               ".",
             ],
             "extensions": [
                ".js"
@@ -100,6 +99,12 @@
          "off"
       ],
       "func-names": [
+         "off"
+      ],
+      "no-use-before-define": [
+         "off"
+      ],
+      "no-console": [
          "off"
       ]
    }
