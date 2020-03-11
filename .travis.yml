@@ -1,0 +1,25 @@
+# Only fetch the current version, without history.
+git:
+  depth: 1
+
+os: linux
+dist: bionic
+language: node_js
+node_js: node
+
+# Based on https://github.com/nokia-wroclaw/innovativeproject-sudoku/blob/3402e16849db852167e6eadce6c952e889e2c1d2/.travis.yml
+jobs:
+  include:
+  - stage: test and lint backend
+    before_install:
+    - cd backend
+    script:
+    - eslint . --max-warnings=0
+    - npm run test
+
+  - stage: test and lint frontend
+    before_install:
+    - cd frontend
+    script:
+    - eslint . --max-warnings=0
+    - npm run test -- --watchAll=false
