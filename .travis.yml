@@ -10,29 +10,26 @@ node_js: node
 # Based on https://github.com/nokia-wroclaw/innovativeproject-sudoku/blob/3402e16849db852167e6eadce6c952e889e2c1d2/.travis.yml
 jobs:
   include:
-    - stage: lint backend
-      before_install:
-      - cd backend
-      script:
-      - eslint . --max-warnings=0
+  - stage: lint backend
+    before_install:
+    - cd backend
+    script:
+    - eslint . --max-warnings=0
 
-  include:
-    - stage: test backend
-      before_install:
-      - cd backend
-      script:
-      - npm run test
+  - stage: test backend
+    before_install:
+    - cd backend
+    script:
+    - npm run test
 
-  include:
-    - stage: lint frontend
-      before_install:
-      - cd frontend
-      script:
-      - eslint . --max-warnings=0
+  - stage: lint frontend
+    before_install:
+    - cd frontend
+    script:
+    - eslint . --max-warnings=0
 
-  include:
-    - stage: test frontend
-      before_install:
-      - cd frontend
-      script:
-      - npm run test -- --watchAll=false
+  - stage: test frontend
+    before_install:
+    - cd frontend
+    script:
+    - npm run test -- --watchAll=false
