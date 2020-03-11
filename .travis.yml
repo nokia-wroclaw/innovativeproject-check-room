@@ -1,0 +1,35 @@
+# Only fetch the current version, without history.
+git:
+  depth: 1
+
+# Custom configuration key, that can be referenced
+# by *name, and imported by <<: *name.
+x-backend: &x-backend
+  language: node_js
+  node_js:
+    - "node" # latest version
+  before_install: cd backend
+
+x-frontend: &x-frontend
+  language: node_js
+  node_js:
+    - "node" # latest version
+  before_install: cd frontend
+
+# Based on https://github.com/nokia-wroclaw/innovativeproject-sudoku/blob/3402e16849db852167e6eadce6c952e889e2c1d2/.travis.yml
+matrix:
+  stages:
+    - lint
+    - test
+
+  include:
+    - stage: lint backend
+      <<: *x-backend
+      script:
+      - eslint . --max-warnings=0
+
+  # include:
+  #   - stage: test backend
+  #     <<: *x-backend
+  #     script:
+  #     - npm run test
