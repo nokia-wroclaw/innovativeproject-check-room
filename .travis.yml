@@ -16,8 +16,23 @@ jobs:
       script:
       - eslint . --max-warnings=0
 
-  # include:
-  #   - stage: test backend
-  #     <<: *x-backend
-  #     script:
-  #     - npm run test
+  include:
+    - stage: test backend
+      before_install:
+      - cd backend
+      script:
+      - npm run test
+
+  include:
+    - stage: lint frontend
+      before_install:
+      - cd frontend
+      script:
+      - eslint . --max-warnings=0
+
+  include:
+    - stage: test frontend
+      before_install:
+      - cd frontend
+      script:
+      - npm run test -- --watchAll=false
