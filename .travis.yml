@@ -28,9 +28,9 @@ jobs:
     - npm run test -- --watchAll=false
 
   - stage: deploy
+    if: branch = master
     before_install: skip
     install: skip
-    after_install: skip
     script: skip
     deploy:
       provider: script
