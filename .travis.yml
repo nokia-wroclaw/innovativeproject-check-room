@@ -1,6 +1,8 @@
-# Only fetch the current version, without history.
+# We want to only fetch the current version, without history.
+# But we will fetch few more commits in case of rapid changes
+# (new commit pushed in the middle of previous CI run).
 git:
-  depth: 1
+  depth: 5
 
 os: linux
 dist: bionic
