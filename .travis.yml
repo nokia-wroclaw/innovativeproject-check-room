@@ -8,6 +8,7 @@ language: node_js
 node_js: node
 
 # Based on https://github.com/nokia-wroclaw/innovativeproject-sudoku/blob/3402e16849db852167e6eadce6c952e889e2c1d2/.travis.yml
+# Note that script continues even if one command fails.
 jobs:
   include:
   - stage: test and lint backend
