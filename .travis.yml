@@ -33,8 +33,4 @@ deploy:
     # Don't run on forks.
     repo: nokia-wroclaw/innovativeproject-check-room
     branch: master
-  script:
-    wget -qO- https://toolbelt.heroku.com/install.sh | sh
-    echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
-    heroku container:push web --app $HEROKU_APP_NAME
-    heroku container:release web --app $HEROKU_APP_NAME
+  script: bash docker/deploy-to-heroku.sh
