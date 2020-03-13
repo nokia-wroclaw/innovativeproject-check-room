@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-RUN apk add --no-cache nginx supervisor
+RUN apk add --no-cache nginx supervisor gettext
 RUN mkdir /run/nginx
 
 WORKDIR /app
@@ -13,13 +13,11 @@ RUN rm -rf node_modules
 WORKDIR /app/backend
 RUN npm install --only=production
 
-WORKDIR /app
-
-RUN mv docker/nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app/docker
 
 # Heroku does not support running as root
 RUN chmod 777 -R . /var/lib/nginx /var/log/nginx /run/nginx
 RUN adduser -D myuser
 USER myuser
 
-CMD supervisord -c docker/supervisord.conf
+CMD ./entrypoint.sh
