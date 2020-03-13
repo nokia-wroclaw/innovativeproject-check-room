@@ -13,5 +13,13 @@ RUN rm -rf node_modules
 WORKDIR /app/backend
 RUN npm install --only=production
 
-RUN mv /app/docker/nginx.conf /etc/nginx/conf.d/default.conf
-CMD supervisord -c /app/docker/supervisord.conf
+WORKDIR /app
+
+RUN mv docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Heroku does not support running as root
+RUN adduser -D myuser
+RUN chown -R myuser . /var/lib/nginx /var/log/nginx /run/nginx
+USER myuser
+
+CMD supervisord -c docker/supervisord.conf

@@ -6,6 +6,8 @@ os: linux
 dist: bionic
 language: node_js
 node_js: node
+services:
+  - docker
 
 # Based on https://github.com/nokia-wroclaw/innovativeproject-sudoku/blob/3402e16849db852167e6eadce6c952e889e2c1d2/.travis.yml
 # Note that script continues even if one command fails.
@@ -24,3 +26,13 @@ jobs:
     script:
     - eslint . --max-warnings=0
     - npm run test -- --watchAll=false
+
+deploy:
+  provider: script
+  on:
+    tags: true
+    master: true
+  script:
+    wget -qO- https://toolbelt.heroku.com/install.sh | sh
+    heroku container:push web --app $HEROKU_APP_NAME
+    heroku container:release web --app $HEROKU_APP_NAME
