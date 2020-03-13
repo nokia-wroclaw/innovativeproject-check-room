@@ -6,7 +6,8 @@
       "start": "node ./server.js",
       "dev": "DEBUG=backend:* nodemon ./server.js",
       "test": "jest",
-      "test:watch": "jest --watch"
+      "test:watch": "jest --watch",
+      "lint": "lint-staged"
    },
    "dependencies": {
       "debug": "~2.6.9",
@@ -19,17 +20,11 @@
       "eslint-config-prettier": "^6.10.0",
       "eslint-plugin-import": "^2.20.1",
       "eslint-plugin-prettier": "^3.1.2",
-      "husky": "^4.2.3",
       "jest": "^25.1.0",
       "lint-staged": "^10.0.8",
       "nodemon": "^2.0.2",
       "prettier": "^1.19.1",
       "supertest": "^4.0.2"
-   },
-   "husky": {
-      "hooks": {
-         "pre-commit": "lint-staged"
-      }
    },
    "lint-staged": {
       "*.js": [
