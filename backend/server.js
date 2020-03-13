@@ -8,33 +8,13 @@ const debug = require( 'debug' )( 'backend:server' );
 const http = require( 'http' );
 const app = require( './app' );
 
-/**
- * Get port from environment and store in Express.
- */
-
-function normalizePort( val ) {
-   const port = parseInt( val, 10 );
-
-   if ( Number.isNaN( port ) ) {
-      // named pipe
-      return val;
-   }
-
-   if ( port >= 0 ) {
-      // port number
-      return port;
-   }
-
-   return false;
-}
-
-const port = normalizePort( process.env.PORT || '2000' );
-app.set( 'port', port );
+const port = '2000';
 
 /**
  * Create HTTP server.
  */
 
+app.set('port', port);
 const server = http.createServer( app );
 
 /**
