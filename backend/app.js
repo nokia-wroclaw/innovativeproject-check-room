@@ -1,14 +1,17 @@
 const express = require( 'express' );
 const logger = require( 'morgan' );
 
-const indexRouter = require( './routes/index' );
-
 const app = express();
 
 app.use( logger( 'dev' ) );
 app.use( express.json() );
 app.use( express.urlencoded( { extended: false } ) );
 
-app.use( '/', indexRouter );
+app.set( 'trust proxy', true );
+app.set( 'trust proxy', 'loopback' );
+
+const indexRouter = require( './routes/index' );
+
+app.use( '/api', indexRouter );
 
 module.exports = app;
