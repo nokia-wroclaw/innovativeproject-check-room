@@ -1,10 +1,21 @@
 import React from 'react';
+import {
+   BrowserRouter as Router, Switch, Route
+} from 'react-router-dom';
+import Index from './pages/index/Index';
+
 
 const App = () => {
    return (
-      <div>
-         <h1>Hello World</h1>
-      </div>
+      <Router>
+         <>
+            <Switch>
+               <Route path="/">
+                  <Index />
+               </Route>
+            </Switch>
+         </>
+      </Router>
    );
 };
 
