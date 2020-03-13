@@ -14,7 +14,7 @@ const port = '2000';
  * Create HTTP server.
  */
 
-app.set('port', port);
+app.set( 'port', port );
 const server = http.createServer( app );
 
 /**
