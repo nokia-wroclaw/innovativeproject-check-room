@@ -7,8 +7,8 @@ Project made under the Innovative Projects program.
 To run locally using Docker, use:
 
 ```bash
-docker build -t cr .
-docker run -it -p 8000:80 cr
+docker build . -t cr
+docker run -it -p 8000:8000 cr
 ```
 
 For development, run simultaneously:
