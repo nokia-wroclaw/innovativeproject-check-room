@@ -27,10 +27,15 @@ jobs:
     - eslint . --max-warnings=0
     - npm run test -- --watchAll=false
 
-deploy:
-  provider: script
-  on:
-    # Don't run on forks.
-    repo: nokia-wroclaw/innovativeproject-check-room
-    branch: master
-  script: bash docker/deploy-to-heroku.sh
+  - stage: deploy
+    before_install: skip
+    install: skip
+    after_install: skip
+    script: skip
+    deploy:
+      provider: script
+      on:
+        # Don't run on forks.
+        repo: nokia-wroclaw/innovativeproject-check-room
+        branch: master
+      script: bash docker/deploy-to-heroku.sh
