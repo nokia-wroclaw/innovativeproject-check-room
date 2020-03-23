@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import GlobalStyle from '../../assets/styles/GlobalStyle';
 
 import { theme } from '../../assets/styles/theme';
+import NavBar from '../../components/NavBar/NavBar';
 
 const PageTemplate = ( { children } ) => {
    return (
       <ThemeProvider theme={ theme }>
          <GlobalStyle />
+         <NavBar />
          { children } 
       </ThemeProvider>
    );
