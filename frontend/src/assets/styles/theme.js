@@ -1,7 +1,7 @@
 export const theme = {
    white: '#ffffff',
-   primary: '#6320EE',
-   secondary: '#067BC2',
+   primary: '#3a86ff',
+   secondary: '#F4743B',
    text: '#343231',
    link: '#20A4F3',
    font: {
