@@ -28,20 +28,20 @@ export const InnerButton = styled.div`
    width: 30px;
    height: 3px;
    top: 10px;
-   background-color: ${( { theme } ) => theme.primary};
+   background-color: ${( { theme } ) => theme.white};
    animation: ${( { isOpen } ) =>
       isOpen ? () => burgerAnim( -10, 45 ) : () => burgerAnim( -10, 45, 1 )}
       0.3s cubic-bezier(0.26, -0.39, 0.74, 1.49) forwards;
-   box-shadow: 0 0 0 2px ${( { theme } ) => theme.greyTransparent};
+   box-shadow: 0 0 0 1px ${( { theme } ) => theme.white};
 
    ::before,
    ::after {
       content: '';
-      box-shadow: 0 0 0 2px ${( { theme } ) => theme.greyTransparent};
+      box-shadow: 0 0 0 1px ${( { theme } ) => theme.white};
       position: absolute;
       width: 30px;
       height: 3px;
-      background-color: ${( { theme } ) => theme.primary};
+      background-color: ${( { theme } ) => theme.white};
       left: 0;
    }
 
