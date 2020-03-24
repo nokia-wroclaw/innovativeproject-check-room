@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { StyledCalendarListItem, CalendarHeader, CalendarLink, CalendarDescription } from './CalendarListItem_styles';
 
 const CalendarListItem = ( { calendarData } ) => {
-   console.log( calendarData );
    const { description, summary,id } = calendarData;
 
    return ( 
@@ -24,10 +23,9 @@ CalendarListItem.propTypes = {
    calendarData: PropTypes.shape( {
       id: PropTypes.string.isRequired,
       summary: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      description: PropTypes.string,
    } ).isRequired,
 };
-
 
  
 export default CalendarListItem;
