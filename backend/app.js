@@ -19,6 +19,11 @@ app.set( 'trust proxy', 'loopback' );
 
 const indexRouter = require( './routes/index' );
 
+app.get( '/*',( req,res,next )=>{
+   res.header( 'Access-Control-Allow-Origin',' http://localhost:3000' );
+   next();
+} );
+
 app.use( '/api', indexRouter );
 
 app.use( Sentry.Handlers.errorHandler() );
