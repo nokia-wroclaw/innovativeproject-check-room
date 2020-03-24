@@ -2,6 +2,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
+import { PageWrapper } from './PageTemplate_styles';
 import GlobalStyle from '../../assets/styles/GlobalStyle';
 
 import { theme } from '../../assets/styles/theme';
@@ -12,7 +13,9 @@ const PageTemplate = ( { children } ) => {
       <ThemeProvider theme={ theme }>
          <GlobalStyle />
          <NavBar />
-         { children } 
+         <PageWrapper className="aaaa">
+            { children }
+         </PageWrapper>
       </ThemeProvider>
    );
 };
