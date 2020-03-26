@@ -6,10 +6,8 @@ const calendar = google.calendar( { version: 'v3', auth } );
 async function listCalendars( ) {
    return new Promise( ( resolve, reject ) => {
       calendar.calendarList.list( {}, ( err, res ) => {
-         if ( err )
-            reject( err );
-         else
-            resolve( res.data.items );
+         if ( err ) reject( err );
+         else resolve( res.data.items );
       } );
    } );
 }
@@ -23,10 +21,8 @@ async function listEvents( calendarId = 'primary' ) {
          singleEvents: true,
          orderBy: 'startTime',
       }, ( err, res ) => {
-         if ( err )
-            reject( err );
-         else
-            resolve( res.data.items );
+         if ( err ) reject( err );
+         else resolve( res.data.items );
       } );
    } );
 }

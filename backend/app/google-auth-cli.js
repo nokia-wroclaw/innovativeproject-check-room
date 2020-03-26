@@ -12,7 +12,8 @@ const credentials = JSON.parse( credentialsStr );
 // eslint-disable-next-line camelcase
 const { client_secret, client_id, redirect_uris } = credentials.installed;
 const oAuth2Client = new google.auth.OAuth2(
-   client_id, client_secret, redirect_uris[0] );
+   client_id, client_secret, redirect_uris[0],
+);
 
 const authUrl = oAuth2Client.generateAuthUrl( {
    access_type: 'offline',
