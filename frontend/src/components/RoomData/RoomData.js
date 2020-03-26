@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledRoomData, RoomTitle, RoomDescription } from './RoomData_styles';
 
-const RoomData = ( { roomData, roomData: { summary, description } } ) => {
-   console.log( roomData );
-
+const RoomData = ( { roomData: { summary, description } } ) => {
    return (
       <StyledRoomData> 
          <RoomTitle>
