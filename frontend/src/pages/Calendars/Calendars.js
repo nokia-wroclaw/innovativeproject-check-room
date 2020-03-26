@@ -5,6 +5,7 @@ import { constants } from '../../assets/configs/constants';
 
 const Calendars = () => {
    const [ calendars, setCalendars ] = useState( [] );
+   const [ isLoading, setIsLoading ] = useState( true );
    useEffect( () => {
       fetch( `${constants.url.API_URL}calendars` )
          .then( ( response ) => {
@@ -15,6 +16,7 @@ const Calendars = () => {
                ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
             );
             setCalendars( calendarList );
+            setIsLoading( false );
          } );
 
       return () => {};
@@ -22,7 +24,13 @@ const Calendars = () => {
 
    return (
       <PageTemplate>
-         <CalendarList calendarsData={ calendars } />
+         { isLoading ? (
+            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
+               Loading
+            </h1>
+         ) : (
+            <CalendarList calendarsData={ calendars } />
+         ) }
       </PageTemplate>
    );
 };
