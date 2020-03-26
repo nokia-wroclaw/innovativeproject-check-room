@@ -7,7 +7,7 @@ const CalendarListItem = ( { calendarData } ) => {
 
    return ( 
       <StyledCalendarListItem>
-         <CalendarLink to={ `/room/${id}` }>
+         <CalendarLink to={ `/room/${id.split( '@' )[0]}` }>
 
             <CalendarHeader >{ summary }</CalendarHeader>
             <CalendarDescription >
