@@ -1,7 +1,15 @@
 const { google } = require( 'googleapis' );
-const { auth } = require( './google-auth' );
+const { authorize } = require( './google-auth' );
+const { GoogleCalendarMock } = require( './google-calendar-mock' );
 
-const calendar = google.calendar( { version: 'v3', auth } );
+let calendar;
+
+if ( typeof jest === 'undefined' ) {
+   calendar = google.calendar( { version: 'v3', auth: authorize() } );
+}
+else {
+   calendar = new GoogleCalendarMock();
+}
 
 async function listCalendars( ) {
    return new Promise( ( resolve, reject ) => {
