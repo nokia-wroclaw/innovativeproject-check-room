@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledButton, InnerButton } from './Hamburger_styles';
 
-const Hamburger = ( { isOpen, ...props } ) => {
+const Hamburger = ( { isOpen, onClick } ) => {
+
    return (
-      <StyledButton { ...props }>
+      <StyledButton onClick={ onClick }>
          <InnerButton isOpen={ isOpen } />
       </StyledButton>
    );
@@ -12,6 +13,7 @@ const Hamburger = ( { isOpen, ...props } ) => {
 
 Hamburger.propTypes = {
    isOpen: PropTypes.bool,
+   onClick: PropTypes.func.isRequired
 };
 Hamburger.defaultProps = {
    isOpen: false,
