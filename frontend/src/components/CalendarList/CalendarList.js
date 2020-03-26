@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CalendarListItem from '../CalendarListItem/CalendarListItem';
+import CalendarListItem from './CalendarListItem/CalendarListItem';
 import { StyledCalendarList } from './CalendarList_styles';
 
 const CalendarList = ( { calendarsData } ) => {
