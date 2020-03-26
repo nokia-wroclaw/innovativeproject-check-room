@@ -20,7 +20,12 @@ router.get( '/events/:calendar', async ( req, res ) => {
    // Ensure the calendar exists.
    const calendars = await listCalendars();
    const exists = calendars.some( ( calendar ) => calendar.id === calendarUri );
-   if ( !exists ) throw new Error( 'Calendar does not exist.' );
+
+   if ( !exists ) {
+      res.status( 500 ).send( 'Calendar does not exist.' );
+
+      return;
+   }
 
    const events = await listEvents( calendarUri );
    res.send( events );
