@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledEventList, RoomTitle } from './EventList_styles';
+import { StyledEventList } from './EventList_styles';
 import EventListItem from './EventListItem/EventListItem';
 
 const EventList = ( { eventsData } ) => {
@@ -10,16 +10,11 @@ const EventList = ( { eventsData } ) => {
    ) ) );
    
    return (
-      <div>
-         <RoomTitle> 
-            { eventsData[0].organizer.displayName }
-         </RoomTitle>
-         <StyledEventList>
-            { eventsData.length < 1 ? <h1>No events</h1> : (
-               events
-            ) }
-         </StyledEventList>
-      </div>
+      <StyledEventList>
+         { eventsData.length < 1 ? <h1>No events</h1> : (
+            events
+         ) }
+      </StyledEventList>
    );
 };
 
