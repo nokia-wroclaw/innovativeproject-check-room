@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-
 export const StyledHeader = styled.header`
-  
    position: fixed;
    top: 0;
    left: 0;
@@ -15,7 +13,7 @@ export const StyledHeader = styled.header`
 `;
 
 export const HeaderWrapper = styled.div`
-  width: 100%;
+   width: 100%;
    max-width: ${( { theme } ) => theme.maxWidth};
    margin: 0 auto;
    display: flex;
@@ -51,7 +49,6 @@ export const StyledNav = styled.nav`
    opacity: ${( { isOpen } ) => ( isOpen ? 1 : 0 )};
    transform: translateX(${( { isOpen } ) => ( isOpen ? 0 : 100 )}%);
    transition: opacity 0.5s, transform 0s ${( { isOpen } ) => ( isOpen ? 0 : 0.5 )}s;
-   z-index: -1;
 
    ${( props ) => props.theme.mdq.md} {
       width: auto;
@@ -88,5 +85,5 @@ export const NavLink = styled( Link )`
    width: 100%;
    height: 100%;
    text-decoration: none;
-   color: ${( { theme } ) => theme.white}
+   color: ${( { theme } ) => theme.white};
 `;
