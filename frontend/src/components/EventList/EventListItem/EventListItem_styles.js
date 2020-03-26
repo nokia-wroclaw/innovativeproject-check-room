@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { Link } from 'react-router-dom';
 
 
 export const StyledEventListItem = styled.li`
