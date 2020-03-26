@@ -3,18 +3,18 @@ const { listEvents, listCalendars } = require( '../app/calendar' );
 
 const router = express.Router();
 
-router.get( '/config', function ( req, res, next ) {
+router.get( '/config', function ( req, res ) {
    res.send( {
       appName: 'Check Room',
    } );
 } );
 
-router.get( '/calendars', async function ( req, res, next ) {
+router.get( '/calendars', async function ( req, res ) {
    const calendars = await listCalendars();
    res.send( calendars );
 } );
 
-router.get( '/events/:calendar', async function ( req, res, next ) {
+router.get( '/events/:calendar', async function ( req, res ) {
    const calendarUri = `${req.params.calendar}@group.calendar.google.com`;
 
    // Ensure the calendar exists.
