@@ -15,14 +15,14 @@ router.get( '/calendars', async function ( req, res, next ) {
 } );
 
 router.get( '/events/:calendar', async function ( req, res, next ) {
-   const calendarRequested = req.params.calendar;
+   const calendarUri = `${req.params.calendar}@group.calendar.google.com`;
 
    // Ensure the calendar exists.
    const calendars = await listCalendars();
-   const exists = calendars.some( ( calendar ) => calendar.id === calendarRequested );
+   const exists = calendars.some( ( calendar ) => calendar.id === calendarUri );
    if ( !exists ) throw new Error( 'Calendar does not exist.' );
 
-   const events = await listEvents( calendarRequested );
+   const events = await listEvents( calendarUri );
    res.send( events );
 } );
 
