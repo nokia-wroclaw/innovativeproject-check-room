@@ -1,5 +1,5 @@
 const express = require( 'express' );
-const { listEvents, listCalendars } = require( '../app/calendar' );
+const { getCalendar, getEvents, listCalendars } = require( '../app/calendar' );
 
 const router = express.Router();
 
@@ -14,21 +14,17 @@ router.get( '/calendars', async ( req, res ) => {
    res.send( calendars );
 } );
 
-router.get( '/events/:calendar', async ( req, res ) => {
+router.get( '/calendar/:calendar', async ( req, res ) => {
    const calendarUri = `${req.params.calendar}@group.calendar.google.com`;
 
-   // Ensure the calendar exists.
-   const calendars = await listCalendars();
-   const exists = calendars.some( ( calendar ) => calendar.id === calendarUri );
-
-   if ( !exists ) {
-      res.status( 500 ).send( 'Calendar does not exist.' );
-
-      return;
+   try {
+      const calendar = await getCalendar( calendarUri );
+      const events = await getEvents( calendar.id );
+      res.send( { calendar, events } );
    }
-
-   const events = await listEvents( calendarUri );
-   res.send( events );
+   catch ( e ) {
+      res.status( 400 ).send( e.message );
+   }
 } );
 
 module.exports = router;

@@ -16,8 +16,11 @@ it( 'Does not provide unnecessary endpoints', async () => {
    const res2 = await request.get( '/api' );
    expect( res2.statusCode ).toBe( 404 );
 
-   const res3 = await request.get( '/api/events' );
-   expect( res.statusCode ).toBe( 404 );
+   const res3 = await request.get( '/api/calendar' );
+   expect( res3.statusCode ).toBe( 404 );
+
+   const res4 = await request.get( '/api/calendar/' );
+   expect( res4.statusCode ).toBe( 404 );
 } );
 
 it( 'Provides /api/calendars endpoint', async () => {
@@ -26,8 +29,22 @@ it( 'Provides /api/calendars endpoint', async () => {
    expect( Array.isArray( res.body ) ).toBe( true );
 } );
 
-it( 'Provides /api/events/* endpoints', async () => {
-   const res = await request.get( '/api/events/test' );
+it( 'Returns calendar via /api/calendar/*', async () => {
+   const res = await request.get( '/api/calendar/test' );
    expect( res.statusCode ).toBe( 200 );
-   expect( Array.isArray( res.body ) ).toBe( true );
+
+   expect( res.body.calendar ).toBeDefined();
+   expect( typeof res.body.calendar.id ).toBe( 'string' );
+
+   expect( Array.isArray( res.body.events ) ).toBe( true );
+   expect( res.body.events.length > 0 ).toBe( true );
+   expect( res.body.events[0].id === 'event' ).toBe( true );
+} );
+
+it( 'Returns error via /api/calendar/* when calendar does not exist', async () => {
+   const res1 = await request.get( '/api/calendar/test2' );
+   expect( res1.statusCode ).toBe( 400 );
+
+   const res2 = await request.get( '/api/calendar/tes' );
+   expect( res2.statusCode ).toBe( 400 );
 } );

@@ -20,7 +20,16 @@ async function listCalendars( ) {
    } );
 }
 
-async function listEvents( calendarId = 'primary' ) {
+async function getCalendar( calendarId ) {
+   return new Promise( ( resolve, reject ) => {
+      calendar.calendarList.get( { calendarId }, ( err, res ) => {
+         if ( err ) reject( err );
+         else resolve( res.data );
+      } );
+   } );
+}
+
+async function getEvents( calendarId = 'primary' ) {
    return new Promise( ( resolve, reject ) => {
       calendar.events.list( {
          calendarId,
@@ -35,4 +44,4 @@ async function listEvents( calendarId = 'primary' ) {
    } );
 }
 
-module.exports = { listEvents, listCalendars };
+module.exports = { getCalendar, getEvents, listCalendars };
