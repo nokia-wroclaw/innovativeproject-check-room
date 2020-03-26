@@ -48,7 +48,7 @@ export const StyledNav = styled.nav`
    transform-origin: center 0;
    opacity: ${( { isOpen } ) => ( isOpen ? 1 : 0 )};
    transform: translateX(${( { isOpen } ) => ( isOpen ? 0 : 100 )}%);
-   transition: opacity 0.5s, transform 0s ${( { isOpen } ) => ( isOpen ? 0 : 0.5 )}s;
+   transition: opacity 0.4s, transform 0s ${( { isOpen } ) => ( isOpen ? 0 : 0.5 )}s;
 
    ${( props ) => props.theme.mdq.md} {
       width: auto;
@@ -68,7 +68,7 @@ export const NavList = styled.ul`
    display: flex;
    flex-direction: column;
    transform: translateX(${( { isOpen } ) => ( isOpen ? 0 : 100 )}%);
-   transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+   transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
    ${( props ) => props.theme.mdq.md} {
       flex-direction: row;
       transform: none;
@@ -78,12 +78,16 @@ export const NavList = styled.ul`
 
 export const NavItem = styled.li`
    text-align: center;
-   padding: 10px 20px;
 `;
 
 export const NavLink = styled( Link )`
+   display: block;
    width: 100%;
    height: 100%;
+   padding: 30px 20px;
+   ${( { theme } ) => theme.mdq.md} {
+      padding: 15px 20px;
+   }
    text-decoration: none;
    color: ${( { theme } ) => theme.white};
 `;
