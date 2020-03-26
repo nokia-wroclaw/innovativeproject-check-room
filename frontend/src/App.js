@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import Index from './pages/index/Index';
 import Calendars from './pages/Calendars/Calendars';
+import Room from './pages/Room/Room';
 
 
 const App = () => {
@@ -14,7 +15,9 @@ const App = () => {
                <Route path="/calendars" >
                   <Calendars />
                </Route>
-               <Route path="/room/:rooId" />
+               <Route path="/room/:roomId" >
+                  <Room />
+               </Route>
                <Route path="/">
                   <Index />
                </Route>
