@@ -9,7 +9,6 @@ import {
 } from './EventListItem_styles';
 
 const EventListItem = ( { eventData } ) => {
-   console.log( eventData );
    const {
       summary,
       htmlLink,
