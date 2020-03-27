@@ -10,37 +10,28 @@ class CalendarClient {
       this.connection = CalendarClient.connection;
    }
 
-   async listCalendars( ) {
-      return new Promise( ( resolve, reject ) => {
-         this.connection.calendarList.list( {}, ( err, res ) => {
-            if ( err ) reject( err );
-            else resolve( res.data.items );
-         } );
-      } );
+   async listCalendars() {
+      const res = await this.connection.calendarList.list( {} );
+
+      return res.data.items;
    }
 
    async getCalendar( calendarId ) {
-      return new Promise( ( resolve, reject ) => {
-         this.connection.calendarList.get( { calendarId }, ( err, res ) => {
-            if ( err ) reject( err );
-            else resolve( res.data );
-         } );
-      } );
+      const res = await this.connection.calendarList.get( { calendarId } );
+
+      return res.data;
    }
 
    async getEvents( calendarId ) {
-      return new Promise( ( resolve, reject ) => {
-         this.connection.events.list( {
-            calendarId,
-            timeMin: ( new Date() ).toISOString(),
-            maxResults: 10,
-            singleEvents: true,
-            orderBy: 'startTime',
-         }, ( err, res ) => {
-            if ( err ) reject( err );
-            else resolve( res.data.items );
-         } );
+      const res = await this.connection.events.list( {
+         calendarId,
+         timeMin: ( new Date() ).toISOString(),
+         maxResults: 10,
+         singleEvents: true,
+         orderBy: 'startTime',
       } );
+
+      return res.data.items;
    }
 }
 
