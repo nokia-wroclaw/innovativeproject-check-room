@@ -5,7 +5,7 @@ import { StyledCalendarListItem, CalendarHeader, CalendarLink, CalendarDescripti
 const CalendarListItem = ( { calendarData } ) => {
    const { description, summary,id } = calendarData;
 
-   return ( 
+   return (
       <StyledCalendarListItem>
          <CalendarLink to={ `/room/${id.split( '@' )[0]}` }>
 
@@ -27,5 +27,5 @@ CalendarListItem.propTypes = {
    } ).isRequired,
 };
 
- 
+
 export default CalendarListItem;

@@ -7,7 +7,7 @@ export const StyledCalendarListItem = styled.li`
    max-width: 600px;
    margin-bottom: 10px;
    &:last-child{
-      margin-bottom: 0;  
+      margin-bottom: 0;
    }
 `;
 

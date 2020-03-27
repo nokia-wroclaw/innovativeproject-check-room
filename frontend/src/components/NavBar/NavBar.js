@@ -24,8 +24,8 @@ const NavBar = () => {
    };
 
    useEffect( () => {
-      window.addEventListener( 'keydown', handleKeyboard ); 
-   
+      window.addEventListener( 'keydown', handleKeyboard );
+
 
       return ()=>{
          window.removeEventListener( 'keypress', handleKeyboard );

@@ -27,8 +27,8 @@ const Room = () => {
    return (
       <>
          {
-            isLoading ? <h1>Loading</h1> : <> 
-               <RoomData roomData={ calendar.calendar }/> 
+            isLoading ? <h1>Loading</h1> : <>
+               <RoomData roomData={ calendar.calendar }/>
                <EventList eventsData={ calendar.events } />
             </>
          }

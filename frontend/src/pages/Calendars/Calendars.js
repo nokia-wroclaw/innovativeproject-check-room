@@ -8,7 +8,7 @@ const Calendars = () => {
    useEffect( () => {
       const controller = new AbortController();
       const { signal } = controller;
-      
+
       fetch( `${constants.url.API_URL}calendars`,{ signal } )
          .then( ( response ) => response.json() )
          .then( ( data ) => {

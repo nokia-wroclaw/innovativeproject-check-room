@@ -9,5 +9,5 @@ test( 'renders without errors', () => {
          <Index />
       </BrowserRouter>
    );
-      
+
 } );
