@@ -74,3 +74,8 @@ yarn-error.log*
 # vscode
 .history
 .vscode
+
+# google oauth
+token.json
+credentials.json
+checkroom-*.json

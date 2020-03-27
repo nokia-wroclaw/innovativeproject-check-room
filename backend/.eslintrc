@@ -1,8 +1,7 @@
 {
    "extends": [
       "airbnb-base",
-      "eslint:recommended",
-      "prettier"
+      "eslint:recommended"
    ],
    "env": {
       "commonjs": true,
@@ -14,7 +13,7 @@
       "import/resolver": {
          "node": {
             "paths": [
-               ".",
+               "."
             ],
             "extensions": [
                ".js"
