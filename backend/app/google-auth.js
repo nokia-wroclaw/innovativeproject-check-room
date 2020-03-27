@@ -3,8 +3,13 @@ const { google } = require( 'googleapis' );
 
 /** Create an OAuth2 client with the given credentials. */
 function authorize() {
-   // Load client secrets from a local file.
-   const credentialsStr = fs.readFileSync( 'credentials.json' );
+   const credentialsStr = process.env.GOOGLE_API_CREDENTIALS;
+   const token = process.env.GOOGLE_API_TOKEN;
+
+   if ( credentialsStr === undefined || token === undefined ) {
+      throw new Error( 'Credentials not specified' );
+   }
+
    const credentials = JSON.parse( credentialsStr );
 
    // eslint-disable-next-line camelcase
@@ -13,7 +18,6 @@ function authorize() {
       client_id, client_secret, redirect_uris[0],
    );
 
-   const token = fs.readFileSync( 'token.json' );
    oAuth2Client.setCredentials( JSON.parse( token ) );
 
    return oAuth2Client;

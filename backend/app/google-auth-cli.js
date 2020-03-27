@@ -2,11 +2,19 @@ const readline = require( 'readline' );
 const fs = require( 'fs' );
 const { google } = require( 'googleapis' );
 
+require( 'dotenv' ).config();
+
 // If modifying these scopes, delete token.json.
 const SCOPES = [ 'https://www.googleapis.com/auth/calendar.readonly' ];
 
-// Load client secrets from a local file.
-const credentialsStr = fs.readFileSync( 'credentials.json' );
+// Load client secrets.
+const credentialsStr = process.env.GOOGLE_API_CREDENTIALS;
+
+if ( credentialsStr === undefined ) {
+   console.error( 'Credentials not set' );
+   process.exit( 1 );
+}
+
 const credentials = JSON.parse( credentialsStr );
 
 // eslint-disable-next-line camelcase
@@ -34,7 +42,6 @@ rl.question( 'Enter the code from that page here: ', ( code ) => {
          return;
       }
 
-      fs.writeFileSync( 'token.json', JSON.stringify( token ) );
-      console.log( 'Created token.json!' );
+      console.log( `GOOGLE_API_TOKEN=${JSON.stringify( token )}` );
    } );
 } );
