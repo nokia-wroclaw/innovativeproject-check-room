@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import PageTemplate from '../../templates/PageTemplate/PageTemplate';
 import { constants } from '../../assets/configs/constants';
 import EventList from '../../components/EventList/EventList';
 import RoomData from '../../components/RoomData/RoomData';
@@ -26,14 +25,14 @@ const Room = () => {
    }, [ roomId ] );
 
    return (
-      <PageTemplate>
+      <>
          {
             isLoading ? <h1>Loading</h1> : <> 
                <RoomData roomData={ calendar.calendar }/> 
                <EventList eventsData={ calendar.events } />
             </>
          }
-      </PageTemplate>
+      </>
    );
 };
 

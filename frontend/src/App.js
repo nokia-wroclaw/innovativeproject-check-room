@@ -5,23 +5,26 @@ import {
 import Index from './pages/index/Index';
 import Calendars from './pages/Calendars/Calendars';
 import Room from './pages/Room/Room';
+import PageTemplate from './templates/PageTemplate/PageTemplate';
 
 
 const App = () => {
    return (
       <Router>
          <>
-            <Switch>
-               <Route path="/calendars" >
-                  <Calendars />
-               </Route>
-               <Route path="/room/:roomId" >
-                  <Room />
-               </Route>
-               <Route path="/">
-                  <Index />
-               </Route>
-            </Switch>
+            <PageTemplate>
+               <Switch>
+                  <Route path="/calendars" >
+                     <Calendars />
+                  </Route>
+                  <Route path="/room/:roomId" >
+                     <Room />
+                  </Route>
+                  <Route path="/">
+                     <Index />
+                  </Route>
+               </Switch>
+            </PageTemplate>
          </>
       </Router>
    );
