@@ -1,5 +1,5 @@
 const express = require( 'express' );
-const { getCalendar, getEvents, listCalendars } = require( '../app/calendar' );
+const { CalendarClient } = require( '../app/calendar-client' );
 
 const router = express.Router();
 
@@ -10,16 +10,23 @@ router.get( '/config', ( req, res ) => {
 } );
 
 router.get( '/calendars', async ( req, res ) => {
-   const calendars = await listCalendars();
-   res.send( calendars );
+   try {
+      const client = new CalendarClient();
+      const calendars = await client.listCalendars();
+      res.send( calendars );
+   }
+   catch ( e ) {
+      res.status( 400 ).send( e.message );
+   }
 } );
 
 router.get( '/calendar/:calendar', async ( req, res ) => {
-   const calendarUri = `${req.params.calendar}@group.calendar.google.com`;
-
    try {
-      const calendar = await getCalendar( calendarUri );
-      const events = await getEvents( calendar.id );
+      const calendarUri = `${req.params.calendar}@group.calendar.google.com`;
+
+      const client = new CalendarClient();
+      const calendar = await client.getCalendar( calendarUri );
+      const events = await client.getEvents( calendar.id );
       res.send( { calendar, events } );
    }
    catch ( e ) {

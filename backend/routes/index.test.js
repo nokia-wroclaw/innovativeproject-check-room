@@ -1,7 +1,4 @@
-const supertest = require( 'supertest' );
-const app = require( '../app' );
-
-const request = supertest( app );
+const { request } = require( '../tests/testing.js' );
 
 it( 'Provides /api/config endpoint', async () => {
    const res = await request.get( '/api/config' );
