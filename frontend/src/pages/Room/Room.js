@@ -7,16 +7,19 @@ import RoomData from '../../components/RoomData/RoomData';
 const Room = () => {
    const [ calendar, setCalendar ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
+   const [ startDate, setStartDate ] = useState( '' );
    const { roomId } = useParams();
-   const startDate = new Date().toISOString();
 
    useEffect( () => {
+      const startDateTmp = new Date().toISOString();
+      setStartDate( startDateTmp );
       const controller = new AbortController();
       const { signal } = controller;
+
       fetch(
          `${constants.url.API_URL}calendar/${
             roomId.split( '@' )[0]
-         }?startDate=${startDate}`,
+         }?startDate=${startDateTmp}`,
          {
             signal,
          }
@@ -32,7 +35,7 @@ const Room = () => {
       return () => {
          controller.abort();
       };
-   }, [ roomId, startDate ] );
+   }, [ roomId ] );
 
    return (
       <>
