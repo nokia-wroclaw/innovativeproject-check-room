@@ -4,11 +4,11 @@ import { StyledEventList } from './EventList_styles';
 import EventListItem from './EventListItem/EventListItem';
 
 const EventList = ( { eventsData } ) => {
-   
+
    const events = eventsData.map( ( ( event )=> (
       <EventListItem key={ event.id } eventData={ event } />
    ) ) );
-   
+
    return (
       <StyledEventList>
          { eventsData.length < 1 ? <h1>No events</h1> : (
