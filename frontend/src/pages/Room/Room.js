@@ -12,14 +12,21 @@ const Room = () => {
       const controller = new AbortController();
       const { signal } = controller;
 
-      fetch( `${constants.url.API_URL}calendar/${roomId.split( '@' )[0]}`, {
-         signal,
-      } )
+      fetch(
+         `${constants.url.API_URL}calendar/${
+            roomId.split( '@' )[0]
+         }?startDate=${new Date().toISOString()}`,
+         {
+            signal,
+         }
+      )
          .then( ( response ) => response.json() )
          .then( ( data ) => {
             setCalendar( data );
             setIsLoading( false );
-         } );
+         } )
+         // eslint-disable-next-line no-console
+         .catch( ( error ) => console.log( error ) );
 
       return () => {
          controller.abort();
