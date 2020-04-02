@@ -22,11 +22,12 @@ class CalendarClient {
       return res.data;
    }
 
-   async getEvents( calendarId ) {
+   async getEvents( calendarId, startDate ) {
       const res = await this.connection.events.list( {
          calendarId,
-         timeMin: ( new Date() ).toISOString(),
-         maxResults: 10,
+         timeMin: startDate.format(),
+         timeMax: startDate.add( 1, 'week' ).format(),
+         maxResults: 100,
          singleEvents: true,
          orderBy: 'startTime',
       } );
