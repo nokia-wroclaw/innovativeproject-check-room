@@ -16,7 +16,7 @@ export const burgerAnim = ( y, rot, dir = 0 ) => keyframes`
       transform: translateY( ${dir ? y : 0}px ) rotate( ${dir ? rot : 0}deg ) ;
    }
    50% {
-      transform: translateY( ${y}px ) 
+      transform: translateY( ${y}px )
    }
    100% {
       transform: translateY( ${!dir ? y : 0}px ) rotate( ${!dir ? rot : 0}deg )

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PageTemplate from '../../templates/PageTemplate/PageTemplate';
 import CalendarList from '../../components/CalendarList/CalendarList';
 import { constants } from '../../assets/configs/constants';
 
@@ -9,7 +8,7 @@ const Calendars = () => {
    useEffect( () => {
       const controller = new AbortController();
       const { signal } = controller;
-      
+
       fetch( `${constants.url.API_URL}calendars`,{ signal } )
          .then( ( response ) => response.json() )
          .then( ( data ) => {
@@ -26,7 +25,7 @@ const Calendars = () => {
    }, [] );
 
    return (
-      <PageTemplate>
+      <>
          { isLoading ? (
             <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
              Loading
@@ -34,7 +33,7 @@ const Calendars = () => {
          ) : (
             <CalendarList calendarsData={ calendars } />
          ) }
-      </PageTemplate>
+      </>
    );
 };
 

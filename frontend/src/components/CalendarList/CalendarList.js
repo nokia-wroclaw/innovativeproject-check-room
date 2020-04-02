@@ -4,11 +4,11 @@ import CalendarListItem from './CalendarListItem/CalendarListItem';
 import { StyledCalendarList } from './CalendarList_styles';
 
 const CalendarList = ( { calendarsData } ) => {
-   
+
    const calendars = calendarsData.map( ( ( calendar )=> (
       <CalendarListItem key={ calendar.id } calendarData={ calendar } />
    ) ) );
-   
+
    return (
       <StyledCalendarList>
          { calendarsData.length < 1 ? <h1>No Calendars</h1> : (

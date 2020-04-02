@@ -4,7 +4,7 @@ import { StyledRoomData, RoomTitle, RoomDescription } from './RoomData_styles';
 
 const RoomData = ( { roomData: { summary, description } } ) => {
    return (
-      <StyledRoomData> 
+      <StyledRoomData>
          <RoomTitle>
             { summary }
          </RoomTitle>

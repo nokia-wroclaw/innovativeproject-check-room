@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import PageTemplate from '../../templates/PageTemplate/PageTemplate';
 import { constants } from '../../assets/configs/constants';
 import EventList from '../../components/EventList/EventList';
 import RoomData from '../../components/RoomData/RoomData';
@@ -13,7 +12,9 @@ const Room = () => {
       const controller = new AbortController();
       const { signal } = controller;
 
-      fetch( `${constants.url.API_URL}calendar/${roomId.split( '@' )[0]}`, { signal } )
+      fetch( `${constants.url.API_URL}calendar/${roomId.split( '@' )[0]}`, {
+         signal,
+      } )
          .then( ( response ) => response.json() )
          .then( ( data ) => {
             setCalendar( data );
@@ -26,14 +27,18 @@ const Room = () => {
    }, [ roomId ] );
 
    return (
-      <PageTemplate>
-         {
-            isLoading ? <h1>Loading</h1> : <> 
-               <RoomData roomData={ calendar.calendar }/> 
+      <>
+         { isLoading ? (
+            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
+               Loading
+            </h1>
+         ) : (
+            <>
+               <RoomData roomData={ calendar.calendar } />
                <EventList eventsData={ calendar.events } />
             </>
-         }
-      </PageTemplate>
+         ) }
+      </>
    );
 };
 

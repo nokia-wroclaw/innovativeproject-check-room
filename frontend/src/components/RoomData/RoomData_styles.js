@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledRoomData = styled.div`
-  width: 400px;
+  max-width: 400px;
   margin: 20px auto ;
   text-align: center;
 
