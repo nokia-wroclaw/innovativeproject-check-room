@@ -8,14 +8,15 @@ const Room = () => {
    const [ calendar, setCalendar ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const { roomId } = useParams();
+   const startDate = new Date().toISOString();
+
    useEffect( () => {
       const controller = new AbortController();
       const { signal } = controller;
-
       fetch(
          `${constants.url.API_URL}calendar/${
             roomId.split( '@' )[0]
-         }?startDate=${new Date().toISOString()}`,
+         }?startDate=${startDate}`,
          {
             signal,
          }
@@ -42,7 +43,7 @@ const Room = () => {
          ) : (
             <>
                <RoomData roomData={ calendar.calendar } />
-               <EventList eventsData={ calendar.events } />
+               <EventList eventsData={ calendar.events } startDate={ startDate } />
             </>
          ) }
       </>
