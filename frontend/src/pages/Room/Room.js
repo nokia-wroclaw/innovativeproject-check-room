@@ -32,7 +32,7 @@ const Room = () => {
       return () => {
          controller.abort();
       };
-   }, [ roomId ] );
+   }, [ roomId, startDate ] );
 
    return (
       <>
