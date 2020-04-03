@@ -12,7 +12,7 @@ const Room = () => {
    const { roomId } = useParams();
 
    useEffect( () => {
-      const startDateTmp = moment().startOf( 'day' ).format();
+      const startDateTmp = moment().startOf( 'day' ).toISOString();
       setStartDate( startDateTmp );
       const controller = new AbortController();
       const { signal } = controller;
