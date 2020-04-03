@@ -15,11 +15,7 @@ const EventList = ( { eventsData, startDate } ) => {
          .format( 'YYYY-MM-DD' );
 
       return (
-         <CalendarDay
-            key={ day }
-            day={ day }
-            events={ groupedEvents[day] ?? [] }
-         />
+         <CalendarDay key={ day } day={ day } events={ groupedEvents[day] ?? [] } />
       );
    } );
 

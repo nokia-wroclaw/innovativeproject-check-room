@@ -13,7 +13,6 @@ import DayName from './DayName/DayName';
 import Event from './Event/Event';
 
 const CalendarDay = ( { day, events } ) => {
-
    return (
       <StyledCalendarDay>
          <Day>
