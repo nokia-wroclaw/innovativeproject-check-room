@@ -7,7 +7,7 @@ export const theme = {
    font: {
       size: {
          xs: '1.4rem',
-         s: '1.6rem',
+         s: '1.9rem',
          m: '2.5rem',
          l: '3.5rem',
          xl: '5rem',

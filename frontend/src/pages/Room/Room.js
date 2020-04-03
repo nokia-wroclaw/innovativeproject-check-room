@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { constants } from '../../assets/configs/constants';
 import EventList from '../../components/EventList/EventList';
@@ -7,19 +8,30 @@ import RoomData from '../../components/RoomData/RoomData';
 const Room = () => {
    const [ calendar, setCalendar ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
+   const [ startDate, setStartDate ] = useState( '' );
    const { roomId } = useParams();
+
    useEffect( () => {
+      const startDateTmp = moment().startOf( 'day' ).toISOString();
+      setStartDate( startDateTmp );
       const controller = new AbortController();
       const { signal } = controller;
 
-      fetch( `${constants.url.API_URL}calendar/${roomId.split( '@' )[0]}`, {
-         signal,
-      } )
+      fetch(
+         `${constants.url.API_URL}calendar/${
+            roomId.split( '@' )[0]
+         }?startDate=${startDateTmp}`,
+         {
+            signal,
+         }
+      )
          .then( ( response ) => response.json() )
          .then( ( data ) => {
             setCalendar( data );
             setIsLoading( false );
-         } );
+         } )
+         // eslint-disable-next-line no-console
+         .catch( ( error ) => console.log( error ) );
 
       return () => {
          controller.abort();
@@ -35,7 +47,7 @@ const Room = () => {
          ) : (
             <>
                <RoomData roomData={ calendar.calendar } />
-               <EventList eventsData={ calendar.events } />
+               <EventList eventsData={ calendar.events } startDate={ startDate } />
             </>
          ) }
       </>

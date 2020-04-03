@@ -9,15 +9,22 @@ const Calendars = () => {
       const controller = new AbortController();
       const { signal } = controller;
 
-      fetch( `${constants.url.API_URL}calendars`,{ signal } )
+      fetch(
+         `${
+            constants.url.API_URL
+         }calendars`,
+         { signal }
+      )
          .then( ( response ) => response.json() )
          .then( ( data ) => {
             const calendarList = data.filter(
-               ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_',
+               ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
             );
             setCalendars( calendarList );
             setIsLoading( false );
-         } );
+         } )
+         // eslint-disable-next-line no-console
+         .catch( ( error ) => console.log( error ) );
 
       return () => {
          controller.abort();
@@ -28,7 +35,7 @@ const Calendars = () => {
       <>
          { isLoading ? (
             <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-             Loading
+               Loading
             </h1>
          ) : (
             <CalendarList calendarsData={ calendars } />
