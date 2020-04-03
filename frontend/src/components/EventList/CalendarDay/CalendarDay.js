@@ -11,6 +11,7 @@ import {
    GridlineHour,
 } from './CalendarDay_styles';
 import DayName from './DayName/DayName';
+import Event from './Event/Event';
 
 const CalendarDay = ( { day, events } ) => {
    const eventsArray = events.map( ( event ) => (
@@ -39,6 +40,9 @@ const CalendarDay = ( { day, events } ) => {
                >
                   { i }:00
                </GridlineHour>
+            ) ) }
+            { events.map( ( event ) => (
+               <Event key={ event.id } event={ event } />
             ) ) }
          </Day>
          { /* { eventsArray } */ }
