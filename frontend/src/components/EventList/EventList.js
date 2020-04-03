@@ -9,8 +9,6 @@ const EventList = ( { eventsData, startDate } ) => {
    const groupedEvents = _.groupBy( eventsData, ( event ) =>
       moment( event.start.dateTime ).format( 'YYYY-MM-DD' )
    );
-   console.log( groupedEvents );
-
    const week = _.times( 7, ( i ) => {
       const day = moment( startDate )
          .add( i, 'days' )
