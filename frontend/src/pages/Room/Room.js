@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { constants } from '../../assets/configs/constants';
 import EventList from '../../components/EventList/EventList';
@@ -11,7 +12,7 @@ const Room = () => {
    const { roomId } = useParams();
 
    useEffect( () => {
-      const startDateTmp = new Date().toISOString();
+      const startDateTmp = moment().startOf( 'day' ).format();
       setStartDate( startDateTmp );
       const controller = new AbortController();
       const { signal } = controller;
