@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import EventListItem from '../EventListItem/EventListItem';
 import {
    Day,
    DayBorder,
@@ -14,9 +13,6 @@ import DayName from './DayName/DayName';
 import Event from './Event/Event';
 
 const CalendarDay = ( { day, events } ) => {
-   const eventsArray = events.map( ( event ) => (
-      <EventListItem key={ event.id } eventData={ event } />
-   ) );
 
    return (
       <StyledCalendarDay>
