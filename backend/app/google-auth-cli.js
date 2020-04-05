@@ -4,8 +4,8 @@ const { google } = require( 'googleapis' );
 
 require( 'dotenv' ).config();
 
-// If modifying these scopes, delete token.json.
-const SCOPES = [ 'https://www.googleapis.com/auth/calendar.readonly' ];
+// If modifying these scopes, regenerate the token.
+const SCOPES = [ 'https://www.googleapis.com/auth/calendar' ];
 
 // Load client secrets.
 const credentialsStr = process.env.GOOGLE_API_CREDENTIALS;
