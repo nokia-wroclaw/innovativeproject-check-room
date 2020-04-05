@@ -45,3 +45,9 @@ ESLint settings are picked up only when the config is in the root folder,
 so we run editors for frontend and backend separately.
 
 [ESLint extension]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+The app is in English only, but we try to display the dates in user's language. To try it out on Linux, you can run your browser in different language with:
+
+```bash
+LC_ALL=pl_PL.UTF-8 google-chrome
+```
