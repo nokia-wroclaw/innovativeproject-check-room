@@ -23,9 +23,9 @@ export const Day = styled.div`
    }
    grid-template-rows: ${( { isFullDay } ) =>
       isFullDay
-         ? `auto repeat(${7 * 4}, 0) repeat(${11 * 4}, 10px) repeat(${7 *
-              4}, 0px)`
-         : `auto repeat(${24 * 4}, 10px)`};
+         ? `auto repeat(${24 * 4}, 10px)`
+         : `auto repeat(${7 * 4}, 0) repeat(${11 * 4}, 10px) repeat(${7 *
+              4}, 0px)`};
 `;
 
 export const GridlineHour = styled.div`
