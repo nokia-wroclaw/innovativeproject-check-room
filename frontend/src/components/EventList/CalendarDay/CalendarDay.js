@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
@@ -7,15 +7,24 @@ import {
    GridlineRow,
    StyledCalendarDay,
    GridlineHour,
+   AllDayButton,
+   DayInfo,
 } from './CalendarDay_styles';
 import DayName from './DayName/DayName';
 import Event from './Event/Event';
 
 const CalendarDay = ( { day, events } ) => {
+   const [ isFullDay, toogleFullDat ] = useReducer( ( state ) => !state, true );
+
    return (
       <StyledCalendarDay>
-         <Day>
-            <DayName day={ day } />
+         <Day isFullDay={ isFullDay }>
+            <DayInfo>
+               <DayName day={ day } />
+               <AllDayButton onClick={ toogleFullDat }>
+                  Show full day
+               </AllDayButton>
+            </DayInfo>
             <DayBorder />
             { _.times( 24 * 2, ( i ) => (
                <GridlineRow

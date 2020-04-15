@@ -21,15 +21,19 @@ export const Day = styled.div`
       /* grid-template-columns: 0 1fr; */
       width: 100%;
    }
-   grid-template-rows: auto repeat(96, 10px);
+   grid-template-rows: ${( { isFullDay } ) =>
+      isFullDay
+         ? `auto repeat(${7 * 4}, 0) repeat(${11 * 4}, 10px) repeat(${7 *
+              4}, 0px)`
+         : `auto repeat(${24 * 4}, 10px)`};
 `;
 
 export const GridlineHour = styled.div`
    grid-column: 1/2;
-   margin-top: -9px;
    padding: 0 7px;
    font-size: ${( { theme } ) => theme.font.size.xs};
    text-align: right;
+   overflow: hidden;
 `;
 
 export const GridlineRow = styled.div`
@@ -40,4 +44,18 @@ export const GridlineRow = styled.div`
    &:nth-child(2n) {
       border-top-style: dashed;
    }
+`;
+
+export const DayInfo = styled.div`
+   text-align: center;
+   grid-column: 2/3;
+   grid-row: 1/2;
+`;
+
+export const AllDayButton = styled.button`
+   background: none;
+   border: none;
+   grid-column: 2/3;
+   grid-row: 2/3;
+   font-size: ${( props ) => props.theme.font.size.s};
 `;
