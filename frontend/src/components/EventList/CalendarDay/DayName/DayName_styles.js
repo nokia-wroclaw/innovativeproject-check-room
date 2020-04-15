@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 export const StyledDayName = styled.div`
    text-align: center;
-   grid-column: 2/3;
-   grid-row: 1/2;
+
    p {
       font-size: ${( { theme } ) => theme.font.size.s};
       ${( { theme } ) => theme.mdq.lg} {
