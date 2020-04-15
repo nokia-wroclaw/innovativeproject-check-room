@@ -29,6 +29,7 @@ export const Day = styled.div`
 `;
 
 export const GridlineHour = styled.div`
+   transform: translateY(-8px);
    grid-column: 1/2;
    padding: 0 7px;
    font-size: ${( { theme } ) => theme.font.size.xs};
