@@ -29,7 +29,7 @@ const CalendarDay = ( { day, events } ) => {
                <GridlineHour
                   key={ i }
                   style={ {
-                     gridRow: `${i * 4 + 2} / ${i * 4 + 2}`,
+                     gridRow: `${i * 4 + 2} / ${i * 4 + 4}`,
                   } }
                >
                   { i }:00
