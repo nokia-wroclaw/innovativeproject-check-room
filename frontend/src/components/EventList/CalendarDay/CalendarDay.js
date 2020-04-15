@@ -14,7 +14,7 @@ import DayName from './DayName/DayName';
 import Event from './Event/Event';
 
 const CalendarDay = ( { day, events } ) => {
-   const [ isFullDay, toggleFullDat ] = useReducer( ( state ) => !state, true );
+   const [ isFullDay, toggleFullDat ] = useReducer( ( state ) => !state, false );
 
    return (
       <StyledCalendarDay>
