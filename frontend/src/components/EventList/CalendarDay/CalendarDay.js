@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -40,7 +39,6 @@ const CalendarDay = ( { day, events } ) => {
                <Event key={ event.id } event={ event } />
             ) ) }
          </Day>
-         { /* { eventsArray } */ }
       </StyledCalendarDay>
    );
 };
