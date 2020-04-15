@@ -7,6 +7,7 @@ export const StyledEvent = styled.div`
    align-items: center;
    background: ${( { theme } ) => rgba( theme.primary, 0.4 )};
    grid-column: 2/3;
+   overflow: hidden;
 `;
 
 export const EventName = styled.p`
