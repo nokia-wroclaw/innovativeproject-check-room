@@ -21,11 +21,12 @@ export const Day = styled.div`
       /* grid-template-columns: 0 1fr; */
       width: 100%;
    }
-   grid-template-rows: ${( { isFullDay } ) =>
+   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
-         : `auto repeat(${7 * 4}, 0) repeat(${11 * 4}, 10px) repeat(${7 *
-              4}, 0px)`};
+         : `auto repeat(${hours[0] * 4}, 0)
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, 10px)
+                 repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
 `;
 
 export const GridlineHour = styled.div`
