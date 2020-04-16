@@ -9,6 +9,7 @@ import {
    GridlineHour,
    AllDayButton,
    DayInfo,
+   EventsGrid,
 } from './CalendarDay_styles';
 import DayName from './DayName/DayName';
 import Event from './Event/Event';
@@ -48,9 +49,14 @@ const CalendarDay = ( { day, events } ) => {
                   { i }:00
                </GridlineHour>
             ) ) }
-            { events.map( ( event ) => (
-               <Event key={ event.id } event={ event } />
-            ) ) }
+            <EventsGrid
+               isFullDay={ isFullDay }
+               hourRangeWhenNotFullDay={ hourRangeWhenNotFullDay }
+            >
+               { events.map( ( event ) => (
+                  <Event key={ event.id } event={ event } />
+               ) ) }
+            </EventsGrid>
          </Day>
       </StyledCalendarDay>
    );

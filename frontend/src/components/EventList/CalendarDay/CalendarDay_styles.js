@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro' ;
+import styled from 'styled-components/macro';
 
 export const StyledCalendarDay = styled.div`
    width: 100%;
@@ -60,4 +60,16 @@ export const AllDayButton = styled.button`
    grid-column: 2/3;
    grid-row: 2/3;
    font-size: ${( props ) => props.theme.font.size.s};
+`;
+
+export const EventsGrid = styled.div`
+   grid-column: 2;
+   grid-row: 2 / 96;
+   display: grid;
+   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours } ) =>
+      isFullDay
+         ? `auto repeat(${24 * 4}, 10px)`
+         : `auto repeat(${hours[0] * 4}, 0)
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, 10px)
+                 repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
 `;
