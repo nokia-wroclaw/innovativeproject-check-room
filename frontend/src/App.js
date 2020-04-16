@@ -6,12 +6,16 @@ import Index from './pages/index/Index';
 import Calendars from './pages/Calendars/Calendars';
 import Room from './pages/Room/Room';
 import PageTemplate from './templates/PageTemplate/PageTemplate';
-
+import Fetcher from './services/fetching/Fetcher';
+import FetchContext from './services/fetching/FetchContext';
 
 const App = () => {
+   const fetcher = new Fetcher();
+   const fetchAPI = fetcher.bindFetchAPI();
+
    return (
-      <Router>
-         <>
+      <FetchContext.Provider value={ fetchAPI }>
+         <Router>
             <PageTemplate>
                <Switch>
                   <Route path="/calendars" >
@@ -25,8 +29,8 @@ const App = () => {
                   </Route>
                </Switch>
             </PageTemplate>
-         </>
-      </Router>
+         </Router>
+      </FetchContext.Provider>
    );
 };
 
