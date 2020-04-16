@@ -6,6 +6,7 @@ export const StyledEvent = styled.div`
    align-items: center;
    background: ${( { theme } ) => rgba( theme.primary, 0.4 )};
    overflow: hidden;
+   margin: -2px 0 2px;
    border-radius: 3px;
    white-space: nowrap;
 `;
