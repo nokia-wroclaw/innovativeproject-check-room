@@ -7,8 +7,6 @@ export const StyledEvent = styled.div`
    background: ${( { theme } ) => rgba( theme.primary, 0.4 )};
    overflow: hidden;
    border-radius: 3px;
-   margin-left: 2px;
-   margin-right: 2px;
    white-space: nowrap;
 `;
 
