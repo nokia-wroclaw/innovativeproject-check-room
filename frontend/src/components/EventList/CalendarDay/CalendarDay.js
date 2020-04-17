@@ -14,19 +14,21 @@ import {
 import DayName from './DayName/DayName';
 import Event from './Event/Event';
 
-const CalendarDay = ( { day, events } ) => {
+const CalendarDay = ( { day, events, isCompact, hourRangeWhenNotFullDay } ) => {
    const [ isFullDay, toggleFullDay ] = useReducer( ( state ) => !state, false );
-   const hourRangeWhenNotFullDay = [ 7, 17 ];
+   if( isCompact && isFullDay )
+      toggleFullDay( false );
 
    return (
       <StyledCalendarDay>
          <Day
             isFullDay={ isFullDay }
             hourRangeWhenNotFullDay={ hourRangeWhenNotFullDay }
+            isCompact={ isCompact }
          >
-            <DayInfo>
-               <DayName day={ day } />
-               <AllDayButton onClick={ toggleFullDay }>
+            <DayInfo isCompact={ isCompact }>
+               <DayName day={ day } isCompact={ isCompact }/>
+               <AllDayButton onClick={ toggleFullDay } isCompact={ isCompact }>
                   { isFullDay ? 'Hide' : 'Show' } full day
                </AllDayButton>
             </DayInfo>
@@ -52,6 +54,7 @@ const CalendarDay = ( { day, events } ) => {
             <EventsGrid
                isFullDay={ isFullDay }
                hourRangeWhenNotFullDay={ hourRangeWhenNotFullDay }
+               isCompact={ isCompact }
             >
                { events.map( ( event ) => (
                   <Event key={ event.id } event={ event } />
@@ -65,6 +68,11 @@ const CalendarDay = ( { day, events } ) => {
 CalendarDay.propTypes = {
    day: PropTypes.string.isRequired,
    events: PropTypes.arrayOf( PropTypes.object ).isRequired,
+   isCompact: PropTypes.bool,
+   hourRangeWhenNotFullDay: PropTypes.arrayOf( PropTypes.number ).isRequired,
+};
+CalendarDay.defaultProps = {
+   isCompact: false
 };
 
 export default CalendarDay;

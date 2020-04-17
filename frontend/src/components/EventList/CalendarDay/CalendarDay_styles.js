@@ -15,24 +15,26 @@ export const DayBorder = styled.div`
 
 export const Day = styled.div`
    display: grid;
-   width: 90%;
-   grid-template-columns: auto minmax(100px, 1fr);
+   width: ${( { isCompact } ) => ( isCompact ? '100%' : '90%' )};
+   grid-template-columns: ${( { isCompact } ) => ( isCompact ? '0' : 'auto' )} 1fr;
+
+   overflow: hidden;
    ${( { theme } ) => theme.mdq.lg} {
       /* grid-template-columns: 0 1fr; */
       width: 100%;
    }
-   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours } ) =>
+   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours, isCompact } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, 10px)
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, ${ isCompact? '15px' : '10px' })
                  repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
 `;
 
 export const GridlineHour = styled.div`
    transform: translateY(-8px);
    grid-column: 1/2;
-   padding: 0 7px;
+   margin: 0 7px;
    font-size: ${( { theme } ) => theme.font.size.xs};
    text-align: right;
    overflow: hidden;
@@ -55,6 +57,7 @@ export const DayInfo = styled.div`
 `;
 
 export const AllDayButton = styled.button`
+   ${( { isCompact } ) => ( isCompact ? 'display: none' : '' )};
    background: none;
    border: none;
    grid-column: 2/3;
@@ -66,11 +69,11 @@ export const EventsGrid = styled.div`
    grid-column: 2;
    grid-row: 2 / 96;
    display: grid;
-   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours } ) =>
+   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours, isCompact } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, 10px)
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4},  ${ isCompact? '15px' : '10px' })
                  repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
    grid-gap: 0 1px;
    padding: 2px;
