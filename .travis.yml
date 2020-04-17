@@ -22,12 +22,11 @@ jobs:
     - eslint . --max-warnings=0
     - npm run test
 
-  - stage: test and lint frontend
+  - stage: lint frontend
     before_install:
     - cd frontend
     script:
     - eslint . --max-warnings=0
-    - npm run test -- --watchAll=false
 
   - stage: deploy
     if: branch = master
