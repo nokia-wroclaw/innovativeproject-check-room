@@ -10,6 +10,7 @@ const Event = ( { event } ) => {
    const endDateTime = moment( event.end.dateTime );
    const endTime = endDateTime.hour() * 60 + endDateTime.minute();
    const gridRowEnd = Math.floor( endTime / 15 ) + 2;
+   const isDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
    return (
       <StyledEvent
@@ -21,7 +22,7 @@ const Event = ( { event } ) => {
             target="_blank"
             rel="noopener noreferrer"
          >
-            <EventName>{ event.summary }</EventName>
+            <EventName>{ isDisplaySummary ? event.summary : '' }</EventName>
          </EventLink>
       </StyledEvent>
    );
@@ -30,7 +31,7 @@ const Event = ( { event } ) => {
 Event.propTypes = {
    event: PropTypes.shape( {
       id: PropTypes.string.isRequired,
-      summary: PropTypes.string.isRequired,
+      summary: PropTypes.string,
       description: PropTypes.string,
       start: PropTypes.shape( {
          dateTime: PropTypes.string.isRequired,
@@ -40,6 +41,9 @@ Event.propTypes = {
       } ).isRequired,
       htmlLink: PropTypes.string.isRequired,
    } ).isRequired,
+};
+Event.defaultProp = {
+   summary: 'no name'
 };
 
 export default Event;

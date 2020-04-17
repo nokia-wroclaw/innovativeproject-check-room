@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { darken } from 'polished';
 import { Link } from 'react-router-dom';
 

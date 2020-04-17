@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const StyledCalendarList = styled.ul`
   padding: 25px 7% 10px;
