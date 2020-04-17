@@ -5,12 +5,22 @@ import { StyledEvent, EventName, EventLink } from './Event_styles';
 
 const Event = ( { event } ) => {
    const startDateTime = moment( event.start.dateTime );
-   const startTime = startDateTime.hour() * 60 + startDateTime.minute();
-   const gridRowStart = Math.floor( startTime / 15 ) + 2;
    const endDateTime = moment( event.end.dateTime );
-   const endTime = endDateTime.hour() * 60 + endDateTime.minute();
+
+   const startTime = startDateTime.hour() * 60 + startDateTime.minute();
+   let endTime = endDateTime.hour() * 60 + endDateTime.minute();
+
+   // Note: the code below assumes that events are grouped into days
+   // by their start time, and multi-day events are not displayed
+   // on days other than the first. While this situation is not optimal,
+   // we shouldn't ever hit this scenario (we don't support multi-day events).
+   if ( startDateTime.format( 'YYYY-MM-DD' ) !== endDateTime.format( 'YYYY-MM-DD' ) )
+      endTime = 24 * 60;
+
+   const gridRowStart = Math.floor( startTime / 15 ) + 2;
    const gridRowEnd = Math.floor( endTime / 15 ) + 2;
-   const isDisplaySummary = gridRowEnd - gridRowStart >= 2;
+
+   const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
    return (
       <StyledEvent
@@ -22,7 +32,7 @@ const Event = ( { event } ) => {
             target="_blank"
             rel="noopener noreferrer"
          >
-            <EventName>{ isDisplaySummary ? event.summary : '' }</EventName>
+            <EventName>{ shouldDisplaySummary ? event.summary : '' }</EventName>
          </EventLink>
       </StyledEvent>
    );
