@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import CalendarList from '../../components/CalendarList/CalendarList';
-import { constants } from '../../assets/configs/constants';
+import FetchContext from '../../services/fetching/FetchContext';
 
 const Calendars = () => {
    const [ calendars, setCalendars ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
+   const fetchAPI = useContext( FetchContext );
+
    useEffect( () => {
-      const controller = new AbortController();
-      const { signal } = controller;
+      const [ promise, abort ] = fetchAPI( 'calendars' );
+      promise.then( ( data ) => {
+         const calendarList = data.filter(
+            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
+         );
+         setCalendars( calendarList );
+         setIsLoading( false );
+      } );
 
-      fetch(
-         `${
-            constants.url.API_URL
-         }calendars`,
-         { signal }
-      )
-         .then( ( response ) => response.json() )
-         .then( ( data ) => {
-            const calendarList = data.filter(
-               ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
-            );
-            setCalendars( calendarList );
-            setIsLoading( false );
-         } )
-         // eslint-disable-next-line no-console
-         .catch( ( error ) => console.log( error ) );
-
-      return () => {
-         controller.abort();
-      };
-   }, [] );
+      return abort;
+   }, [ fetchAPI ] );
 
    return (
       <>

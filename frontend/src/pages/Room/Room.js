@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useContext, useReducer } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import { constants } from '../../assets/configs/constants';
 import EventList from '../../components/EventList/EventList';
 import RoomData from '../../components/RoomData/RoomData';
+import FetchContext from '../../services/fetching/FetchContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 
 const Room = () => {
@@ -12,35 +12,24 @@ const Room = () => {
    const [ startDate, setStartDate ] = useState( '' );
    const [ isCompact, toggleIsCompact ] = useReducer( ( state ) => !state, false );
    const { roomId } = useParams();
+   const fetchAPI = useContext( FetchContext );
 
    useEffect( () => {
       const startDateTmp = moment()
          .startOf( 'day' )
          .toISOString();
       setStartDate( startDateTmp );
-      const controller = new AbortController();
-      const { signal } = controller;
 
-      fetch(
-         `${constants.url.API_URL}calendar/${
-            roomId.split( '@' )[0]
-         }?startDate=${startDateTmp}`,
-         {
-            signal,
-         }
-      )
-         .then( ( response ) => response.json() )
-         .then( ( data ) => {
-            setCalendar( data );
-            setIsLoading( false );
-         } )
-         // eslint-disable-next-line no-console
-         .catch( ( error ) => console.log( error ) );
+      const [ promise, abort ] = fetchAPI( `calendar/${
+         roomId.split( '@' )[0]
+      }?startDate=${startDateTmp}` );
+      promise.then( ( data ) => {
+         setCalendar( data );
+         setIsLoading( false );
+      } );
 
-      return () => {
-         controller.abort();
-      };
-   }, [ roomId ] );
+      return abort;
+   }, [ roomId, fetchAPI ] );
 
    return (
       <>
