@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { StyledDayName } from './DayName_styles';
 
-const DayName = ( { day } ) => {
+const DayName = ( { day, isCompact } ) => {
    const line1 = moment( day )
       .toDate()
       .toLocaleDateString( undefined, {
@@ -14,17 +14,30 @@ const DayName = ( { day } ) => {
    const line2 = moment( day )
       .toDate()
       .toLocaleDateString( undefined, { weekday: 'long' } );
+   const shortName = moment( day )
+      .toDate()
+      .toLocaleDateString( undefined, { day: 'numeric' } );
 
    return (
       <StyledDayName>
-         <p>{ line1 }</p>
-         <p>{ line2 }</p>
+         { isCompact ? (
+            <p>{ shortName }</p>
+         ) : (
+            <>
+               <p>{ line1 }</p>
+               <p>{ line2 }</p>
+            </>
+         ) }
       </StyledDayName>
    );
 };
 
 DayName.propTypes = {
    day: PropTypes.string.isRequired,
+   isCompact: PropTypes.bool,
+};
+DayName.defaultProps = {
+   isCompact: 'false',
 };
 
 export default DayName;

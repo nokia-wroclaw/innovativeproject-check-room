@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import { PageWrapper } from './PageTemplate_styles';
 import GlobalStyle from '../../assets/styles/GlobalStyle';
