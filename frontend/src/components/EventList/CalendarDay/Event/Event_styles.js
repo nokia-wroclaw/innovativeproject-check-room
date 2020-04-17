@@ -12,7 +12,9 @@ export const StyledEvent = styled.div`
 `;
 
 export const EventName = styled.p`
+   word-wrap: break-word;
    max-height: 100%;
+   max-width: 100%;
    display: block;
    margin: 0;
    padding: 1px;
