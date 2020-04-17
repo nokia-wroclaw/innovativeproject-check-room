@@ -31,7 +31,7 @@ const Event = ( { event } ) => {
 Event.propTypes = {
    event: PropTypes.shape( {
       id: PropTypes.string.isRequired,
-      summary: PropTypes.string.isRequired,
+      summary: PropTypes.string,
       description: PropTypes.string,
       start: PropTypes.shape( {
          dateTime: PropTypes.string.isRequired,
@@ -41,6 +41,9 @@ Event.propTypes = {
       } ).isRequired,
       htmlLink: PropTypes.string.isRequired,
    } ).isRequired,
+};
+Event.defaultProp = {
+   summary: 'no name'
 };
 
 export default Event;
