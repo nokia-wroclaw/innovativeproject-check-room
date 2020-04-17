@@ -2,6 +2,7 @@ import styled from 'styled-components/macro';
 
 export const StyledEventList = styled.div`
    margin: 0 25px;
+   padding-bottom: 30px;
    display: grid;
    grid-template-columns: ${( { isCompact } ) => ( isCompact ? '30px' : '' )} repeat(
       auto-fit,
