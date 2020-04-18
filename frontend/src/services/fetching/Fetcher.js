@@ -15,9 +15,7 @@ class Fetcher {
          const entry = this.cache.get( urlFragment );
 
          if ( moment().diff( entry.retrievedAt, 'seconds' ) < this.ttl ) {
-            const promise = new Promise( ( resolve ) => {
-               resolve( entry.data );
-            } );
+            const promise = ( async () => entry.data )();
 
             const abort = () => { };
 
@@ -29,21 +27,28 @@ class Fetcher {
       const { signal } = controller;
       const abort = () => controller.abort();
 
-      const promise = fetch(
-         `${constants.url.API_URL}${urlFragment}`,
-         { signal }
-      )
-         .then( ( response ) => response.json() )
-         .then( ( data ) => {
+      const promise = ( async () => {
+         try {
+            const res = await fetch(
+               `${constants.url.API_URL}${urlFragment}`,
+               { signal }
+            );
+
+            const data = await res.json();
+
             this.cache.set( urlFragment, {
                data,
                retrievedAt: moment(),
             } );
 
             return data;
-         } )
-         // eslint-disable-next-line no-console
-         .catch( ( error ) => console.log( error ) );
+         }
+         catch ( error ) {
+            // eslint-disable-next-line no-alert
+            alert( `Could not communicate with server: ${error}` );
+            throw error;
+         }
+      } )();
 
       return [ promise, abort ];
    }
