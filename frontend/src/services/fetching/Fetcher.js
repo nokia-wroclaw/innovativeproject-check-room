@@ -1,19 +1,28 @@
+import moment from 'moment';
 import { constants } from '../../assets/configs/constants';
 
 class Fetcher {
    constructor() {
+      // `cache` entries are in the following format:
+      // "url/fragment" -> { "data": {}, "retrievedAt": moment() }
       this.cache = new Map();
+      // 5 minutes.
+      this.ttl = 5 * 60;
    }
 
    fetchAPI( urlFragment ) {
       if ( this.cache.has( urlFragment ) ) {
-         const promise = new Promise( ( resolve ) => {
-            resolve( this.cache.get( urlFragment ) );
-         } );
+         const entry = this.cache.get( urlFragment );
 
-         const abort = () => { };
+         if ( moment().diff( entry.retrievedAt, 'seconds' ) < this.ttl ) {
+            const promise = new Promise( ( resolve ) => {
+               resolve( entry.data );
+            } );
 
-         return [ promise, abort ];
+            const abort = () => { };
+
+            return [ promise, abort ];
+         }
       }
 
       const controller = new AbortController();
@@ -26,7 +35,10 @@ class Fetcher {
       )
          .then( ( response ) => response.json() )
          .then( ( data ) => {
-            this.cache.set( urlFragment, data );
+            this.cache.set( urlFragment, {
+               data,
+               retrievedAt: moment(),
+            } );
 
             return data;
          } )
