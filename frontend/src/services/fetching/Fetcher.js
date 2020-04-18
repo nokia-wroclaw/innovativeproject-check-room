@@ -1,37 +1,52 @@
+import moment from 'moment';
 import { constants } from '../../assets/configs/constants';
 
 class Fetcher {
    constructor() {
+      // `cache` entries are in the following format:
+      // "url/fragment" -> { "data": {}, "retrievedAt": moment() }
       this.cache = new Map();
    }
 
-   fetchAPI( urlFragment ) {
+   fetchAPI( urlFragment, freshness = 5 * 60 ) {
       if ( this.cache.has( urlFragment ) ) {
-         const promise = new Promise( ( resolve ) => {
-            resolve( this.cache.get( urlFragment ) );
-         } );
+         const entry = this.cache.get( urlFragment );
 
-         const abort = () => { };
+         if ( moment().diff( entry.retrievedAt, 'seconds' ) < freshness ) {
+            const promise = ( async () => entry.data )();
 
-         return [ promise, abort ];
+            const abort = () => { };
+
+            return [ promise, abort ];
+         }
       }
 
       const controller = new AbortController();
       const { signal } = controller;
       const abort = () => controller.abort();
 
-      const promise = fetch(
-         `${constants.url.API_URL}${urlFragment}`,
-         { signal }
-      )
-         .then( ( response ) => response.json() )
-         .then( ( data ) => {
-            this.cache.set( urlFragment, data );
+      const promise = ( async () => {
+         try {
+            const res = await fetch(
+               `${constants.url.API_URL}${urlFragment}`,
+               { signal }
+            );
+
+            const data = await res.json();
+
+            this.cache.set( urlFragment, {
+               data,
+               retrievedAt: moment(),
+            } );
 
             return data;
-         } )
-         // eslint-disable-next-line no-console
-         .catch( ( error ) => console.log( error ) );
+         }
+         catch ( error ) {
+            // eslint-disable-next-line no-alert
+            alert( `Could not communicate with server: ${error}` );
+            throw error;
+         }
+      } )();
 
       return [ promise, abort ];
    }

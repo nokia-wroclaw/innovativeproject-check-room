@@ -22,7 +22,7 @@ const Room = () => {
 
       const [ promise, abort ] = fetchAPI( `calendar/${
          roomId.split( '@' )[0]
-      }?startDate=${startDateTmp}` );
+      }?startDate=${startDateTmp}`, 15 );
       promise.then( ( data ) => {
          setCalendar( data );
          setIsLoading( false );
