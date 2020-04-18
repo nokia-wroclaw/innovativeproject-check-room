@@ -6,15 +6,13 @@ class Fetcher {
       // `cache` entries are in the following format:
       // "url/fragment" -> { "data": {}, "retrievedAt": moment() }
       this.cache = new Map();
-      // 5 minutes.
-      this.ttl = 5 * 60;
    }
 
-   fetchAPI( urlFragment ) {
+   fetchAPI( urlFragment, freshness = 5 * 60 ) {
       if ( this.cache.has( urlFragment ) ) {
          const entry = this.cache.get( urlFragment );
 
-         if ( moment().diff( entry.retrievedAt, 'seconds' ) < this.ttl ) {
+         if ( moment().diff( entry.retrievedAt, 'seconds' ) < freshness ) {
             const promise = ( async () => entry.data )();
 
             const abort = () => { };
