@@ -62,7 +62,7 @@ class CalendarClient {
          },
       } );
 
-      return res;
+      return res.data;
    }
 }
 
