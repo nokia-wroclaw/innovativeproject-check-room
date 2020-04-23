@@ -29,4 +29,12 @@ export const RoomIndicators = styled.div`
 
 export const Indicator = styled.div`
   margin: 0 10px;
+
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin: 0 5px;
+    color: ${( { active, theme } ) => active ? theme.primary : 'gray'};
+  }
 `;

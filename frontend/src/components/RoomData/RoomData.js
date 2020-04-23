@@ -11,16 +11,17 @@ const RoomData = ( { roomData } ) => {
       description: roomData.description
    };
    const room = JsonParser.parse( roomData.description, defaultRoomData );
+   const { name, description, location, hasProjector, hasWhiteboard, seatsNo } = room;
 
    return (
       <StyledRoomData>
-         <RoomTitle>{ room.name }</RoomTitle>
-         { room.description ? <RoomDescription>{ room.description }</RoomDescription> : '' }
-         { room.location ? <RoomLocation>{ room.location.building }, { room.location.floorNo } floor</RoomLocation> : '' }
+         <RoomTitle>{ name }</RoomTitle>
+         <RoomDescription>{ description }</RoomDescription>
+         <RoomLocation>{ location ? <>{ location.building }, { location.floorNo } floor</> : '' }</RoomLocation>
          <RoomIndicators>
-            <Indicator>{ room.hasWhiteboard ? <FaChalkboard /> : '' }</Indicator>
-            <Indicator>{ room.hasProjector ? <GiFilmProjector /> : '' }</Indicator>
-            <Indicator>{ room.seatsNo ? <><FaChair /> { room.seatsNo }</> : '' }</Indicator>
+            <Indicator active={ hasWhiteboard }><FaChalkboard /></Indicator>
+            <Indicator active={ hasProjector }><GiFilmProjector /></Indicator>
+            <Indicator active={ seatsNo }><FaChair /> { room.seatsNo }</Indicator>
          </RoomIndicators>
       </StyledRoomData>
    );
