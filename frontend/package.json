@@ -5,6 +5,7 @@
    "dependencies": {
       "lodash": "^4.17.15",
       "moment": "^2.24.0",
+      "ordinal": "^1.0.3",
       "polished": "^3.5.2",
       "prop-types": "^15.7.2",
       "react": "^16.13.1",
