@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ordinal from 'ordinal';
 import { FaChalkboard, FaChair } from 'react-icons/fa';
 import { GiFilmProjector } from 'react-icons/gi';
 import JsonParser from '../../services/parsing/JsonParser';
@@ -17,7 +18,7 @@ const RoomData = ( { roomData } ) => {
       <StyledRoomData>
          <RoomTitle>{ name }</RoomTitle>
          <RoomDescription>{ description }</RoomDescription>
-         <RoomLocation>{ location ? <>{ location.building }, { location.floorNo } floor</> : '' }</RoomLocation>
+         <RoomLocation>{ location ? <>{ location.building }, { ordinal( location.floorNo ) } floor</> : '' }</RoomLocation>
          <RoomIndicators>
             <Indicator active={ hasWhiteboard }><FaChalkboard /></Indicator>
             <Indicator active={ hasProjector }><GiFilmProjector /></Indicator>
