@@ -23,11 +23,16 @@ export const Day = styled.div`
       /* grid-template-columns: 0 1fr; */
       width: 100%;
    }
-   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours, isCompact } ) =>
+   grid-template-rows: ${( {
+      isFullDay,
+      hourRangeWhenNotFullDay: hours,
+      isCompact,
+   } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, ${ isCompact? '15px' : '10px' })
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4},
+                 ${isCompact ? '15px' : '10px'})
                  repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
 `;
 
@@ -69,11 +74,16 @@ export const EventsGrid = styled.div`
    grid-column: 2;
    grid-row: 2 / 96;
    display: grid;
-   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours, isCompact } ) =>
+   grid-template-rows: ${( {
+      isFullDay,
+      hourRangeWhenNotFullDay: hours,
+      isCompact,
+   } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4},  ${ isCompact? '15px' : '10px' })
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4},
+                 ${isCompact ? '15px' : '10px'})
                  repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
    grid-gap: 0 1px;
    padding: 2px;
