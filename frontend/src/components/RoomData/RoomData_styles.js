@@ -13,5 +13,20 @@ export const RoomTitle = styled.h2`
 `;
 
 export const RoomDescription = styled.div`
+  margin: 10px;
 `;
 
+export const RoomLocation = styled.div`
+  font-style: italic;
+  margin: 10px;
+`;
+
+export const RoomIndicators = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Indicator = styled.div`
+  margin: 0 10px;
+`;

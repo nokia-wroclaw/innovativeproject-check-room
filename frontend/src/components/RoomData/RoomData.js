@@ -1,16 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledRoomData, RoomTitle, RoomDescription } from './RoomData_styles';
+import { FaChalkboard, FaChair } from 'react-icons/fa';
+import { GiFilmProjector } from 'react-icons/gi';
+import JsonParser from '../../services/parsing/JsonParser';
+import { StyledRoomData, RoomTitle, RoomDescription, RoomLocation, RoomIndicators, Indicator } from './RoomData_styles';
 
-const RoomData = ( { roomData: { summary, description } } ) => {
+const RoomData = ( { roomData } ) => {
+   const defaultRoomData = {
+      name: roomData.summary,
+      description: roomData.description
+   };
+   const room = JsonParser.parse( roomData.description, defaultRoomData );
+
    return (
       <StyledRoomData>
-         <RoomTitle>
-            { summary }
-         </RoomTitle>
-         <RoomDescription>
-            { description }
-         </RoomDescription>
+         <RoomTitle>{ room.name }</RoomTitle>
+         { room.description ? <RoomDescription>{ room.description }</RoomDescription> : '' }
+         { room.location ? <RoomLocation>{ room.location.building }, { room.location.floorNo } floor</RoomLocation> : '' }
+         <RoomIndicators>
+            <Indicator>{ room.hasWhiteboard ? <FaChalkboard /> : '' }</Indicator>
+            <Indicator>{ room.hasProjector ? <GiFilmProjector /> : '' }</Indicator>
+            <Indicator>{ room.seatsNo ? <><FaChair /> { room.seatsNo }</> : '' }</Indicator>
+         </RoomIndicators>
       </StyledRoomData>
    );
 };
@@ -21,6 +32,5 @@ RoomData.propTypes = {
       description: PropTypes.string.isRequired,
    } ).isRequired,
 };
-
 
 export default RoomData;
