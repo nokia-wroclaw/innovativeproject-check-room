@@ -19,7 +19,7 @@ const EventModal = ( { event, toggleModal } ) => {
       return () => {
          document.removeEventListener( 'mousedown', closeIfClickOutside );
       };
-   }, [] );
+   }, [ toggleModal ] );
 
    return (
       <>
