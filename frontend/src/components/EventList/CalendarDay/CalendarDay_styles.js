@@ -65,9 +65,11 @@ export const DayInfo = styled.div`
 export const AllDayButton = styled.button`
    margin: 10px;
    padding: 10px 20px;
+   min-width: 170px;
    color: ${( props ) => props.theme.white};
    ${( { isCompact } ) => ( isCompact ? 'display: none' : '' )};
-   background: ${( props ) => props.theme.primary};
+   background: ${( { theme, isFullDay } ) =>
+      theme[isFullDay ? 'secondary' : 'primary']};
    border: none;
    grid-column: 2/3;
    grid-row: 2/3;
@@ -75,7 +77,8 @@ export const AllDayButton = styled.button`
    font-size: ${( props ) => props.theme.font.size.s};
    :hover {
       transform: scale(1.15);
-      background: ${( props ) => darken( 0.1, props.theme.primary )};
+      background: ${( { theme, isFullDay } ) =>
+      darken( 0.1, theme[isFullDay ? 'secondary' : 'primary'] )};
    }
 `;
 
