@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
+import EventModal from './EventModal/EventModal';
 
 const Event = ( { event, isCompact } ) => {
+   const [ isModalOpen, toggleModal ] = useReducer( ( value )=>!value, false );
+
    const startDateTime = moment( event.start.dateTime );
    const endDateTime = moment( event.end.dateTime );
 
@@ -27,11 +30,12 @@ const Event = ( { event, isCompact } ) => {
          label={ event.summary }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventButton>
+         <EventButton onClick={ toggleModal }>
             <EventName>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>
          </EventButton>
+         { isModalOpen && <EventModal toggleModal={ toggleModal } event={ event } /> }
       </StyledEvent>
    );
 };
