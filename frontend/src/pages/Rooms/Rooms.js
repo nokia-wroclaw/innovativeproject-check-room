@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
-import CalendarList from '../../components/CalendarList/CalendarList';
+import RoomList from '../../components/RoomList/RoomList';
 import FetchContext from '../../services/fetching/FetchContext';
 
-const Calendars = () => {
-   const [ calendars, setCalendars ] = useState( [] );
+const Rooms = () => {
+   const [ rooms, setRooms ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const fetchAPI = useContext( FetchContext );
 
    useEffect( () => {
       const [ promise, abort ] = fetchAPI( 'calendars' );
       promise.then( ( data ) => {
-         const calendarList = data.filter(
+         const roomList = data.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
          );
-         setCalendars( calendarList );
+         setRooms( roomList );
          setIsLoading( false );
       } );
 
@@ -27,10 +27,10 @@ const Calendars = () => {
                Loading
             </h1>
          ) : (
-            <CalendarList calendarsData={ calendars } />
+            <RoomList roomsData={ rooms } />
          ) }
       </>
    );
 };
 
-export default Calendars;
+export default Rooms;

@@ -7,7 +7,7 @@ const Index = ( { amountOfRooms } ) => {
    return (
       <CenteredBlock>
          <h3>Welcome to Check Room.</h3>
-         <p>See <Link to="/calendars">Calendars</Link> for room availability information.</p>
+         <p>See <Link to="/rooms">Rooms</Link> for room availability information.</p>
          <p>We are currently managing { amountOfRooms } rooms.</p>
       </CenteredBlock>
    );

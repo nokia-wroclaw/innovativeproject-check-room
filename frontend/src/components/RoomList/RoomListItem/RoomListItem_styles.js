@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import { darken } from 'polished';
 import { Link } from 'react-router-dom';
 
-export const StyledCalendarListItem = styled.li`
+export const StyledRoomListItem = styled.li`
    width: 100%;
    max-width: 600px;
    margin-bottom: 10px;

@@ -3,8 +3,8 @@ import {
    BrowserRouter as Router, Switch, Route
 } from 'react-router-dom';
 import Index from './pages/Index/Index';
-import Calendars from './pages/Calendars/Calendars';
-import Room from './pages/Room/Room';
+import Rooms from './pages/Rooms/Rooms';
+import RoomDetails from './pages/RoomDetails/RoomDetails';
 import PageTemplate from './templates/PageTemplate/PageTemplate';
 import Fetcher from './services/fetching/Fetcher';
 import FetchContext from './services/fetching/FetchContext';
@@ -18,11 +18,11 @@ const App = () => {
          <Router>
             <PageTemplate>
                <Switch>
-                  <Route path="/calendars" >
-                     <Calendars />
+                  <Route path="/rooms" >
+                     <Rooms />
                   </Route>
                   <Route path="/room/:roomId" >
-                     <Room />
+                     <RoomDetails />
                   </Route>
                   <Route path="/">
                      <Index />

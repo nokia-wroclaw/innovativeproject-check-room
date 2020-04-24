@@ -9,10 +9,10 @@ const Index = () => {
    useEffect( () => {
       const [ promise, abort ] = fetchAPI( 'calendars' );
       promise.then( ( data ) => {
-         const calendarList = data.filter(
+         const roomList = data.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
          );
-         setAmountOfRooms( calendarList.length );
+         setAmountOfRooms( roomList.length );
       } );
 
       return abort;
