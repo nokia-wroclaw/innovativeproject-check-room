@@ -43,7 +43,7 @@ const NavBar = () => {
                      <NavLink to="/">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                     <NavLink to="/calendars">Calendars</NavLink>
+                     <NavLink to="/rooms">Rooms</NavLink>
                   </NavItem>
                </NavList>
             </StyledNav>

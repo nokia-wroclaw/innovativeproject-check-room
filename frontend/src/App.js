@@ -18,7 +18,7 @@ const App = () => {
          <Router>
             <PageTemplate>
                <Switch>
-                  <Route path="/calendars" >
+                  <Route path="/rooms" >
                      <Calendars />
                   </Route>
                   <Route path="/room/:roomId" >
