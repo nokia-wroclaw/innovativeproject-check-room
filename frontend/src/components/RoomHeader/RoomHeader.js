@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsonParser from '../../services/parsing/JsonParser';
+import RoomMetadataDTO from '../../services/parsing/RoomMetadataDTO';
 import { StyledRoomHeader, RoomTitle } from './RoomHeader_styles';
 import RoomData from '../RoomData/RoomData';
 
 const RoomHeader = ( { roomData } ) => {
-   const defaultRoomData = {
-      name: roomData.summary,
-      description: roomData.description
-   };
-   const room = JsonParser.parse( roomData.description, defaultRoomData );
+   const room = RoomMetadataDTO.from( roomData.summary, roomData.description );
 
    return (
       <StyledRoomHeader>
@@ -20,7 +16,10 @@ const RoomHeader = ( { roomData } ) => {
 };
 
 RoomHeader.propTypes = {
-   roomData: PropTypes.string.isRequired,
+   roomData: PropTypes.shape( {
+      summary: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+   } ).isRequired,
 };
 
 export default RoomHeader;

@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsonParser from '../../../services/parsing/JsonParser';
+import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
 import RoomData from '../../RoomData/RoomData';
 import { StyledCalendarListItem, CalendarHeader, CalendarLink, CalendarDescription } from './CalendarListItem_styles';
 
 const CalendarListItem = ( { calendarData } ) => {
    const { description, summary, id } = calendarData;
-   const defaultRoomData = {
-      name: summary,
-      description,
-   };
-   const room = JsonParser.parse( description, defaultRoomData );
+   const room = RoomMetadataDTO.from( summary, description );
 
    return (
       <StyledCalendarListItem>
@@ -32,6 +28,5 @@ CalendarListItem.propTypes = {
       description: PropTypes.string,
    } ).isRequired,
 };
-
 
 export default CalendarListItem;

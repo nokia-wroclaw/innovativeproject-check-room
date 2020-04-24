@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ordinal from 'ordinal';
 import { FaChalkboard, FaChair } from 'react-icons/fa';
 import { GiFilmProjector } from 'react-icons/gi';
+import RoomMetadataDTO from '../../services/parsing/RoomMetadataDTO';
 import { StyledRoomData, RoomDescription, RoomLocation, RoomIndicators, Indicator } from './RoomData_styles';
 
 const RoomData = ( { room } ) => {
@@ -22,7 +23,7 @@ const RoomData = ( { room } ) => {
 };
 
 RoomData.propTypes = {
-   room: PropTypes.shape().isRequired,
+   room: PropTypes.instanceOf( RoomMetadataDTO ).isRequired,
 };
 
 export default RoomData;
