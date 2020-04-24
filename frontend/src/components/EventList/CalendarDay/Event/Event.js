@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { StyledEvent, EventName, EventLink } from './Event_styles';
+import { StyledEvent, EventName, EventButton } from './Event_styles';
 
 const Event = ( { event } ) => {
    const startDateTime = moment( event.start.dateTime );
@@ -27,15 +27,11 @@ const Event = ( { event } ) => {
          label={ event.summary }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventLink
-            href={ event.htmlLink }
-            target="_blank"
-            rel="noopener noreferrer"
-         >
+         <EventButton>
             <EventName>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>
-         </EventLink>
+         </EventButton>
       </StyledEvent>
    );
 };

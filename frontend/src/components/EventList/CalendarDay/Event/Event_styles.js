@@ -20,10 +20,12 @@ export const EventName = styled.p`
    text-align: center;
 `;
 
-export const EventLink = styled.a`
+export const EventButton = styled.button`
    display: flex;
    align-items: center;
    justify-content: center;
+   background: none;
+   border: none;
 
    width: 100%;
    color: ${( { theme } ) => theme.text};
