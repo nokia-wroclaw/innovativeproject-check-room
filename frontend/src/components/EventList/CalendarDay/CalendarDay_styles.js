@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { darken } from 'polished';
 
 export const StyledCalendarDay = styled.div`
    width: 100%;
@@ -23,11 +24,16 @@ export const Day = styled.div`
       /* grid-template-columns: 0 1fr; */
       width: 100%;
    }
-   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours, isCompact } ) =>
+   grid-template-rows: ${( {
+      isFullDay,
+      hourRangeWhenNotFullDay: hours,
+      isCompact,
+   } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4}, ${ isCompact? '15px' : '10px' })
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4},
+                 ${isCompact ? '15px' : '10px'})
                  repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
 `;
 
@@ -57,23 +63,39 @@ export const DayInfo = styled.div`
 `;
 
 export const AllDayButton = styled.button`
+   margin: 10px;
+   padding: 10px 20px;
+   min-width: 170px;
+   color: ${( props ) => props.theme.white};
    ${( { isCompact } ) => ( isCompact ? 'display: none' : '' )};
-   background: none;
+   background: ${( { theme, isFullDay } ) =>
+      theme[isFullDay ? 'secondary' : 'primary']};
    border: none;
    grid-column: 2/3;
    grid-row: 2/3;
+   transition: transform 0.3s, background-color 0.3s;
    font-size: ${( props ) => props.theme.font.size.s};
+   :hover {
+      transform: scale(1.15);
+      background: ${( { theme, isFullDay } ) =>
+      darken( 0.1, theme[isFullDay ? 'secondary' : 'primary'] )};
+   }
 `;
 
 export const EventsGrid = styled.div`
    grid-column: 2;
    grid-row: 2 / 96;
    display: grid;
-   grid-template-rows: ${( { isFullDay, hourRangeWhenNotFullDay: hours, isCompact } ) =>
+   grid-template-rows: ${( {
+      isFullDay,
+      hourRangeWhenNotFullDay: hours,
+      isCompact,
+   } ) =>
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4},  ${ isCompact? '15px' : '10px' })
+                 repeat(${( hours[1] - hours[0] + 1 ) * 4},
+                 ${isCompact ? '15px' : '10px'})
                  repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
    grid-gap: 0 1px;
    padding: 2px;

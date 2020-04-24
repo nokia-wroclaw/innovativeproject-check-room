@@ -28,7 +28,7 @@ const CalendarDay = ( { day, events, isCompact, hourRangeWhenNotFullDay } ) => {
          >
             <DayInfo isCompact={ isCompact }>
                <DayName day={ day } isCompact={ isCompact }/>
-               <AllDayButton onClick={ toggleFullDay } isCompact={ isCompact }>
+               <AllDayButton isFullDay={ isFullDay } onClick={ toggleFullDay } isCompact={ isCompact }>
                   { isFullDay ? 'Hide' : 'Show' } full day
                </AllDayButton>
             </DayInfo>
