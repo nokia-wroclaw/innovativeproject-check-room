@@ -57,7 +57,7 @@ const CalendarDay = ( { day, events, isCompact, hourRangeWhenNotFullDay } ) => {
                isCompact={ isCompact }
             >
                { events.map( ( event ) => (
-                  <Event key={ event.id } event={ event } />
+                  <Event isCompact={ isCompact } key={ event.id } event={ event } />
                ) ) }
             </EventsGrid>
          </Day>

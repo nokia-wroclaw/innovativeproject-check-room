@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
 
-const Event = ( { event } ) => {
+const Event = ( { event, isCompact } ) => {
    const startDateTime = moment( event.start.dateTime );
    const endDateTime = moment( event.end.dateTime );
 
@@ -20,7 +20,7 @@ const Event = ( { event } ) => {
    const gridRowStart = Math.floor( startTime / 15 ) + 2;
    const gridRowEnd = Math.floor( endTime / 15 ) + 2;
 
-   const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
+   const shouldDisplaySummary = !isCompact && gridRowEnd - gridRowStart >= 2;
 
    return (
       <StyledEvent
@@ -49,6 +49,7 @@ Event.propTypes = {
       } ).isRequired,
       htmlLink: PropTypes.string.isRequired,
    } ).isRequired,
+   isCompact: PropTypes.bool.isRequired,
 };
 
 export default Event;
