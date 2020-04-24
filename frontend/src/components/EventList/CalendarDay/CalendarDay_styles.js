@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { darken } from 'polished';
 
 export const StyledCalendarDay = styled.div`
    width: 100%;
@@ -62,12 +63,20 @@ export const DayInfo = styled.div`
 `;
 
 export const AllDayButton = styled.button`
+   margin: 10px;
+   padding: 10px 20px;
+   color: ${( props ) => props.theme.white};
    ${( { isCompact } ) => ( isCompact ? 'display: none' : '' )};
-   background: none;
+   background: ${( props ) => props.theme.primary};
    border: none;
    grid-column: 2/3;
    grid-row: 2/3;
+   transition: transform 0.3s, background-color 0.3s;
    font-size: ${( props ) => props.theme.font.size.s};
+   :hover {
+      transform: scale(1.15);
+      background: ${( props ) => darken( 0.1, props.theme.primary )};
+   }
 `;
 
 export const EventsGrid = styled.div`
