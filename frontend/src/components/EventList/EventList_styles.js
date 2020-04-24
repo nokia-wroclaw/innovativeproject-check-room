@@ -18,6 +18,6 @@ export const Hours = styled.div`
    overflow: hidden;
    grid-template-rows: ${( { hourRangeWhenNotFullDay: hours } ) =>
       `auto repeat(${hours[0] * 4}, 0)
-            repeat(${( hours[1] - hours[0] + 1 ) * 4}, 15px)
-            repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
+            repeat(${( hours[1] - hours[0] ) * 4}, 15px)
+            repeat(${( 24 - hours[1] ) * 4}, 0px)`};
 `;

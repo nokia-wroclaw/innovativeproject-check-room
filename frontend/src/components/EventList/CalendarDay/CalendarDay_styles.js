@@ -32,9 +32,8 @@ export const Day = styled.div`
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4},
-                 ${isCompact ? '15px' : '10px'})
-                 repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
+                 repeat(${( hours[1] - hours[0] ) * 4}, ${ isCompact? '15px' : '10px' })
+                 repeat(${( 24 - hours[1] ) * 4}, 0px)`};
 `;
 
 export const GridlineHour = styled.div`
@@ -94,9 +93,8 @@ export const EventsGrid = styled.div`
       isFullDay
          ? `auto repeat(${24 * 4}, 10px)`
          : `auto repeat(${hours[0] * 4}, 0)
-                 repeat(${( hours[1] - hours[0] + 1 ) * 4},
-                 ${isCompact ? '15px' : '10px'})
-                 repeat(${( 24 - hours[1] - 1 ) * 4}, 0px)`};
+                 repeat(${( hours[1] - hours[0] ) * 4},  ${ isCompact? '15px' : '10px' })
+                 repeat(${( 24 - hours[1] ) * 4}, 0px)`};
    grid-gap: 0 1px;
    padding: 2px;
 `;
