@@ -7,7 +7,7 @@ import FetchContext from '../../services/fetching/FetchContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 
 const RoomDetails = () => {
-   const [ calendar, setCalendar ] = useState( [] );
+   const [ room, setRoom ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const [ startDate, setStartDate ] = useState( '' );
    const [ isCompact, toggleIsCompact ] = useReducer( ( state ) => !state, false );
@@ -24,7 +24,7 @@ const RoomDetails = () => {
          roomId.split( '@' )[0]
       }?startDate=${startDateTmp}`, 15 );
       promise.then( ( data ) => {
-         setCalendar( data );
+         setRoom( data );
          setIsLoading( false );
       } );
 
@@ -39,13 +39,13 @@ const RoomDetails = () => {
             </h1>
          ) : (
             <>
-               <RoomHeader roomData={ calendar.calendar } />
+               <RoomHeader roomData={ room.calendar } />
                <ToggleSwitch
                   toggleFunc={ toggleIsCompact }
                   value={ isCompact }
                   name="compact"
                />
-               <EventList eventsData={ calendar.events } startDate={ startDate } isCompact={ isCompact } />
+               <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
             </>
          ) }
       </>

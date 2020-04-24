@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import RoomListItem from './RoomListItem/RoomListItem';
 import { StyledRoomList } from './RoomList_styles';
 
-const RoomList = ( { calendarsData } ) => {
+const RoomList = ( { roomsData } ) => {
 
-   const calendars = calendarsData.map( ( ( calendar )=> (
-      <RoomListItem key={ calendar.id } calendarData={ calendar } />
+   const rooms = roomsData.map( ( ( room )=> (
+      <RoomListItem key={ room.id } roomData={ room } />
    ) ) );
 
    return (
       <StyledRoomList>
-         { calendarsData.length < 1 ? <h1>No Calendars</h1> : (
-            calendars
+         { rooms.length < 1 ? <h1>No Calendars</h1> : (
+            rooms
          ) }
       </StyledRoomList>
    );
 };
 
 RoomList.propTypes = {
-   calendarsData: PropTypes.arrayOf( PropTypes.object ),
+   roomsData: PropTypes.arrayOf( PropTypes.object ),
 };
 RoomList.defaultProps = {
-   calendarsData: [],
+   roomsData: [],
 };
 
 export default RoomList;

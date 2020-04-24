@@ -3,7 +3,7 @@ import RoomList from '../../components/RoomList/RoomList';
 import FetchContext from '../../services/fetching/FetchContext';
 
 const Rooms = () => {
-   const [ calendars, setCalendars ] = useState( [] );
+   const [ rooms, setRooms ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const fetchAPI = useContext( FetchContext );
 
@@ -13,7 +13,7 @@ const Rooms = () => {
          const roomList = data.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
          );
-         setCalendars( roomList );
+         setRooms( roomList );
          setIsLoading( false );
       } );
 
@@ -27,7 +27,7 @@ const Rooms = () => {
                Loading
             </h1>
          ) : (
-            <RoomList calendarsData={ calendars } />
+            <RoomList roomsData={ rooms } />
          ) }
       </>
    );

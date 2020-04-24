@@ -4,8 +4,8 @@ import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
 import RoomData from '../../RoomData/RoomData';
 import { StyledRoomListItem, CalendarHeader, CalendarLink, CalendarDescription } from './RoomListItem_styles';
 
-const RoomListItem = ( { calendarData } ) => {
-   const { description, summary, id } = calendarData;
+const RoomListItem = ( { roomData } ) => {
+   const { description, summary, id } = roomData;
    const room = RoomMetadataDTO.from( summary, description );
 
    return (
@@ -22,7 +22,7 @@ const RoomListItem = ( { calendarData } ) => {
 };
 
 RoomListItem.propTypes = {
-   calendarData: PropTypes.shape( {
+   roomData: PropTypes.shape( {
       id: PropTypes.string.isRequired,
       summary: PropTypes.string.isRequired,
       description: PropTypes.string,
