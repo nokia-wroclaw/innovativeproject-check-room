@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
 import RoomData from '../../RoomData/RoomData';
-import { StyledCalendarListItem, CalendarHeader, CalendarLink, CalendarDescription } from './CalendarListItem_styles';
+import { StyledRoomListItem, CalendarHeader, CalendarLink, CalendarDescription } from './RoomListItem_styles';
 
-const CalendarListItem = ( { calendarData } ) => {
+const RoomListItem = ( { calendarData } ) => {
    const { description, summary, id } = calendarData;
    const room = RoomMetadataDTO.from( summary, description );
 
    return (
-      <StyledCalendarListItem>
+      <StyledRoomListItem>
          <CalendarLink to={ `/room/${id.split( '@' )[0]}` }>
 
             <CalendarHeader>{ room.name }</CalendarHeader>
@@ -17,11 +17,11 @@ const CalendarListItem = ( { calendarData } ) => {
                <RoomData room={ room } />
             </CalendarDescription>
          </CalendarLink>
-      </StyledCalendarListItem>
+      </StyledRoomListItem>
    );
 };
 
-CalendarListItem.propTypes = {
+RoomListItem.propTypes = {
    calendarData: PropTypes.shape( {
       id: PropTypes.string.isRequired,
       summary: PropTypes.string.isRequired,
@@ -29,4 +29,4 @@ CalendarListItem.propTypes = {
    } ).isRequired,
 };
 
-export default CalendarListItem;
+export default RoomListItem;

@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const StyledCalendarList = styled.ul`
+export const StyledRoomList = styled.ul`
   padding: 25px 7% 10px;
   display: flex;
   flex-direction: column;

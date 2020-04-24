@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import CalendarList from '../../components/CalendarList/CalendarList';
+import RoomList from '../../components/RoomList/RoomList';
 import FetchContext from '../../services/fetching/FetchContext';
 
 const Calendars = () => {
@@ -10,10 +10,10 @@ const Calendars = () => {
    useEffect( () => {
       const [ promise, abort ] = fetchAPI( 'calendars' );
       promise.then( ( data ) => {
-         const calendarList = data.filter(
+         const roomList = data.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
          );
-         setCalendars( calendarList );
+         setCalendars( roomList );
          setIsLoading( false );
       } );
 
@@ -27,7 +27,7 @@ const Calendars = () => {
                Loading
             </h1>
          ) : (
-            <CalendarList calendarsData={ calendars } />
+            <RoomList calendarsData={ calendars } />
          ) }
       </>
    );
