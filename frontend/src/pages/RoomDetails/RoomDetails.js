@@ -6,7 +6,7 @@ import RoomHeader from '../../components/RoomHeader/RoomHeader';
 import FetchContext from '../../services/fetching/FetchContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 
-const Room = () => {
+const RoomDetails = () => {
    const [ calendar, setCalendar ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const [ startDate, setStartDate ] = useState( '' );
@@ -52,4 +52,4 @@ const Room = () => {
    );
 };
 
-export default Room;
+export default RoomDetails;

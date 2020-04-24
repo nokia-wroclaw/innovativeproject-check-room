@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import RoomList from '../../components/RoomList/RoomList';
 import FetchContext from '../../services/fetching/FetchContext';
 
-const Calendars = () => {
+const Rooms = () => {
    const [ calendars, setCalendars ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const fetchAPI = useContext( FetchContext );
@@ -33,4 +33,4 @@ const Calendars = () => {
    );
 };
 
-export default Calendars;
+export default Rooms;
