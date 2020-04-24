@@ -7,8 +7,6 @@ export const StyledEvent = styled.div`
    overflow: hidden;
    margin: -2px 0 2px;
    border-radius: 3px;
-   /* line-height: 10px; */
-   /* white-space: nowrap; */
 `;
 
 export const EventName = styled.p`
