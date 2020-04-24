@@ -14,7 +14,7 @@ docker run -it -p 8000:8000 cr
 For development, run simultaneously:
 
 ```bash
-cd backend && npm run dev
+cd backend && npm run start
 cd frontend && npm run start
 ```
 
