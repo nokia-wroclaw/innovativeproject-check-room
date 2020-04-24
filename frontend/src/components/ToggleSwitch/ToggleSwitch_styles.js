@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { lighten, darken } from 'polished';
+import { darken } from 'polished';
 
 export const StyledToggleSwitch = styled.button`
    margin: 10px auto 20px;
