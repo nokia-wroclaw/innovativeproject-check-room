@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useReducer } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import EventList from '../../components/EventList/EventList';
-import RoomData from '../../components/RoomData/RoomData';
+import RoomHeader from '../../components/RoomHeader/RoomHeader';
 import FetchContext from '../../services/fetching/FetchContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 
@@ -39,7 +39,7 @@ const Room = () => {
             </h1>
          ) : (
             <>
-               <RoomData roomData={ calendar.calendar } />
+               <RoomHeader roomData={ calendar.calendar } />
                <ToggleSwitch
                   toggleFunc={ toggleIsCompact }
                   value={ isCompact }
