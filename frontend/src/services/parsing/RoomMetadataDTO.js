@@ -3,8 +3,8 @@ import JsonParser from './JsonParser';
 class RoomMetadataDTO {
    static from( summary, description ) {
       const fallback = {
-         a: summary,
-         b: description,
+         nm: summary,
+         dc: description,
       };
       const room = JsonParser.parse( description, fallback );
 
@@ -13,8 +13,8 @@ class RoomMetadataDTO {
 
    static fromPlainStrings( name, description ) {
       const fallback = {
-         a: name,
-         b: description,
+         nm: name,
+         dc: description,
       };
 
       return this.fromJSON( fallback );
@@ -23,16 +23,16 @@ class RoomMetadataDTO {
    static fromJSON( room ) {
       const ret = new RoomMetadataDTO();
 
-      ret.name = room.a;
-      ret.description = room.b;
-      ret.seatsNo = room.c;
-      ret.hasProjector = room.d;
-      ret.hasWhiteboard = room.e;
+      ret.name = room.nm;
+      ret.description = room.dc;
+      ret.seatsNo = room.st;
+      ret.hasProjector = room.pj === 1;
+      ret.hasWhiteboard = room.wb === 1;
 
-      if ( room.f ) {
+      if ( room.lc ) {
          ret.location = {
-            building: room.f.a,
-            floorNo: room.f.b,
+            building: room.lc.b,
+            floorNo: room.lc.f,
          };
       }
 
