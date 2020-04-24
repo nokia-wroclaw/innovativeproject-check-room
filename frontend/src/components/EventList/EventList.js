@@ -10,7 +10,7 @@ const EventList = ( { eventsData, startDate, isCompact } ) => {
    const groupedEvents = _.groupBy( eventsData, ( event ) =>
       moment( event.start.dateTime ).format( 'YYYY-MM-DD' )
    );
-   const hourRangeWhenNotFullDay = [ 7, 17 ];
+   const hourRangeWhenNotFullDay = [ 7, 18 ];
    const week = _.times( 7, ( i ) => {
       const day = moment( startDate )
          .add( i, 'days' )

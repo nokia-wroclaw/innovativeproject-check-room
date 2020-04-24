@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { StyledEvent, EventName, EventLink } from './Event_styles';
+import { StyledEvent, EventName, EventButton } from './Event_styles';
+import EventModal from './EventModal/EventModal';
 
-const Event = ( { event } ) => {
+const Event = ( { event, isCompact } ) => {
+   const [ isModalOpen, toggleModal ] = useReducer( ( value )=>!value, false );
+
    const startDateTime = moment( event.start.dateTime );
    const endDateTime = moment( event.end.dateTime );
 
@@ -20,20 +23,19 @@ const Event = ( { event } ) => {
    const gridRowStart = Math.floor( startTime / 15 ) + 2;
    const gridRowEnd = Math.floor( endTime / 15 ) + 2;
 
-   const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
+   const shouldDisplaySummary = !isCompact && gridRowEnd - gridRowStart >= 2;
 
    return (
       <StyledEvent
          label={ event.summary }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventLink
-            href={ event.htmlLink }
-            target="_blank"
-            rel="noopener noreferrer"
-         >
-            <EventName>{ shouldDisplaySummary ? event.summary : '' }</EventName>
-         </EventLink>
+         <EventButton onClick={ toggleModal }>
+            <EventName>
+               { shouldDisplaySummary ? event.summary || '(no name)' : '' }
+            </EventName>
+         </EventButton>
+         { isModalOpen && <EventModal toggleModal={ toggleModal } event={ event } /> }
       </StyledEvent>
    );
 };
@@ -51,9 +53,7 @@ Event.propTypes = {
       } ).isRequired,
       htmlLink: PropTypes.string.isRequired,
    } ).isRequired,
-};
-Event.defaultProp = {
-   summary: 'no name'
+   isCompact: PropTypes.bool.isRequired,
 };
 
 export default Event;
