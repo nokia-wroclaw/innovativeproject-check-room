@@ -46,7 +46,7 @@ router.get( '/calendar/:calendar', async ( req, res ) => {
    }
 } );
 
-router.put( '/calendar/:calendar', async ( req, res ) => {
+router.post( '/calendar/:calendar', async ( req, res ) => {
    try {
       const calendarUri = `${req.params.calendar}@group.calendar.google.com`;
       const bodyElements = [ 'startDate', 'endDate', 'summary', 'description' ];

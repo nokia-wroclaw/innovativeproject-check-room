@@ -29,7 +29,12 @@ class Fetcher {
          try {
             const res = await fetch(
                `${constants.url.API_URL}${urlFragment}`,
-               { signal }
+               {
+                  signal,
+                  headers: {
+                     'X-APP-TOKEN': 'Check Room'
+                  },
+               }
             );
 
             const data = await res.json();

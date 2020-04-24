@@ -1,6 +1,7 @@
 const express = require( 'express' );
 const logger = require( 'morgan' );
 const Sentry = require( '@sentry/node' );
+const authMiddleware = require( './auth/middleware' );
 
 require( 'dotenv' ).config();
 
@@ -25,6 +26,8 @@ if ( process.env.ENVIRONMENT === 'development' ) {
       next();
    } );
 }
+
+app.use( authMiddleware );
 
 app.use( '/api', indexRouter );
 
