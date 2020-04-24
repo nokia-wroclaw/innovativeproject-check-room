@@ -32,7 +32,9 @@ const Event = ( { event } ) => {
             target="_blank"
             rel="noopener noreferrer"
          >
-            <EventName>{ shouldDisplaySummary ? event.summary : '' }</EventName>
+            <EventName>
+               { shouldDisplaySummary ? event.summary || '(no name)' : '' }
+            </EventName>
          </EventLink>
       </StyledEvent>
    );
@@ -51,9 +53,6 @@ Event.propTypes = {
       } ).isRequired,
       htmlLink: PropTypes.string.isRequired,
    } ).isRequired,
-};
-Event.defaultProp = {
-   summary: 'no name'
 };
 
 export default Event;
