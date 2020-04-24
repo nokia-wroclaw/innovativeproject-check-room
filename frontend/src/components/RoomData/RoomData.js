@@ -14,9 +14,9 @@ const RoomData = ( { room } ) => {
          <RoomDescription>{ description }</RoomDescription>
          <RoomLocation>{ location ? <>{ location.building }, { ordinal( location.floorNo ) } floor</> : '' }</RoomLocation>
          <RoomIndicators>
-            <Indicator active={ hasWhiteboard }><FaChalkboard /></Indicator>
-            <Indicator active={ hasProjector }><GiFilmProjector /></Indicator>
-            <Indicator active={ seatsNo }><FaChair /> { room.seatsNo }</Indicator>
+            <Indicator active={ hasWhiteboard }><abbr title="Whiteboard"><FaChalkboard /></abbr></Indicator>
+            <Indicator active={ hasProjector }><abbr title="Projector"><GiFilmProjector /></abbr></Indicator>
+            <Indicator active={ seatsNo }><abbr title="Seats"><FaChair /></abbr> { room.seatsNo }</Indicator>
          </RoomIndicators>
       </StyledRoomData>
    );

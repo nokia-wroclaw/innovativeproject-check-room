@@ -25,6 +25,10 @@ export const Indicator = styled.div`
   display: flex;
   align-items: center;
 
+  abbr {
+    display: flex;
+  }
+
   svg {
     margin: 0 5px;
     color: ${( { active, theme } ) => active ? theme.primary : 'gray'};
