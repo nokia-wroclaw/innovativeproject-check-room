@@ -62,7 +62,7 @@ class Backend {
       return [ promise, abort ];
    }
 
-   static post( urlFragment ) {
+   post( urlFragment ) {
       const controller = new AbortController();
       const { signal } = controller;
       const abort = () => controller.abort();

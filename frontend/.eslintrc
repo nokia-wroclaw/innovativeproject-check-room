@@ -47,6 +47,8 @@
          "children": true
       } ],
 
+      "class-methods-use-this": [ "off" ],
+
       "brace-style": [ 1, "stroustrup" ],
 
       "lines-between-class-members": [ 1, "always" ],
