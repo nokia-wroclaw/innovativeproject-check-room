@@ -9,21 +9,27 @@ class CalendarClient {
       this.calendar = CalendarClient.connection.getConnection();
    }
 
+   calendarId( calendar ) {
+      return `${calendar}@group.calendar.google.com`;
+   }
+
    async listCalendars() {
       const res = await this.calendar.calendarList.list( {} );
 
       return res.data.items;
    }
 
-   async getCalendar( calendarId ) {
-      const res = await this.calendar.calendarList.get( { calendarId } );
+   async getCalendar( calendar ) {
+      const res = await this.calendar.calendarList.get( {
+         calendarId: this.calendarId( calendar ),
+      } );
 
       return res.data;
    }
 
-   async getEvents( calendarId, startDate ) {
+   async getEvents( calendar, startDate ) {
       const res = await this.calendar.events.list( {
-         calendarId,
+         calendarId: this.calendarId( calendar ),
          timeMin: startDate.format(),
          timeMax: startDate.add( 1, 'week' ).format(),
          maxResults: 100,
@@ -35,8 +41,10 @@ class CalendarClient {
    }
 
    async addEvent( event ) {
+      const calendarId = this.calendarId( event.calendar );
+
       const overlapping = await this.calendar.events.list( {
-         calendarId: event.calendar,
+         calendarId,
          timeMin: event.start.format(),
          timeMax: event.end.format(),
          maxResults: 1,
@@ -48,7 +56,7 @@ class CalendarClient {
       }
 
       const res = await this.calendar.events.insert( {
-         calendarId: event.calendar,
+         calendarId,
          resource: {
             start: {
                dateTime: event.start.format(),
