@@ -8,11 +8,8 @@ const Rooms = () => {
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = backend.get( 'calendars' );
-      promise.then( ( data ) => {
-         const roomList = data.filter(
-            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
-         );
+      const [ promise, abort ] = backend.listRooms();
+      promise.then( ( roomList ) => {
          setRooms( roomList );
          setIsLoading( false );
       } );

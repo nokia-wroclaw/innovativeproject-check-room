@@ -7,13 +7,8 @@ const Index = () => {
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = backend.get( 'calendars' );
-      promise.then( ( data ) => {
-         const roomList = data.filter(
-            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
-         );
-         setAmountOfRooms( roomList.length );
-      } );
+      const [ promise, abort ] = backend.listRooms();
+      promise.then( ( roomList ) => setAmountOfRooms( roomList.length ) );
 
       return abort;
    }, [ backend ] );

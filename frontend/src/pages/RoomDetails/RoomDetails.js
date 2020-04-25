@@ -20,9 +20,7 @@ const RoomDetails = () => {
          .toISOString();
       setStartDate( startDateTmp );
 
-      const [ promise, abort ] = backend.get( `calendar/${
-         roomId.split( '@' )[0]
-      }?startDate=${startDateTmp}`, 15 );
+      const [ promise, abort ] = backend.fetchCalendar( roomId, startDateTmp );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );

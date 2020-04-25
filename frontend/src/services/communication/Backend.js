@@ -90,6 +90,33 @@ class Backend {
 
       return [ promise, abort ];
    }
+
+   fetchCalendar( calendarOrCalendarUri, startDate ) {
+      let calendar = calendarOrCalendarUri;
+
+      if ( calendarOrCalendarUri.indexOf( '@' ) !== -1 ) {
+         [ calendar, ] = calendarOrCalendarUri.split( '@' );
+      }
+
+      const url = `calendar/${calendar}?startDate=${startDate}`;
+
+      return this.get( url, 15 );
+   }
+
+   listCalendars() {
+      return this.get( 'calendars' );
+   }
+
+   listRooms() {
+      const [ promise, abort ] = this.listCalendars();
+      const newPromise = promise.then(
+         ( calendars ) => calendars.filter(
+            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
+         )
+      );
+
+      return [ newPromise, abort ];
+   }
 }
 
 export default Backend;
