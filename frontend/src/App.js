@@ -10,7 +10,7 @@ import Backend from './services/communication/Backend';
 import BackendContext from './services/communication/BackendContext';
 
 const App = () => {
-   const backend = new Backend().bindToSelf();
+   const backend = new Backend();
 
    return (
       <BackendContext.Provider value={ backend }>
