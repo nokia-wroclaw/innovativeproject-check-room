@@ -1,7 +1,7 @@
 const supertest = require( 'supertest' );
 
 const CalendarClient = require( '../app/calendar/CalendarClient' );
-const Connection = require( './mocks/app/calendar/Connection' );
+const Connection = require( './app/calendar/Connection' );
 
 CalendarClient.connection = new Connection();
 

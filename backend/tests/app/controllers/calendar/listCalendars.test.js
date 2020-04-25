@@ -1,4 +1,4 @@
-const { request } = require( '../../../tests/setup.js' );
+const { request } = require( '../../../setup.js' );
 
 it( 'Provides /api/calendars endpoint', async () => {
    const res = await request.get( '/api/calendars' );
