@@ -56,8 +56,10 @@ class Backend {
       return [ promise, abort ];
    }
 
-   bindFetchAPI() {
-      return this.fetchAPI.bind( this );
+   bindToSelf() {
+      return {
+         fetchAPI: this.fetchAPI.bind( this ),
+      };
    }
 }
 

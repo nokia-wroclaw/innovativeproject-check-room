@@ -11,7 +11,7 @@ import BackendContext from './services/communication/BackendContext';
 
 const App = () => {
    const fetcher = new Backend();
-   const fetchAPI = fetcher.bindFetchAPI();
+   const { fetchAPI } = fetcher.bindToSelf();
 
    return (
       <BackendContext.Provider value={ fetchAPI }>
