@@ -3,7 +3,7 @@
    "version": "0.0.0",
    "private": true,
    "scripts": {
-      "start": "DEBUG=backend:* nodemon ./server.js",
+      "start": "DEBUG=backend:* nodemon bin/server.js",
       "test": "jest",
       "test:watch": "jest --watch",
       "lint": "lint-staged"

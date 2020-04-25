@@ -1,7 +1,7 @@
 const express = require( 'express' );
 const moment = require( 'moment' );
 const _ = require( 'lodash' );
-const { CalendarClient } = require( '../app/CalendarClient' );
+const { CalendarClient } = require( '../app/calendar/CalendarClient' );
 
 const assertPresent = ( val ) => {
    if ( typeof val === 'undefined' || val == null || val === '' ) {

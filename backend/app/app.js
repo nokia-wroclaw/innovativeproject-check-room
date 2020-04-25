@@ -17,7 +17,7 @@ app.set( 'trust proxy', 'loopback' );
 app.use( new Cors().handler() );
 app.use( new TokenRequired().handler() );
 
-const indexRouter = require( './routes/index' );
+const indexRouter = require( '../routes/index' );
 
 app.use( '/api', indexRouter );
 
