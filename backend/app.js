@@ -1,7 +1,7 @@
 const express = require( 'express' );
 const logger = require( 'morgan' );
-const cors = require( './middleware/cors' );
-const tokenRequired = require( './middleware/tokenRequired' );
+const Cors = require( './middleware/cors/automatic' );
+const TokenRequired = require( './middleware/tokenRequired' );
 
 require( 'dotenv' ).config();
 
@@ -14,8 +14,8 @@ app.use( express.urlencoded( { extended: false } ) );
 app.set( 'trust proxy', true );
 app.set( 'trust proxy', 'loopback' );
 
-app.use( cors() );
-app.use( tokenRequired() );
+app.use( new Cors().handler() );
+app.use( new TokenRequired().handler() );
 
 const indexRouter = require( './routes/index' );
 

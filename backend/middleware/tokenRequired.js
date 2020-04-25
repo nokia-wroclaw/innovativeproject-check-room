@@ -1,15 +1,30 @@
-module.exports = () => {
-   const token = 'Check Room';
+const token = 'Check Room';
 
-   return ( req, res, next ) => {
-      if ( req.method === 'OPTIONS' ) {
-         return next();
+class TokenRequired {
+   handle( req, res, next ) {
+      if ( this.authorize( req ) ) {
+         next();
       }
-
-      if ( req.header( 'X-APP-TOKEN' ) !== token ) {
-         return res.status( 401 ).send( 'Not authorized' );
+      else {
+         res.status( 401 ).send( 'Not authorized' );
       }
+   }
 
-      return next();
-   };
-};
+   handler() {
+      return this.handle.bind( this );
+   }
+
+   authorize( req ) {
+      if ( TokenRequired.disabled ) return true;
+
+      if ( req.method === 'OPTIONS' ) return true;
+
+      if ( req.header( 'X-APP-TOKEN' ) !== token ) return false;
+
+      return true;
+   }
+}
+
+TokenRequired.disabled = false;
+
+module.exports = TokenRequired;
