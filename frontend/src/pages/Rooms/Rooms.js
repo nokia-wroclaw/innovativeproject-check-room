@@ -5,10 +5,10 @@ import BackendContext from '../../services/communication/BackendContext';
 const Rooms = () => {
    const [ rooms, setRooms ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
-   const fetchAPI = useContext( BackendContext );
+   const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = fetchAPI( 'calendars' );
+      const [ promise, abort ] = backend.get( 'calendars' );
       promise.then( ( data ) => {
          const roomList = data.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
@@ -18,7 +18,7 @@ const Rooms = () => {
       } );
 
       return abort;
-   }, [ fetchAPI ] );
+   }, [ backend ] );
 
    return (
       <>

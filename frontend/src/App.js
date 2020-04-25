@@ -10,11 +10,10 @@ import Backend from './services/communication/Backend';
 import BackendContext from './services/communication/BackendContext';
 
 const App = () => {
-   const fetcher = new Backend();
-   const { fetchAPI } = fetcher.bindToSelf();
+   const backend = new Backend().bindToSelf();
 
    return (
-      <BackendContext.Provider value={ fetchAPI }>
+      <BackendContext.Provider value={ backend }>
          <Router>
             <PageTemplate>
                <Switch>

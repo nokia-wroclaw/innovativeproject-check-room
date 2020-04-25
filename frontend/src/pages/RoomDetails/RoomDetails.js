@@ -12,7 +12,7 @@ const RoomDetails = () => {
    const [ startDate, setStartDate ] = useState( '' );
    const [ isCompact, toggleIsCompact ] = useReducer( ( state ) => !state, false );
    const { roomId } = useParams();
-   const fetchAPI = useContext( BackendContext );
+   const backend = useContext( BackendContext );
 
    useEffect( () => {
       const startDateTmp = moment()
@@ -20,7 +20,7 @@ const RoomDetails = () => {
          .toISOString();
       setStartDate( startDateTmp );
 
-      const [ promise, abort ] = fetchAPI( `calendar/${
+      const [ promise, abort ] = backend.get( `calendar/${
          roomId.split( '@' )[0]
       }?startDate=${startDateTmp}`, 15 );
       promise.then( ( data ) => {
@@ -29,7 +29,7 @@ const RoomDetails = () => {
       } );
 
       return abort;
-   }, [ roomId, fetchAPI ] );
+   }, [ roomId, backend ] );
 
    return (
       <>

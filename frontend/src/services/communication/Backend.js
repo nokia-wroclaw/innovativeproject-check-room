@@ -8,7 +8,7 @@ class Backend {
       this.cache = new Map();
    }
 
-   fetchAPI( urlFragment, freshness = 5 * 60 ) {
+   get( urlFragment, freshness = 5 * 60 ) {
       if ( this.cache.has( urlFragment ) ) {
          const entry = this.cache.get( urlFragment );
 
@@ -61,7 +61,7 @@ class Backend {
    // FIXME: try removing it.
    bindToSelf() {
       return {
-         fetchAPI: this.fetchAPI.bind( this ),
+         get: this.get.bind( this ),
       };
    }
 }

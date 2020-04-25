@@ -4,10 +4,10 @@ import Greeter from '../../components/Greeter/Greeter';
 
 const Index = () => {
    const [ amountOfRooms, setAmountOfRooms ] = useState( '(loading...)' );
-   const fetchAPI = useContext( BackendContext );
+   const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = fetchAPI( 'calendars' );
+      const [ promise, abort ] = backend.get( 'calendars' );
       promise.then( ( data ) => {
          const roomList = data.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
@@ -16,7 +16,7 @@ const Index = () => {
       } );
 
       return abort;
-   }, [ fetchAPI ] );
+   }, [ backend ] );
 
    return (
       <Greeter amountOfRooms={ amountOfRooms } />
