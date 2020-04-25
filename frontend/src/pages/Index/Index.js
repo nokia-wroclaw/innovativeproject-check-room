@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import FetchContext from '../../services/fetching/FetchContext';
+import BackendContext from '../../services/communication/BackendContext';
 import Greeter from '../../components/Greeter/Greeter';
 
 const Index = () => {
    const [ amountOfRooms, setAmountOfRooms ] = useState( '(loading...)' );
-   const fetchAPI = useContext( FetchContext );
+   const fetchAPI = useContext( BackendContext );
 
    useEffect( () => {
       const [ promise, abort ] = fetchAPI( 'calendars' );

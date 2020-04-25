@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import RoomList from '../../components/RoomList/RoomList';
-import FetchContext from '../../services/fetching/FetchContext';
+import BackendContext from '../../services/communication/BackendContext';
 
 const Rooms = () => {
    const [ rooms, setRooms ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
-   const fetchAPI = useContext( FetchContext );
+   const fetchAPI = useContext( BackendContext );
 
    useEffect( () => {
       const [ promise, abort ] = fetchAPI( 'calendars' );

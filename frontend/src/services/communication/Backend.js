@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { constants } from '../../assets/configs/constants';
 
-class Fetcher {
+class Backend {
    constructor() {
       // `cache` entries are in the following format:
       // "url/fragment" -> { "data": {}, "retrievedAt": moment() }
@@ -61,4 +61,4 @@ class Fetcher {
    }
 }
 
-export default Fetcher;
+export default Backend;
