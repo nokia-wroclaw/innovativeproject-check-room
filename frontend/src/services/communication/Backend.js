@@ -7,6 +7,7 @@ const headers = {
 };
 
 const errorHandler = ( error ) => {
+   if ( error.name === 'AbortError' ) return;
    // eslint-disable-next-line no-alert
    alert( `Could not communicate with server: ${error}` );
 };
