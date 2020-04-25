@@ -1,7 +1,8 @@
 const express = require( 'express' );
 const logger = require( 'morgan' );
 const Sentry = require( '@sentry/node' );
-const authMiddleware = require( './auth/middleware' );
+const cors = require( './auth/cors' );
+const tokenRequired = require( './auth/tokenRequired' );
 
 require( 'dotenv' ).config();
 
@@ -18,16 +19,10 @@ app.use( express.urlencoded( { extended: false } ) );
 app.set( 'trust proxy', true );
 app.set( 'trust proxy', 'loopback' );
 
+app.use( cors );
+app.use( tokenRequired );
+
 const indexRouter = require( './routes/index' );
-
-if ( process.env.ENVIRONMENT === 'development' ) {
-   app.get( '/*', ( req, res, next ) => {
-      res.header( 'Access-Control-Allow-Origin', '*' );
-      next();
-   } );
-}
-
-app.use( authMiddleware );
 
 app.use( '/api', indexRouter );
 
