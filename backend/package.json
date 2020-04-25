@@ -4,6 +4,7 @@
    "private": true,
    "scripts": {
       "start": "DEBUG=backend:* nodemon bin/server.js",
+      "get-google-token": "bin/get-google-token.js",
       "test": "jest",
       "test:watch": "jest --watch",
       "lint": "lint-staged"

@@ -1,9 +1,9 @@
 const supertest = require( 'supertest' );
 
-const { CalendarClient } = require( '../app/calendar/CalendarClient' );
-const { GoogleCalendarMock } = require( './GoogleCalendarMock' );
+const CalendarClient = require( '../app/calendar/CalendarClient' );
+const Connection = require( './mocks/app/calendar/Connection' );
 
-CalendarClient.connection = new GoogleCalendarMock();
+CalendarClient.connection = new Connection();
 
 const Cors = require( '../app/middleware/cors/Automatic' );
 const AllAllowed = require( '../app/middleware/cors/AllAllowed' );
