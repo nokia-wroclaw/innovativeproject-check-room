@@ -23,7 +23,7 @@
       "eslint-config-airbnb-base": "^14.1.0",
       "eslint-plugin-import": "^2.20.2",
       "jest": "^25.4.0",
-      "lint-staged": "^10.1.6",
+      "lint-staged": "^10.1.7",
       "nodemon": "^2.0.3",
       "prettier": "^1.19.1",
       "supertest": "^4.0.2"
