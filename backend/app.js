@@ -1,7 +1,7 @@
 const express = require( 'express' );
 const logger = require( 'morgan' );
-const Cors = require( './middleware/cors/automatic' );
-const TokenRequired = require( './middleware/tokenRequired' );
+const Cors = require( './middleware/cors/Automatic' );
+const TokenRequired = require( './middleware/TokenRequired' );
 
 require( 'dotenv' ).config();
 

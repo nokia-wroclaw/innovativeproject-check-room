@@ -1,4 +1,4 @@
-const { request } = require( '../tests/testing.js' );
+const { request } = require( '../tests/setup.js' );
 
 it( 'Does not provide unnecessary endpoints', async () => {
    const res = await request.get( '/' );

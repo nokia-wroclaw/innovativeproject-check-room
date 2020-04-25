@@ -1,5 +1,5 @@
-const NoneAllowed = require( './noneAllowed' );
-const AllAllowed = require( './allAllowed' );
+const NoneAllowed = require( './NoneAllowed' );
+const AllAllowed = require( './AllAllowed' );
 
 class Automatic {
    handler() {
