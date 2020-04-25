@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { constants } from '../../assets/configs/constants';
+import JsonParser from '../parsing/JsonParser';
 
 const headers = {
    'X-APP-TOKEN': 'Check Room'
@@ -44,7 +45,8 @@ class Backend {
                }
             );
 
-            const data = await res.json();
+            const text = await res.text();
+            const data = JsonParser.parse( text );
 
             this.cache.set( urlFragment, {
                data,
@@ -78,7 +80,8 @@ class Backend {
                }
             );
 
-            const data = await res.json();
+            const text = await res.text();
+            const data = JsonParser.parse( text );
 
             return data;
          }
