@@ -1,22 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
-import FetchContext from '../../services/fetching/FetchContext';
+import BackendContext from '../../services/communication/BackendContext';
 import Greeter from '../../components/Greeter/Greeter';
 
 const Index = () => {
    const [ amountOfRooms, setAmountOfRooms ] = useState( '(loading...)' );
-   const fetchAPI = useContext( FetchContext );
+   const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = fetchAPI( 'calendars' );
-      promise.then( ( data ) => {
-         const roomList = data.filter(
-            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
-         );
-         setAmountOfRooms( roomList.length );
-      } );
+      const [ promise, abort ] = backend.listRooms();
+      promise.then( ( roomList ) => setAmountOfRooms( roomList.length ) );
 
       return abort;
-   }, [ fetchAPI ] );
+   }, [ backend ] );
 
    return (
       <Greeter amountOfRooms={ amountOfRooms } />

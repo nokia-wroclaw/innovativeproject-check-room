@@ -1,5 +1,6 @@
+#!/usr/bin/env node
+
 const readline = require( 'readline' );
-const fs = require( 'fs' );
 const { google } = require( 'googleapis' );
 
 require( 'dotenv' ).config();

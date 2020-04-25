@@ -1,30 +1,35 @@
-const { google } = require( 'googleapis' );
-const { authorize } = require( './google-auth' );
+const Connection = require( './Connection' );
 
 class CalendarClient {
    constructor() {
       if ( CalendarClient.connection === null ) {
-         CalendarClient.connection = google.calendar( { version: 'v3', auth: authorize() } );
+         CalendarClient.connection = new Connection();
       }
 
-      this.connection = CalendarClient.connection;
+      this.calendar = CalendarClient.connection.getConnection();
+   }
+
+   calendarId( calendar ) {
+      return `${calendar}@group.calendar.google.com`;
    }
 
    async listCalendars() {
-      const res = await this.connection.calendarList.list( {} );
+      const res = await this.calendar.calendarList.list( {} );
 
       return res.data.items;
    }
 
-   async getCalendar( calendarId ) {
-      const res = await this.connection.calendarList.get( { calendarId } );
+   async getCalendar( calendar ) {
+      const res = await this.calendar.calendarList.get( {
+         calendarId: this.calendarId( calendar ),
+      } );
 
       return res.data;
    }
 
-   async getEvents( calendarId, startDate ) {
-      const res = await this.connection.events.list( {
-         calendarId,
+   async getEvents( calendar, startDate ) {
+      const res = await this.calendar.events.list( {
+         calendarId: this.calendarId( calendar ),
          timeMin: startDate.format(),
          timeMax: startDate.add( 1, 'week' ).format(),
          maxResults: 100,
@@ -36,8 +41,10 @@ class CalendarClient {
    }
 
    async addEvent( event ) {
-      const overlapping = await this.connection.events.list( {
-         calendarId: event.calendar,
+      const calendarId = this.calendarId( event.calendar );
+
+      const overlapping = await this.calendar.events.list( {
+         calendarId,
          timeMin: event.start.format(),
          timeMax: event.end.format(),
          maxResults: 1,
@@ -48,8 +55,8 @@ class CalendarClient {
          throw new Error( 'Overlapping events!' );
       }
 
-      const res = await this.connection.events.insert( {
-         calendarId: event.calendar,
+      const res = await this.calendar.events.insert( {
+         calendarId,
          resource: {
             start: {
                dateTime: event.start.format(),
@@ -68,4 +75,4 @@ class CalendarClient {
 
 CalendarClient.connection = null;
 
-module.exports = { CalendarClient };
+module.exports = CalendarClient;

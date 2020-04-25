@@ -6,15 +6,14 @@ import Index from './pages/Index/Index';
 import Rooms from './pages/Rooms/Rooms';
 import RoomDetails from './pages/RoomDetails/RoomDetails';
 import PageTemplate from './templates/PageTemplate/PageTemplate';
-import Fetcher from './services/fetching/Fetcher';
-import FetchContext from './services/fetching/FetchContext';
+import Backend from './services/communication/Backend';
+import BackendContext from './services/communication/BackendContext';
 
 const App = () => {
-   const fetcher = new Fetcher();
-   const fetchAPI = fetcher.bindFetchAPI();
+   const backend = new Backend();
 
    return (
-      <FetchContext.Provider value={ fetchAPI }>
+      <BackendContext.Provider value={ backend }>
          <Router>
             <PageTemplate>
                <Switch>
@@ -30,7 +29,7 @@ const App = () => {
                </Switch>
             </PageTemplate>
          </Router>
-      </FetchContext.Provider>
+      </BackendContext.Provider>
    );
 };
 

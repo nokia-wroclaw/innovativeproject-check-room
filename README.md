@@ -14,7 +14,7 @@ docker run -it -p 8000:8000 cr
 For development, run simultaneously:
 
 ```bash
-cd backend && npm run dev
+cd backend && npm run start
 cd frontend && npm run start
 ```
 
@@ -26,7 +26,7 @@ GOOGLE_API_TOKEN={"access_token":"...","refresh_token":"...","scope":"https://ww
 ENVIRONMENT=development
 ```
 
-You can generate the credentials in the Google Developer Console, and get the token by running `node backend/app/google-auth-cli.js` wizard. `ENVIRONMENT` should be either `development` or `production`.
+You can generate the credentials in the Google Developer Console, and get the token by running `npm run get-google-token` wizard in `backend`. `ENVIRONMENT` should be either `development` or `production`.
 
 Our project supports `.env` files - you can place the variables into `backend/.env` file.
 

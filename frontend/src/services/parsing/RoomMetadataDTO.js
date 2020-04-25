@@ -6,7 +6,7 @@ class RoomMetadataDTO {
          nm: summary,
          dc: description,
       };
-      const room = JsonParser.parse( description, fallback );
+      const room = JsonParser.parseOrDefault( description, fallback );
 
       return this.fromJSON( room );
    }

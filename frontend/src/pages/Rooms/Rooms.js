@@ -1,24 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
 import RoomList from '../../components/RoomList/RoomList';
-import FetchContext from '../../services/fetching/FetchContext';
+import BackendContext from '../../services/communication/BackendContext';
 
 const Rooms = () => {
    const [ rooms, setRooms ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
-   const fetchAPI = useContext( FetchContext );
+   const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = fetchAPI( 'calendars' );
-      promise.then( ( data ) => {
-         const roomList = data.filter(
-            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
-         );
+      const [ promise, abort ] = backend.listRooms();
+      promise.then( ( roomList ) => {
          setRooms( roomList );
          setIsLoading( false );
       } );
 
       return abort;
-   }, [ fetchAPI ] );
+   }, [ backend ] );
 
    return (
       <>

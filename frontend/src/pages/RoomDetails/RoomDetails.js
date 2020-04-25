@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import EventList from '../../components/EventList/EventList';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
-import FetchContext from '../../services/fetching/FetchContext';
+import BackendContext from '../../services/communication/BackendContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 
 const RoomDetails = () => {
@@ -12,7 +12,7 @@ const RoomDetails = () => {
    const [ startDate, setStartDate ] = useState( '' );
    const [ isCompact, toggleIsCompact ] = useReducer( ( state ) => !state, false );
    const { roomId } = useParams();
-   const fetchAPI = useContext( FetchContext );
+   const backend = useContext( BackendContext );
 
    useEffect( () => {
       const startDateTmp = moment()
@@ -20,16 +20,14 @@ const RoomDetails = () => {
          .toISOString();
       setStartDate( startDateTmp );
 
-      const [ promise, abort ] = fetchAPI( `calendar/${
-         roomId.split( '@' )[0]
-      }?startDate=${startDateTmp}`, 15 );
+      const [ promise, abort ] = backend.fetchCalendar( roomId, startDateTmp );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );
       } );
 
       return abort;
-   }, [ roomId, fetchAPI ] );
+   }, [ roomId, backend ] );
 
    return (
       <>
