@@ -1,6 +1,15 @@
 import moment from 'moment';
 import { constants } from '../../assets/configs/constants';
 
+const headers = {
+   'X-APP-TOKEN': 'Check Room'
+};
+
+const errorHandler = ( error ) => {
+   // eslint-disable-next-line no-alert
+   alert( `Could not communicate with server: ${error}` );
+};
+
 class Backend {
    constructor() {
       // `cache` entries are in the following format:
@@ -31,9 +40,7 @@ class Backend {
                `${constants.url.API_URL}${urlFragment}`,
                {
                   signal,
-                  headers: {
-                     'X-APP-TOKEN': 'Check Room'
-                  },
+                  headers,
                }
             );
 
@@ -47,8 +54,7 @@ class Backend {
             return data;
          }
          catch ( error ) {
-            // eslint-disable-next-line no-alert
-            alert( `Could not communicate with server: ${error}` );
+            errorHandler( error );
             throw error;
          }
       } )();
@@ -68,9 +74,7 @@ class Backend {
                {
                   signal,
                   method: 'POST',
-                  headers: {
-                     'X-APP-TOKEN': 'Check Room'
-                  },
+                  headers,
                }
             );
 
@@ -79,8 +83,7 @@ class Backend {
             return data;
          }
          catch ( error ) {
-            // eslint-disable-next-line no-alert
-            alert( `Could not communicate with server: ${error}` );
+            errorHandler( error );
             throw error;
          }
       } )();
