@@ -19,8 +19,8 @@ app.use( express.urlencoded( { extended: false } ) );
 app.set( 'trust proxy', true );
 app.set( 'trust proxy', 'loopback' );
 
-app.use( cors );
-app.use( tokenRequired );
+app.use( cors() );
+app.use( tokenRequired() );
 
 const indexRouter = require( './routes/index' );
 
