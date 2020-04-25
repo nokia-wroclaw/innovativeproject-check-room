@@ -1,11 +1,5 @@
 const { request } = require( '../tests/testing.js' );
 
-it( 'Provides /api/config endpoint', async () => {
-   const res = await request.get( '/api/config' );
-   expect( res.statusCode ).toBe( 200 );
-   expect( res.body.appName ).toBeDefined();
-} );
-
 it( 'Does not provide unnecessary endpoints', async () => {
    const res = await request.get( '/' );
    expect( res.statusCode ).toBe( 404 );

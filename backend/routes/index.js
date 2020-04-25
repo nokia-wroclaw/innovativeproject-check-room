@@ -13,12 +13,6 @@ const assertPresent = ( val ) => {
 
 const router = express.Router();
 
-router.get( '/config', ( req, res ) => {
-   res.send( {
-      appName: 'Check Room',
-   } );
-} );
-
 router.get( '/calendars', async ( req, res ) => {
    try {
       const client = new CalendarClient();
