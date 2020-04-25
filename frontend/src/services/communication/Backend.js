@@ -55,6 +55,38 @@ class Backend {
 
       return [ promise, abort ];
    }
+
+   static post( urlFragment ) {
+      const controller = new AbortController();
+      const { signal } = controller;
+      const abort = () => controller.abort();
+
+      const promise = ( async () => {
+         try {
+            const res = await fetch(
+               `${constants.url.API_URL}${urlFragment}`,
+               {
+                  signal,
+                  method: 'POST',
+                  headers: {
+                     'X-APP-TOKEN': 'Check Room'
+                  },
+               }
+            );
+
+            const data = await res.json();
+
+            return data;
+         }
+         catch ( error ) {
+            // eslint-disable-next-line no-alert
+            alert( `Could not communicate with server: ${error}` );
+            throw error;
+         }
+      } )();
+
+      return [ promise, abort ];
+   }
 }
 
 export default Backend;
