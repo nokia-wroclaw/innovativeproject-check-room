@@ -56,6 +56,9 @@ class Backend {
       return [ promise, abort ];
    }
 
+   // This function returns an object with interface similar
+   // to Backend, bound the to cache of this Backend instance.
+   // FIXME: try removing it.
    bindToSelf() {
       return {
          fetchAPI: this.fetchAPI.bind( this ),
