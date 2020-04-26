@@ -11,7 +11,6 @@ const RoomListItem = ( { roomData } ) => {
    return (
       <StyledRoomListItem>
          <CalendarLink to={ `/room/${id.split( '@' )[0]}` }>
-
             <CalendarHeader>{ room.name }</CalendarHeader>
             <CalendarDescription >
                <RoomData room={ room } />
