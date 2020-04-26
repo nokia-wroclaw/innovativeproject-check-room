@@ -9,7 +9,7 @@ const RoomFilterOptions = ( { state } ) => {
       <StyledRoomFilterOptions>
          <Field>
             Name
-            <input type="text"
+            <input type="search"
                value={ filters.name ?? '' }
                onChange={ ( e ) => setFilters(
                   { ...filters, name: e.target.value }
