@@ -1,5 +1,7 @@
 # Check Room
 
+Site that lets you can quickly check room availability. Features Google Calendar integration, room search and filtering options, and (soon) event adding.
+
 Project made under the Innovative Projects program. Live at [checkroom.herokuapp.com](https://checkroom.herokuapp.com).
 
 ## Running
