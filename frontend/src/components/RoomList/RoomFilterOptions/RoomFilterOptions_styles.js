@@ -12,21 +12,10 @@ export const StyledRoomFilterOptions = styled.div`
    display: grid;
    grid-gap: 10px;
 
-   ${( { theme } ) => theme.mdq.md} {
+   ${( { theme } ) => theme.mdq.sm} {
       grid-template-columns: 1fr 1fr;
-   }
-`;
-
-export const Field = styled.label`
-   text-align: center;
-
-   input[type="search"],
-   input[type="number"] {
-      width: 200px;
-      margin-left: 15px;
-
-      padding: 10px;
-      border: solid 1px #b1b1b1;
-      border-radius: 5px;
+      label {
+         justify-content: center;
+      }
    }
 `;

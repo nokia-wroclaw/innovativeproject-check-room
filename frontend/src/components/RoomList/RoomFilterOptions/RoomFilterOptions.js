@@ -1,49 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledRoomFilterOptions, Field } from './RoomFilterOptions_styles';
+import InputField from '../../InputField/InputField';
+import { StyledRoomFilterOptions } from './RoomFilterOptions_styles';
 
 const RoomFilterOptions = ( { state } ) => {
    const [ filters, setFilters ] = state;
 
    return (
       <StyledRoomFilterOptions>
-         <Field>
-            Name
-            <input type="search"
-               value={ filters.name ?? '' }
-               onChange={ ( e ) => setFilters(
-                  { ...filters, name: e.target.value }
-               ) } />
-         </Field>
+         <InputField
+            label="Name"
+            type="search"
+            value={ filters.name }
+            onChange={ ( val ) => setFilters(
+               { ...filters, name: val }
+            ) } />
 
-         <Field>
-            Seats
-            <input type="number"
-               inputtype="numeric"
-               pattern="[0-9]*"
-               value={ filters.seatsNo ?? '' }
-               onChange={ ( e ) => setFilters(
-                  { ...filters, seatsNo: e.target.value }
-               ) } />
-         </Field>
+         <InputField
+            label="Seats"
+            labelPosition="left"
+            type="number"
+            value={ filters.seatsNo }
+            onChange={ ( val ) => setFilters(
+               { ...filters, seatsNo: val }
+            ) } />
 
-         <Field>
-            <input type="checkbox"
-               checked={ filters.hasProjector ?? false }
-               onChange={ ( e ) => setFilters(
-                  { ...filters, hasProjector: e.target.checked }
-               ) } />
-            Projector
-         </Field>
+         <InputField
+            label="Projector"
+            labelPosition="right"
+            type="checkbox"
+            value={ filters.hasProjector }
+            onChange={ ( val ) => setFilters(
+               { ...filters, hasProjector: val }
+            ) } />
 
-         <Field>
-            <input type="checkbox"
-               checked={ filters.hasWhiteboard ?? false }
-               onChange={ ( e ) => setFilters(
-                  { ...filters, hasWhiteboard: e.target.checked }
-               ) } />
-            Whiteboard
-         </Field>
+         <InputField
+            label="Whiteboard"
+            labelPosition="right"
+            type="checkbox"
+            value={ filters.hasWhiteboard }
+            onChange={ ( val ) => setFilters(
+               { ...filters, hasWhiteboard: val }
+            ) } />
       </StyledRoomFilterOptions>
    );
 };
