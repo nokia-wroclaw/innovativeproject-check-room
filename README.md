@@ -1,6 +1,6 @@
 # Check Room
 
-Project made under the Innovative Projects program.
+Project made under the Innovative Projects program. Live at [checkroom.herokuapp.com](https://checkroom.herokuapp.com).
 
 ## Running
 
