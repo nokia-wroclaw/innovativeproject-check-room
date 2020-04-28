@@ -43,6 +43,10 @@ class CalendarClient {
    async addEvent( event ) {
       const calendarId = this.calendarId( event.calendar );
 
+      if ( event.end.diff( event.start, 'minutes' ) < 5 ) {
+         throw new Error( 'Invalid event length' );
+      }
+
       const overlapping = await this.calendar.events.list( {
          calendarId,
          timeMin: event.start.format(),
