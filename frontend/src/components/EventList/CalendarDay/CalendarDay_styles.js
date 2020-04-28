@@ -12,6 +12,7 @@ export const DayBorder = styled.div`
    grid-column: 2/3;
    grid-row: 2/-1;
    border: 2px #dddddd solid;
+   z-index:1;
 `;
 
 export const Day = styled.div`
