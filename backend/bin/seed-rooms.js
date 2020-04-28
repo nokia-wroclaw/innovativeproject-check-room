@@ -18,7 +18,7 @@ async function addEvent( calendar, startDate, endDate, summary ) {
       } );
 
    if ( !res.ok ) {
-      throw new Error( `Failed to add event ${await res.text()}` );
+      console.warn( `Failed to add event: ${await res.text()}` );
    }
 }
 
@@ -63,8 +63,8 @@ async function seedEvents( days, room ) {
             const start = randUniform( 7 * 60, 15 * 60 );
             const length = randUniform( 5, 4 * 60 );
 
-            const startDate = day.add( start, 'minute' );
-            const endDate = startDate.add( length, 'minute' );
+            const startDate = moment( day ).add( start, 'minute' );
+            const endDate = moment( startDate ).add( length, 'minute' );
 
             addEvent( calendar, startDate, endDate, randomSummary() );
          }
