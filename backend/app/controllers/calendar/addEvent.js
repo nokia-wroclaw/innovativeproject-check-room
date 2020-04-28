@@ -10,7 +10,7 @@ const bodySchema = yup.object().shape( {
    startDate: yup.string().required(),
    endDate: yup.string().required(),
    summary: yup.string().required().max( 200 ),
-   description: yup.string().required(),
+   description: yup.string().default( '' ),
 } );
 
 module.exports = async ( req, res ) => {
