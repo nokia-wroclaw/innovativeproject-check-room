@@ -1,4 +1,5 @@
 const Connection = require( './Connection' );
+const { sleep } = require( '../util.js' );
 
 class CalendarClient {
    constructor() {
@@ -46,6 +47,8 @@ class CalendarClient {
       if ( event.end.diff( event.start, 'minutes' ) < 5 ) {
          throw new Error( 'Invalid event length' );
       }
+
+      await sleep( 500 );
 
       const overlapping = await this.calendar.events.list( {
          calendarId,
