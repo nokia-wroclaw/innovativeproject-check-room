@@ -16,8 +16,13 @@ export const EventName = styled.p`
    display: block;
    margin: 0;
    padding: 1px;
-   font-size: ${( { theme, isCompact } ) => theme.font.size[isCompact? 'xxs' : 'xs']};
+   font-size: ${( { theme, isCompact } ) =>
+      theme.font.size[isCompact ? 'xxs' : 'xs']};
+
    text-align: center;
+   ${( { theme } ) => theme.mdq.lg} {
+      font-size: ${( { theme } ) => theme.font.size.xs};
+   }
 `;
 
 export const EventButton = styled.button`
