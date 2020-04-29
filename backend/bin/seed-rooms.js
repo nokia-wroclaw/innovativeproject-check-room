@@ -55,21 +55,24 @@ function randomSummary() {
 async function seedEvents( days, room ) {
    const calendars = room === 'all' ? await allRooms() : [ room ];
 
-   calendars.forEach( ( calendar ) => {
-      for ( let i = 0; i < days; i += 1 ) {
-         const day = moment().startOf( 'day' ).add( i, 'day' );
+   for ( let i = 0; i < calendars.length; i += 1 ) {
+      const calendar = calendars[i];
 
-         for ( let j = 0; j < 3; j += 1 ) {
+      for ( let j = 0; j < days; j += 1 ) {
+         const day = moment().startOf( 'day' ).add( j, 'day' );
+
+         for ( let l = 0; l < 3; l += 1 ) {
             const start = randUniform( 7 * 2, 15 * 2 ) * 30;
             const length = randUniform( 1, 4 ) * 60;
 
             const startDate = moment( day ).add( start, 'minute' );
             const endDate = moment( startDate ).add( length, 'minute' );
 
-            addEvent( calendar, startDate, endDate, randomSummary() );
+            // eslint-disable-next-line no-await-in-loop
+            await addEvent( calendar, startDate, endDate, randomSummary() );
          }
       }
-   } );
+   }
 }
 
 const { argv } = yargs
