@@ -23,7 +23,7 @@ const Event = ( { event, isCompact } ) => {
    const gridRowStart = Math.floor( startTime / 15 ) + 2;
    const gridRowEnd = Math.floor( endTime / 15 ) + 2;
 
-   const shouldDisplaySummary = !isCompact && gridRowEnd - gridRowStart >= 2;
+   const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
    return (
       <StyledEvent
@@ -31,7 +31,7 @@ const Event = ( { event, isCompact } ) => {
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
          <EventButton onClick={ toggleModal }>
-            <EventName>
+            <EventName isCompact={ isCompact }>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>
          </EventButton>
