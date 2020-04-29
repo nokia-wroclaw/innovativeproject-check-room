@@ -5,7 +5,7 @@ export const StyledEvent = styled.div`
    display: flex;
    background: ${( { theme } ) => rgba( theme.primary, 0.4 )};
    overflow: hidden;
-   margin: -2px 0 2px;
+   margin: -1px 0 2px;
    border-radius: 3px;
 `;
 
@@ -16,7 +16,7 @@ export const EventName = styled.p`
    display: block;
    margin: 0;
    padding: 1px;
-   font-size: ${( { theme } ) => theme.font.size.xs};
+   font-size: ${( { theme, isCompact } ) => theme.font.size[isCompact? 'xxs' : 'xs']};
    text-align: center;
 `;
 
@@ -26,7 +26,6 @@ export const EventButton = styled.button`
    justify-content: center;
    background: none;
    border: none;
-
    width: 100%;
    color: ${( { theme } ) => theme.text};
    text-decoration: none;
