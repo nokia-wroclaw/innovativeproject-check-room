@@ -2,10 +2,6 @@ import moment from 'moment';
 import { constants } from '../../assets/configs/constants';
 import JsonParser from '../parsing/JsonParser';
 
-const headers = {
-   'X-APP-TOKEN': 'Check Room'
-};
-
 const errorHandler = ( error ) => {
    if ( error.name === 'AbortError' ) return;
    // eslint-disable-next-line no-alert
@@ -42,7 +38,9 @@ class Backend {
                `${constants.url.API_URL}${urlFragment}`,
                {
                   signal,
-                  headers,
+                  headers: {
+                     'X-APP-TOKEN': 'Check Room',
+                  }
                }
             );
 
@@ -65,7 +63,7 @@ class Backend {
       return [ promise, abort ];
    }
 
-   post( urlFragment ) {
+   post( urlFragment, object ) {
       const controller = new AbortController();
       const { signal } = controller;
       const abort = () => controller.abort();
@@ -77,7 +75,11 @@ class Backend {
                {
                   signal,
                   method: 'POST',
-                  headers,
+                  headers: {
+                     'X-APP-TOKEN': 'Check Room',
+                     'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify( object ),
                }
             );
 
@@ -120,6 +122,10 @@ class Backend {
       );
 
       return [ newPromise, abort ];
+   }
+
+   addEvent( calendar, event ) {
+      return this.post( `calendar/${calendar}`, event );
    }
 }
 
