@@ -60,8 +60,8 @@ async function seedEvents( days, room ) {
          const day = moment().startOf( 'day' ).add( i, 'day' );
 
          for ( let j = 0; j < 3; j += 1 ) {
-            const start = randUniform( 7 * 60, 15 * 60 );
-            const length = randUniform( 5, 4 * 60 );
+            const start = randUniform( 7 * 2, 15 * 2 ) * 30;
+            const length = randUniform( 1, 4 ) * 60;
 
             const startDate = moment( day ).add( start, 'minute' );
             const endDate = moment( startDate ).add( length, 'minute' );
@@ -72,7 +72,7 @@ async function seedEvents( days, room ) {
    } );
 }
 
-const { argv } = require( 'yargs' )
+const { argv } = yargs
    .usage( 'Usage: npm run seed-rooms -- --days [days] --room [calendar|"all"]' )
    .demandOption( [ 'days', 'room' ] );
 
