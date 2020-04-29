@@ -31,6 +31,7 @@ export const EventButton = styled.button`
    justify-content: center;
    background: none;
    border: none;
+   padding: 2px;
    width: 100%;
    color: ${( { theme } ) => theme.text};
    text-decoration: none;
