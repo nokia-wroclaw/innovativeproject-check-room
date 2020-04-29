@@ -6,6 +6,7 @@ export const theme = {
    link: '#20A4F3',
    font: {
       size: {
+         xxs: '1rem',
          xs: '1.4rem',
          s: '1.9rem',
          m: '2.5rem',
