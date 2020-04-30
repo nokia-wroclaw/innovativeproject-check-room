@@ -11,7 +11,7 @@ const RoomList = ( { roomsData } ) => {
 
    const rooms = useMemo( () => {
       return roomsData
-         .map( ( room ) => ( { room, metadata: RoomMetadataDTO.from( room.summary, room.description ) } ) )
+         .map( ( room ) => ( { room, metadata: RoomMetadataDTO.from( room ) } ) )
          .filter( ( { metadata } ) => filters.hasProjector ?
             metadata.hasProjector : true )
          .filter( ( { metadata } ) => filters.hasWhiteboard ?

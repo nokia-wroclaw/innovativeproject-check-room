@@ -5,12 +5,11 @@ import RoomData from '../../RoomData/RoomData';
 import { StyledRoomListItem, RoomHeader, RoomLink, RoomDescription } from './RoomListItem_styles';
 
 const RoomListItem = ( { roomData } ) => {
-   const { description, summary, id } = roomData;
-   const room = RoomMetadataDTO.from( summary, description );
+   const room = RoomMetadataDTO.from( roomData );
 
    return (
       <StyledRoomListItem>
-         <RoomLink to={ `/room/${id.split( '@' )[0]}` }>
+         <RoomLink to={ `/room/${room.id}` }>
             <RoomHeader>{ room.name }</RoomHeader>
             <RoomDescription >
                <RoomData room={ room } />
