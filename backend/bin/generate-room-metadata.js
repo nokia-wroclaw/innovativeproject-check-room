@@ -21,16 +21,20 @@ function optional( text ) {
    return text.length === 0 ? undefined : text;
 }
 
+function int( text ) {
+   return text ? parseInt( text, 10 ) : undefined;
+}
+
 async function build() {
    const room = { lc: {} };
 
    room.nm = await prompt( 'Room name: ' );
    room.dc = optional( await prompt( 'Description: ' ) );
    room.lc.b = optional( await prompt( 'Building: ' ) );
-   room.lc.f = optional( await prompt( 'Floor: ' ) );
-   room.st = optional( await prompt( 'Number of seats: ' ) );
-   room.pj = optional( await prompt( 'Has projector [0/1]: ' ) );
-   room.wb = optional( await prompt( 'Has whiteboard [0/1]: ' ) );
+   room.lc.f = int( optional( await prompt( 'Floor: ' ) ) );
+   room.st = int( optional( await prompt( 'Number of seats: ' ) ) );
+   room.pj = int( optional( await prompt( 'Has projector [0/1]: ' ) ) );
+   room.wb = int( optional( await prompt( 'Has whiteboard [0/1]: ' ) ) );
 
    if ( !room.lc.b || !room.lc.f ) room.lc = undefined;
 
