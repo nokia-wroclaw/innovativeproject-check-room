@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext, useReducer } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import QRCodeLib from 'qrcode.react';
-import { Link, useLocation , useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import moment from 'moment';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledQRCode } from './QRCode_styles';
@@ -36,8 +36,9 @@ const QRCode = () => {
             <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
                Loading
             </h1>
-         ) :
-            <RoomHeader roomData={ room.calendar } /> }
+         ) : (
+            <RoomHeader roomData={ room.calendar } />
+         ) }
          <Link to={ backLink }>Go Back</Link>
          <QRCodeLib value={ link } size={ 200 } />
       </StyledQRCode>

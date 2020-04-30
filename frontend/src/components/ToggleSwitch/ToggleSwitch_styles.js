@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 import { darken } from 'polished';
 
 export const StyledToggleSwitch = styled.button`
-   margin: 10px auto 20px;
    display: block;
    background: ${( { theme, value } ) =>
       value ? theme.secondary : theme.primary};
