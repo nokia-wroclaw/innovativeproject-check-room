@@ -5,6 +5,8 @@ import EventList from '../../components/EventList/EventList';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 import BackendContext from '../../services/communication/BackendContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
+import QrCodeButton from '../../components/QrCodeButton/QrCodeButton';
+import { FlexCenter } from './RoomDetails_styles';
 
 const RoomDetails = () => {
    const [ room, setRoom ] = useState( [] );
@@ -38,11 +40,14 @@ const RoomDetails = () => {
          ) : (
             <>
                <RoomHeader roomData={ room.calendar } />
-               <ToggleSwitch
-                  toggleFunc={ toggleIsCompact }
-                  value={ isCompact }
-                  name="compact"
-               />
+               <FlexCenter style={ { display: 'flex' } }>
+                  <ToggleSwitch
+                     toggleFunc={ toggleIsCompact }
+                     value={ isCompact }
+                     name="compact"
+                  />
+                  <QrCodeButton id={ roomId } />
+               </FlexCenter>
                <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
             </>
          ) }

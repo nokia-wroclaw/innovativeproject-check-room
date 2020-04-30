@@ -5,7 +5,7 @@ import { StyledRoomHeader, RoomTitle } from './RoomHeader_styles';
 import RoomData from '../RoomData/RoomData';
 
 const RoomHeader = ( { roomData } ) => {
-   const room = RoomMetadataDTO.from( roomData.summary, roomData.description );
+   const room = RoomMetadataDTO.from( roomData );
 
    return (
       <StyledRoomHeader>

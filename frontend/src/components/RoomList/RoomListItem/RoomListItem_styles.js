@@ -12,7 +12,7 @@ export const StyledRoomListItem = styled.li`
 `;
 
 
-export const CalendarLink = styled( Link )`
+export const RoomLink = styled( Link )`
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -23,7 +23,7 @@ export const CalendarLink = styled( Link )`
    text-decoration: none;
 `;
 
-export const CalendarHeader = styled.div`
+export const RoomHeader = styled.div`
    width: 100%;
    padding: 10px 15px;
    background-color: ${( { theme } ) =>  theme.primary };
@@ -33,6 +33,6 @@ export const CalendarHeader = styled.div`
    text-align: center;
 `;
 
-export const CalendarDescription = styled.div`
+export const RoomDescription = styled.div`
    padding: 15px
 `;

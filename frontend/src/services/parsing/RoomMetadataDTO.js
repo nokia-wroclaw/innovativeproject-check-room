@@ -1,23 +1,17 @@
 import JsonParser from './JsonParser';
 
 class RoomMetadataDTO {
-   static from( summary, description ) {
+   static from( roomData ) {
+      const { description, summary } = roomData;
+      const id = roomData.id.split( '@' )[0];
       const fallback = {
          nm: summary,
          dc: description,
       };
       const room = JsonParser.parseOrDefault( description, fallback );
+      room.id = id;
 
       return this.fromJSON( room );
-   }
-
-   static fromPlainStrings( name, description ) {
-      const fallback = {
-         nm: name,
-         dc: description,
-      };
-
-      return this.fromJSON( fallback );
    }
 
    static fromJSON( room ) {
@@ -28,6 +22,7 @@ class RoomMetadataDTO {
       ret.seatsNo = room.st;
       ret.hasProjector = room.pj === 1;
       ret.hasWhiteboard = room.wb === 1;
+      ret.id = room.id;
 
       if ( room.lc ) {
          ret.location = {
