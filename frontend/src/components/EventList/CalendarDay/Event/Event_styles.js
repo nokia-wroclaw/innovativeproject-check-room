@@ -35,4 +35,5 @@ export const EventButton = styled.button`
    width: 100%;
    color: ${( { theme } ) => theme.text};
    text-decoration: none;
+   z-index: 2;
 `;

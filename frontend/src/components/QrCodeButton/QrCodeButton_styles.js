@@ -15,6 +15,6 @@ export const StyledQrCodeButton = styled( Link )`
       margin: 0 5px;
       height: 40px;
       width: 40px;
-      color: ${( { active, theme } ) => ( active ? theme.primary : 'gray' )};
+      color: ${( { theme } ) => theme.primary};
    }
 `;
