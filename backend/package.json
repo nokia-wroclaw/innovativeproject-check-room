@@ -6,6 +6,7 @@
       "start": "DEBUG=backend:* nodemon bin/server.js",
       "get-google-token": "bin/get-google-token.js",
       "seed-rooms": "bin/seed-rooms.js",
+      "generate-room-metadata": "bin/generate-room-metadata.js",
       "test": "jest",
       "test:watch": "jest --watch",
       "lint": "lint-staged"
