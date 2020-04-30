@@ -79,9 +79,7 @@ const { argv } = yargs
    .usage( 'Usage: npm run seed-rooms -- --days [days] --room [calendar|"all"]' )
    .demandOption( [ 'days', 'room' ] );
 
-try {
-   seedEvents( argv.days, argv.room );
-}
-catch ( e ) {
-   console.error( `Failure: ${e}` );
-}
+seedEvents( argv.days, argv.room ).catch( ( e ) => {
+   console.error( `Error: ${e}` );
+   process.exit( 1 );
+} );
