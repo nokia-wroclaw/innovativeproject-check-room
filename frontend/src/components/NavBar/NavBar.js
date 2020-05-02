@@ -40,10 +40,7 @@ const NavBar = () => {
             <StyledNav isOpen={ isMenuOpen }>
                <NavList isOpen={ isMenuOpen }>
                   <NavItem>
-                     <NavLink to="/">Home</NavLink>
-                  </NavItem>
-                  <NavItem>
-                     <NavLink to="/rooms">Rooms</NavLink>
+                     <NavLink to="/">Rooms</NavLink>
                   </NavItem>
                </NavList>
             </StyledNav>
