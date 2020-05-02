@@ -2,6 +2,9 @@ import styled from 'styled-components/macro';
 
 export const StyledRoomData = styled.div`
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const RoomDescription = styled.div`
@@ -11,9 +14,11 @@ export const RoomDescription = styled.div`
 export const RoomLocation = styled.div`
   font-style: italic;
   margin: 10px;
+  margin-top: auto;
 `;
 
 export const RoomIndicators = styled.div`
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;

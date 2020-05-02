@@ -30,5 +30,6 @@ export const RoomHeader = styled.div`
 `;
 
 export const RoomDescription = styled.div`
-   padding: 15px
+   padding: 10px;
+   height: 100%;
 `;
