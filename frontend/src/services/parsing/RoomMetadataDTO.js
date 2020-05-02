@@ -2,14 +2,17 @@ import JsonParser from './JsonParser';
 
 class RoomMetadataDTO {
    static from( roomData ) {
+      if ( roomData instanceof RoomMetadataDTO ) {
+         return roomData;
+      }
+
       const { description, summary } = roomData;
-      const id = roomData.id.split( '@' )[0];
       const fallback = {
          nm: summary,
          dc: description,
       };
       const room = JsonParser.parseOrDefault( description, fallback );
-      room.id = id;
+      [ room.id, ] = roomData.id.split( '@' );
 
       return this.fromJSON( room );
    }

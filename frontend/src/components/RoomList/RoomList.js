@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import RoomListItem from './RoomListItem/RoomListItem';
 import RoomFilterOptions from './RoomFilterOptions/RoomFilterOptions';
-import RoomMetadataDTO from '../../services/parsing/RoomMetadataDTO';
+import RoomFilter from '../../services/logic/RoomFilter';
 import { StyledRoomList, FilteredRoomList } from './RoomList_styles';
 
 const RoomList = ( { roomsData } ) => {
@@ -10,17 +10,11 @@ const RoomList = ( { roomsData } ) => {
    const [ filters, setFilters ] = useState( {} );
 
    const rooms = useMemo( () => {
+      const filter = new RoomFilter( filters ).asFunction();
+
       return roomsData
-         .map( ( room ) => ( { room, metadata: RoomMetadataDTO.from( room ) } ) )
-         .filter( ( { metadata } ) => filters.hasProjector ?
-            metadata.hasProjector : true )
-         .filter( ( { metadata } ) => filters.hasWhiteboard ?
-            metadata.hasWhiteboard : true )
-         .filter( ( { metadata } ) => filters.seatsNo ?
-            metadata.seatsNo >= filters.seatsNo : true )
-         .filter( ( { metadata } ) => filters.name ?
-            metadata.name.toLowerCase().includes( filters.name.toLowerCase() ) : true )
-         .map( ( ( { room } ) => (
+         .filter( filter )
+         .map( ( ( room ) => (
             <RoomListItem key={ room.id } roomData={ room } />
          ) ) );
    }, [ filters, roomsData ] );
