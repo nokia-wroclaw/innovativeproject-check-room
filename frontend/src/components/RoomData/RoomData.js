@@ -11,8 +11,8 @@ const RoomData = ( { room } ) => {
 
    return (
       <StyledRoomData>
-         <RoomDescription>{ description }</RoomDescription>
-         <RoomLocation>{ location ? <>{ location.building }, { ordinal( location.floorNo ) } floor</> : '' }</RoomLocation>
+         { description ? <RoomDescription>{ description }</RoomDescription> : null }
+         { location ? <RoomLocation>{ location.building }, { ordinal( location.floorNo ) } floor</RoomLocation> : null }
          <RoomIndicators>
             <Indicator active={ hasWhiteboard }><abbr title="Whiteboard"><FaChalkboard /></abbr></Indicator>
             <Indicator active={ hasProjector }><abbr title="Projector"><GiFilmProjector /></abbr></Indicator>

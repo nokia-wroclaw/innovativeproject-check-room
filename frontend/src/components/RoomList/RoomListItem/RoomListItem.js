@@ -11,7 +11,7 @@ const RoomListItem = ( { roomData } ) => {
       <StyledRoomListItem>
          <RoomLink to={ `/room/${room.id}` }>
             <RoomHeader>{ room.name }</RoomHeader>
-            <RoomDescription >
+            <RoomDescription>
                <RoomData room={ room } />
             </RoomDescription>
          </RoomLink>

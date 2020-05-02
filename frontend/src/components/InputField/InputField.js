@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledInputField, Label } from './InputField_styles';
 
-const InputField = ( { label, type, labelPosition, value, onChange } ) => {
+const InputField = ( { label, type, labelPosition, value, onChange, min, max } ) => {
    // The trick below is used to confuse Chrome and Safari's
    // autocompletion engines. It inserts zero-width spaces between
    // the letters. This prevents e.g. Safari suggesting user's full
@@ -29,6 +29,8 @@ const InputField = ( { label, type, labelPosition, value, onChange } ) => {
                   inputtype="numeric"
                   pattern="[0-9]*"
                   value={ value }
+                  min={ min }
+                  max={ max }
                   autocompletion="off"
                   onChange={ ( e ) => onChange( e.target.value ) } />
                { labelPosition === 'right' ? text : null }
@@ -58,11 +60,15 @@ InputField.propTypes = {
       PropTypes.bool,
    ] ),
    onChange: PropTypes.func.isRequired,
+   min: PropTypes.number,
+   max: PropTypes.number,
 };
 
 InputField.defaultProps = {
    labelPosition: 'left',
    value: '',
+   min: null,
+   max: null,
 };
 
 export default InputField;

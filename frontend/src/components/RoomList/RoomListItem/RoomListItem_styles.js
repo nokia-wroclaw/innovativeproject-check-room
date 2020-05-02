@@ -3,19 +3,15 @@ import { darken } from 'polished';
 import { Link } from 'react-router-dom';
 
 export const StyledRoomListItem = styled.li`
-   width: 100%;
-   max-width: 600px;
-   margin-bottom: 10px;
-   &:last-child{
-      margin-bottom: 0;
-   }
+   height: 100%;
 `;
 
 
 export const RoomLink = styled( Link )`
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: space-between;
+   height: 100%;
    border: 2px solid ${( { theme } ) =>darken( 0.1, theme.primary )};
    border-radius: 20px;
    overflow: hidden;
@@ -34,5 +30,6 @@ export const RoomHeader = styled.div`
 `;
 
 export const RoomDescription = styled.div`
-   padding: 15px
+   padding: 10px;
+   height: 100%;
 `;

@@ -26,12 +26,13 @@ export const HeaderWrapper = styled.div`
    }
 `;
 
-export const HeaderBrand = styled.div`
+export const HeaderBrand = styled( Link )`
    position: relative;
    font-size: ${( { theme } ) => theme.font.size.l};
    font-weight: ${( { theme } ) => theme.font.weight.semiBold};
    color: ${( { theme } ) => theme.white};
    text-align: center;
+   text-decoration: none;
    z-index: 100;
 `;
 

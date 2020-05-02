@@ -35,15 +35,12 @@ const NavBar = () => {
    return (
       <StyledHeader>
          <HeaderWrapper>
-            <HeaderBrand>Checkroom</HeaderBrand>
+            <HeaderBrand to="/">Checkroom</HeaderBrand>
             <Hamburger onClick={ handleMenuClick } isOpen={ isMenuOpen } />
             <StyledNav isOpen={ isMenuOpen }>
                <NavList isOpen={ isMenuOpen }>
                   <NavItem>
-                     <NavLink to="/">Home</NavLink>
-                  </NavItem>
-                  <NavItem>
-                     <NavLink to="/rooms">Rooms</NavLink>
+                     <NavLink to="/">Rooms</NavLink>
                   </NavItem>
                </NavList>
             </StyledNav>

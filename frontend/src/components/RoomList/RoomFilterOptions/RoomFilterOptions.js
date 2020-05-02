@@ -21,6 +21,7 @@ const RoomFilterOptions = ( { state } ) => {
             labelPosition="left"
             type="number"
             value={ filters.seatsNo }
+            min={ 0 }
             onChange={ ( val ) => setFilters(
                { ...filters, seatsNo: val }
             ) } />

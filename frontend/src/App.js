@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Index from './pages/Index/Index';
 import Rooms from './pages/Rooms/Rooms';
 import RoomDetails from './pages/RoomDetails/RoomDetails';
 import PageTemplate from './templates/PageTemplate/PageTemplate';
@@ -16,9 +15,6 @@ const App = () => {
          <Router>
             <PageTemplate>
                <Switch>
-                  <Route path="/rooms">
-                     <Rooms />
-                  </Route>
                   <Route path="/room/:roomId/qrcode">
                      <QRCode />
                   </Route>
@@ -26,7 +22,7 @@ const App = () => {
                      <RoomDetails />
                   </Route>
                   <Route path="/">
-                     <Index />
+                     <Rooms />
                   </Route>
                </Switch>
             </PageTemplate>
