@@ -3,7 +3,6 @@ import { darken } from 'polished';
 import { Link } from 'react-router-dom';
 
 export const StyledRoomListItem = styled.li`
-   margin-bottom: 10px;
    height: 100%;
 `;
 

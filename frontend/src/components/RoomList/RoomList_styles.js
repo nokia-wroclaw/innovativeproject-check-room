@@ -15,7 +15,7 @@ export const FilteredRoomList = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 10px;
   align-items: center;
-  grid-auto-rows: 1fr;
+  grid-auto-rows: minmax(min-content, max-content);
 
   list-style: none;
 `;
