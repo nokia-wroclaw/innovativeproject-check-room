@@ -49,11 +49,13 @@ const AddNewEventToRoom = () => {
       const event = {
          startDate: moment( eventDate ).set( {
             hour: eventTime[0].hour(),
-            minute: eventTime[0].minute()
+            minute: eventTime[0].minute(),
+            second: 0,
          } ).format(),
          endDate: moment( eventDate ).set( {
             hour: eventTime[1].hour(),
-            minute: eventTime[1].minute()
+            minute: eventTime[1].minute(),
+            second: 0,
          } ).format(),
          summary: eventName,
          description: eventDescription,
