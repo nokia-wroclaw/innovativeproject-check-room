@@ -100,7 +100,6 @@ const AddNewEventToRoom = () => {
                defaultValue={ eventTime }
                format="HH:mm"
                onChange={ ( val ) => setEventTime( val ) }
-
             />
 
             <TextArea
