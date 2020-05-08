@@ -84,7 +84,8 @@ const AddNewEventToRoom = () => {
                'eventDate': moment().startOf( 'day' ),
                'eventTime': [ nextHour( 1 ), nextHour( 2 ) ],
             } }
-            onFinish={ addEvent }>
+            onFinish={ addEvent }
+            hideRequiredMark>
 
             <Form.Item
                label="Event name"
