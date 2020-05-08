@@ -11,7 +11,6 @@ export const StyledInputField = styled.div`
    }}
       width: 200px;
       max-width: 50vw;
-      padding: 10px;
       border: solid 1px #b1b1b1;
       border-radius: 5px;
    }
