@@ -19,10 +19,7 @@ const QRCode = () => {
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const startDateTmp = moment()
-         .startOf( 'day' )
-         .toISOString();
-      const [ promise, abort ] = backend.fetchCalendar( roomId, startDateTmp );
+      const [ promise, abort ] = backend.fetchRoomMetadata( roomId );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );
