@@ -3,7 +3,7 @@ import { Link, useLocation, useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { DatePicker, TimePicker, Input, Form, Button } from 'antd';
 import BackendContext from '../../services/communication/BackendContext';
-import { StyledAddNewEventToRoom, StyledForm } from './AddNewEventToRoom_styles';
+import { StyledAddNewEventToRoom } from './AddNewEventToRoom_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 
 const { TextArea } = Input;
@@ -70,6 +70,8 @@ const AddNewEventToRoom = () => {
       } );
    };
 
+   const [ form ] = Form.useForm();
+
    return (
       <StyledAddNewEventToRoom>
          { isLoading ? (
@@ -80,42 +82,66 @@ const AddNewEventToRoom = () => {
             <RoomHeader roomData={ room.calendar } />
          ) }
          <Link to={ roomPath }>Go Back</Link>
-         <StyledForm>
+         <Form
+            form={ form }
+            initialValues={ {
+               'eventName': eventName,
+               'eventDate': eventDate,
+               'eventTime': eventTime,
+               'eventDescription': eventDescription,
+            } }
+         >
             <Form.Item
-               label="Event Name"
+               label="Event name"
                name="eventName"
+               rules={ [ { required: true, message: 'Please input event name!' } ] }
             >
                <Input
                   placeholder="Event name"
-                  value={ eventName }
                   onChange={ ( e ) => setEventName( e.target.value ) } />
             </Form.Item>
 
-            <DatePicker
-               defaultValue={ eventDate }
-               onChange={ ( val ) => setEventDate( val ) }
-            />
+            <Form.Item
+               name="eventDate"
+               rules={ [ { required: true, message: 'Please input event date!' } ] }
+            >
+               <DatePicker
+                  style={ { display: 'flex' } }
+                  onChange={ ( val ) => setEventDate( val ) }
+               />
+            </Form.Item>
 
-            <RangePicker
-               defaultValue={ eventTime }
-               format="HH:mm"
-               onChange={ ( val ) => setEventTime( val ) }
-            />
 
-            <TextArea
-               placeholder="Description"
-               autoSize={ { minRows: 2 } }
-               value={ eventDescription }
-               onChange={ ( e ) => setEventDescription( e.target.value ) }
-            />
+            <Form.Item
+               name="eventTime"
+               rules={ [ { required: true, message: 'Please input event time!' } ] }
+            >
+               <RangePicker
+                  style={ { display: 'flex' } }
+                  format="HH:mm"
+                  onChange={ ( val ) => setEventTime( val ) }
+               />
+            </Form.Item>
+
+
+            <Form.Item
+               label="Description"
+               name="eventDescription">
+               <TextArea
+                  placeholder="Description"
+                  autoSize={ { minRows: 2 } }
+                  onChange={ ( e ) => setEventDescription( e.target.value ) }
+               />
+            </Form.Item>
 
             <Button
                type="primary"
+               style={ { display: 'block', margin: '0 auto' } }
                onClick={ addEvent }
                loading={ isWaiting }>
                Add event
             </Button>
-         </StyledForm>
+         </Form>
       </StyledAddNewEventToRoom>
    );
 };
