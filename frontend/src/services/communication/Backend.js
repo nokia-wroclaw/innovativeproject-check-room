@@ -1,11 +1,11 @@
 import moment from 'moment';
+import { message } from 'antd';
 import { constants } from '../../assets/configs/constants';
 import JsonParser from '../parsing/JsonParser';
 
 const errorHandler = ( error ) => {
    if ( error.name === 'AbortError' ) return;
-   // eslint-disable-next-line no-alert
-   alert( `Could not communicate with server: ${error}` );
+   message.error( `${error}` );
 };
 
 class Backend {
