@@ -67,7 +67,7 @@ const RoomDetails = () => {
                <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
                <Drawer
                   title="Add an event"
-                  width="max(300px, 40%)"
+                  width="min(600px, 90%)"
                   onClose={ onClose }
                   visible={ visible }
                   bodyStyle={ { paddingBottom: 80 } }>
