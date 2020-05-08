@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useLocation, useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
-import { DatePicker, TimePicker, Input, Form, Button } from 'antd';
+import { Input, Form } from 'antd';
+import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker } from '../../components/StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventToRoom } from './AddNewEventToRoom_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 
 const { TextArea } = Input;
-const { RangePicker } = TimePicker;
 
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
@@ -84,38 +84,28 @@ const AddNewEventToRoom = () => {
                'eventDate': moment().startOf( 'day' ),
                'eventTime': [ nextHour( 1 ), nextHour( 2 ) ],
             } }
-            onFinish={ addEvent }
-         >
+            onFinish={ addEvent }>
+
             <Form.Item
                label="Event name"
                name="eventName"
-               rules={ [ { required: true, message: 'Please input event name!' } ] }
-            >
-               <Input
-                  placeholder="Event name"
-               />
+               rules={ [ { required: true, message: 'Please input event name!' } ] }>
+               <Input placeholder="Event name" />
             </Form.Item>
 
             <Form.Item
                name="eventDate"
-               rules={ [ { required: true, message: 'Please input event date!' } ] }
-            >
-               <DatePicker
-                  inputReadOnly
-                  style={ { display: 'flex' } }
-               />
+               rules={ [ { required: true, message: 'Please input event date!' } ] }>
+               <FullWidthDatePicker inputReadOnly />
             </Form.Item>
 
             <Form.Item
                name="eventTime"
-               rules={ [ { required: true, message: 'Please input event time!' } ] }
-            >
-               <RangePicker
+               rules={ [ { required: true, message: 'Please input event time!' } ] }>
+               <FullWidthRangePicker
                   inputReadOnly
-                  style={ { display: 'flex' } }
                   format="HH:mm"
-                  minuteStep={ 5 }
-               />
+                  minuteStep={ 5 } />
             </Form.Item>
 
             <Form.Item
@@ -123,17 +113,15 @@ const AddNewEventToRoom = () => {
                name="eventDescription">
                <TextArea
                   placeholder="Description"
-                  autoSize={ { minRows: 2 } }
-               />
+                  autoSize={ { minRows: 2 } } />
             </Form.Item>
 
-            <Button
+            <CenteredButton
                type="primary"
-               style={ { display: 'block', margin: '0 auto' } }
                loading={ isWaiting }
                htmlType="submit">
                Add event
-            </Button>
+            </CenteredButton>
          </Form>
       </StyledAddNewEventToRoom>
    );
