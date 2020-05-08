@@ -106,6 +106,7 @@ const AddNewEventToRoom = () => {
                rules={ [ { required: true, message: 'Please input event date!' } ] }
             >
                <DatePicker
+                  inputReadOnly
                   style={ { display: 'flex' } }
                   onChange={ ( val ) => setEventDate( val ) }
                />
@@ -117,8 +118,10 @@ const AddNewEventToRoom = () => {
                rules={ [ { required: true, message: 'Please input event time!' } ] }
             >
                <RangePicker
+                  inputReadOnly
                   style={ { display: 'flex' } }
                   format="HH:mm"
+                  minuteStep={ 5 }
                   onChange={ ( val ) => setEventTime( val ) }
                />
             </Form.Item>
