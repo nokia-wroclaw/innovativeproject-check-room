@@ -2,12 +2,10 @@ import React, { useState, useContext } from 'react';
 import moment from 'moment';
 import { Input, Form } from 'antd';
 import PropTypes from 'prop-types';
-import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker } from '../../components/StyledFormComponents/StyledFormComponents';
+import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea } from '../../components/StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventToRoom } from './AddNewEventToRoom_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
-
-const { TextArea } = Input;
 
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
@@ -89,7 +87,7 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
             <Form.Item
                label="Description"
                name="eventDescription">
-               <TextArea
+               <StyledTextArea
                   placeholder="Description"
                   autoSize={ { minRows: 2 } } />
             </Form.Item>
