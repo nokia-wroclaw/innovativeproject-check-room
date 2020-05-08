@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useReducer } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import { Drawer, Button } from 'antd';
+import { Drawer } from 'antd';
 import EventList from '../../components/EventList/EventList';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 import BackendContext from '../../services/communication/BackendContext';
@@ -70,8 +70,7 @@ const RoomDetails = () => {
                   width="max(300px, 40%)"
                   onClose={ onClose }
                   visible={ visible }
-                  bodyStyle={ { paddingBottom: 80 } }
-                  footer={ <Button onClick={ onClose }>Cancel</Button> }>
+                  bodyStyle={ { paddingBottom: 80 } }>
                   <AddNewEventToRoom room={ room.calendar } updateCalendar={ () => {
                      onClose();
                      updateCalendar();
