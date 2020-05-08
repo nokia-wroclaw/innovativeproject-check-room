@@ -12,7 +12,7 @@ const Rooms = () => {
       promise.then( ( roomList ) => {
          setRooms( roomList );
          setIsLoading( false );
-      } );
+      } ).catch( () => { } );
 
       return abort;
    }, [ backend ] );

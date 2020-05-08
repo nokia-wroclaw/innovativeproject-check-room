@@ -32,7 +32,7 @@ const AddNewEventToRoom = () => {
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );
-      } );
+      } ).catch( () => { } );
 
       return abort;
    }, [ roomId, backend ] );
