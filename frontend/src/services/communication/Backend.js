@@ -104,7 +104,7 @@ class Backend {
    }
 
    // Fetches calendar metadata and events.
-   fetchCalendar( calendarOrCalendarUri, startDate ) {
+   fetchRoom( calendarOrCalendarUri, startDate ) {
       let calendar = calendarOrCalendarUri;
 
       if ( calendarOrCalendarUri.indexOf( '@' ) !== -1 ) {
