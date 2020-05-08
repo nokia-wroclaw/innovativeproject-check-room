@@ -6,7 +6,19 @@ export const StyledQRCode = styled.main`
   align-items: center;
   justify-content: space-between;
 
-  a{
+  a {
      padding: 10px 20px 20px;
+  }
+
+  canvas {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  @media print {
+    canvas {
+      width: 400px !important;
+      height: 400px !important;
+    }
   }
 `;
