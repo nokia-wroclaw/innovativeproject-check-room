@@ -126,11 +126,21 @@ class Backend {
       }
 
       const [ promise, abort ] = this.listRooms();
-      const newPromise = promise.then(
-         ( calendars ) => calendars.filter(
+      const newPromise = promise.then( ( calendars ) => {
+         const candidates = calendars.filter(
             ( calendar ) => calendar.id === calendarUri
-         )
-      );
+         );
+
+         if ( candidates.length === 0 ) {
+            throw new Error( 'Calendar not found' );
+         }
+
+         if ( candidates.length > 1 ) {
+            throw new Error( `Multiple calendars found for ${  calendarUri}` );
+         }
+
+         return candidates[0];
+      } );
 
       return [ newPromise, abort ];
    }

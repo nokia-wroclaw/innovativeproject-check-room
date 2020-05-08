@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import QRCodeLib from 'qrcode.react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import moment from 'moment';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledQRCode } from './QRCode_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
@@ -35,7 +34,7 @@ const QRCode = () => {
                Loading
             </h1>
          ) : (
-            <RoomHeader roomData={ room.calendar } />
+            <RoomHeader roomData={ room } />
          ) }
          <Link to={ roomPath }>Go Back</Link>
          <QRCodeLib value={ roomLink } size={ 400 } />
