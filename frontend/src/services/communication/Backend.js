@@ -103,6 +103,7 @@ class Backend {
       return [ promise, abort ];
    }
 
+   // Fetches calendar metadata and events.
    fetchCalendar( calendarOrCalendarUri, startDate ) {
       let calendar = calendarOrCalendarUri;
 
@@ -115,12 +116,28 @@ class Backend {
       return this.get( url, 15 );
    }
 
-   listCalendars() {
-      return this.get( 'calendars' );
+   // This function fetches the metadata only.
+   // It's main benefit is longer caching.
+   fetchRoomMetadata( calendarOrCalendarUri ) {
+      let calendarUri = calendarOrCalendarUri;
+
+      if ( calendarOrCalendarUri.indexOf( '@' ) === -1 ) {
+         calendarUri = `${calendarOrCalendarUri}@group.calendar.google.com`;
+      }
+
+      const [ promise, abort ] = this.listRooms();
+      const newPromise = promise.then(
+         ( calendars ) => calendars.filter(
+            ( calendar ) => calendar.id === calendarUri
+         )
+      );
+
+      return [ newPromise, abort ];
    }
 
+   // Fetches metadata for all rooms.
    listRooms() {
-      const [ promise, abort ] = this.listCalendars();
+      const [ promise, abort ] = this.get( 'calendars' );
       const newPromise = promise.then(
          ( calendars ) => calendars.filter(
             ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
@@ -130,6 +147,7 @@ class Backend {
       return [ newPromise, abort ];
    }
 
+   // Sends a request to create an event.
    addEvent( calendarOrCalendarUri, event ) {
       let calendar = calendarOrCalendarUri;
 
