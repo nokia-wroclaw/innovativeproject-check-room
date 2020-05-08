@@ -49,6 +49,7 @@ class Backend {
             );
 
             const text = await res.text();
+            if ( !res.ok ) throw new Error( text );
             const data = JsonParser.parse( text );
 
             this.cache.set( urlFragment, {
@@ -88,6 +89,7 @@ class Backend {
             );
 
             const text = await res.text();
+            if ( !res.ok ) throw new Error( text );
             const data = JsonParser.parse( text );
 
             return data;
