@@ -61,7 +61,10 @@ const AddNewEventToRoom = () => {
       setIsWaiting( true );
       const [ promise ] = backend.addEvent( roomId, event );
       promise.then( () => {
-         history.push( roomPath );
+         backend.invalidateCache();
+         setTimeout( () => {
+            history.push( roomPath );
+         }, 500 );
       } );
    };
 

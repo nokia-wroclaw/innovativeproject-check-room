@@ -15,6 +15,10 @@ class Backend {
       this.cache = new Map();
    }
 
+   invalidateCache() {
+      this.cache = new Map();
+   }
+
    get( urlFragment, freshness = 5 * 60 ) {
       if ( this.cache.has( urlFragment ) ) {
          const entry = this.cache.get( urlFragment );
