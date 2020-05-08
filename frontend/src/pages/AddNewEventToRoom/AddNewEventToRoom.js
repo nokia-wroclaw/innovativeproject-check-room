@@ -43,9 +43,9 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
          backend.invalidateCache();
          setTimeout( () => {
             updateCalendar();
+            form.resetFields();
+            setIsWaiting( false );
          }, 500 );
-         setIsWaiting( false );
-         form.resetFields();
       } ).catch( () => {
          setIsWaiting( false );
       } );
