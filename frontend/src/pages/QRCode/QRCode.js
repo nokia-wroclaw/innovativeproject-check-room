@@ -26,7 +26,7 @@ const QRCode = () => {
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );
-      } );
+      } ).catch( () => { } );
 
       return abort;
    }, [ roomId, backend ] );
@@ -41,7 +41,7 @@ const QRCode = () => {
             <RoomHeader roomData={ room.calendar } />
          ) }
          <Link to={ roomPath }>Go Back</Link>
-         <QRCodeLib value={ roomLink } size={ 200 } />
+         <QRCodeLib value={ roomLink } size={ 400 } />
       </StyledQRCode>
    );
 };

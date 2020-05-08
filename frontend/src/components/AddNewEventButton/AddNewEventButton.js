@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { GoPlus } from 'react-icons/go';
 import { StyledAddNewEventButton } from './AddNewEventButton_styles';
 
-const AddNewEventButton = ( { id } ) => {
+const AddNewEventButton = ( { openDrawer } ) => {
    return (
-      <StyledAddNewEventButton to={ `./${id}/add` }>
+      <StyledAddNewEventButton onClick={ openDrawer } >
          <abbr title="New Event">
             <GoPlus />
          </abbr>
@@ -14,7 +14,7 @@ const AddNewEventButton = ( { id } ) => {
 };
 
 AddNewEventButton.propTypes = {
-   id: PropTypes.string.isRequired,
+   openDrawer: PropTypes.func.isRequired,
 };
 
 export default AddNewEventButton;

@@ -1,11 +1,11 @@
 import moment from 'moment';
+import { message } from 'antd';
 import { constants } from '../../assets/configs/constants';
 import JsonParser from '../parsing/JsonParser';
 
 const errorHandler = ( error ) => {
    if ( error.name === 'AbortError' ) return;
-   // eslint-disable-next-line no-alert
-   alert( `Could not communicate with server: ${error}` );
+   message.error( `${error}` );
 };
 
 class Backend {
@@ -49,6 +49,7 @@ class Backend {
             );
 
             const text = await res.text();
+            if ( !res.ok ) throw new Error( text );
             const data = JsonParser.parse( text );
 
             this.cache.set( urlFragment, {
@@ -88,6 +89,7 @@ class Backend {
             );
 
             const text = await res.text();
+            if ( !res.ok ) throw new Error( text );
             const data = JsonParser.parse( text );
 
             return data;
@@ -128,7 +130,13 @@ class Backend {
       return [ newPromise, abort ];
    }
 
-   addEvent( calendar, event ) {
+   addEvent( calendarOrCalendarUri, event ) {
+      let calendar = calendarOrCalendarUri;
+
+      if ( calendarOrCalendarUri.indexOf( '@' ) !== -1 ) {
+         [ calendar, ] = calendarOrCalendarUri.split( '@' );
+      }
+
       return this.post( `calendar/${calendar}`, event );
    }
 }

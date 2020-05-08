@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Link, useLocation, useParams, useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
 import moment from 'moment';
-import { DatePicker, TimePicker, Input, Form, Button } from 'antd';
+import { Input, Form } from 'antd';
+import PropTypes from 'prop-types';
+import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker } from '../../components/StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventToRoom } from './AddNewEventToRoom_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 
 const { TextArea } = Input;
-const { RangePicker } = TimePicker;
 
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
@@ -15,135 +15,104 @@ const nextHour = ( num = 1 ) => {
    return moment( `${ currentHour + num }:00`, 'HH:mm' );
 };
 
-const AddNewEventToRoom = () => {
-   const currentPath = useLocation().pathname;
-   const roomPath = currentPath.substring( 0, currentPath.lastIndexOf( '/' ) );
+const mergeDateWithTime = ( date, time ) =>
+   moment( date ).set( {
+      hour: time.hour(),
+      minute: time.minute(),
+      second: 0
+   } ).format();
 
-   const [ room, setRoom ] = useState( [] );
-   const [ isLoading, setIsLoading ] = useState( true );
-   const { roomId } = useParams();
+const AddNewEventToRoom = ( { room, updateCalendar } ) => {
    const backend = useContext( BackendContext );
-
-   useEffect( () => {
-      const startDateTmp = moment()
-         .startOf( 'day' )
-         .toISOString();
-      const [ promise, abort ] = backend.fetchCalendar( roomId, startDateTmp );
-      promise.then( ( data ) => {
-         setRoom( data );
-         setIsLoading( false );
-      } );
-
-      return abort;
-   }, [ roomId, backend ] );
-
-   const [ eventName, setEventName ] = useState( '' );
-   const [ eventDescription, setEventDescription ] = useState( '' );
-   const [ eventDate, setEventDate ] = useState( moment().startOf( 'day' ) );
-   const [ eventTime, setEventTime ] = useState( [ nextHour( 1 ), nextHour( 2 ) ] );
-
    const [ isWaiting, setIsWaiting ] = useState( false );
-   const history = useHistory();
-
-   const addEvent = () => {
-      const event = {
-         startDate: moment( eventDate ).set( {
-            hour: eventTime[0].hour(),
-            minute: eventTime[0].minute(),
-            second: 0,
-         } ).format(),
-         endDate: moment( eventDate ).set( {
-            hour: eventTime[1].hour(),
-            minute: eventTime[1].minute(),
-            second: 0,
-         } ).format(),
-         summary: eventName,
-         description: eventDescription,
-      };
-      setIsWaiting( true );
-      const [ promise ] = backend.addEvent( roomId, event );
-      promise.then( () => {
-         backend.invalidateCache();
-         setTimeout( () => {
-            history.push( roomPath );
-         }, 500 );
-      } );
-   };
 
    const [ form ] = Form.useForm();
 
+   const addEvent = ( values ) => {
+      const startEventTime = values.eventTime[0];
+      const endEventTime = values.eventTime[1];
+      const event = {
+         startDate: mergeDateWithTime( values.eventDate, startEventTime ),
+         endDate: mergeDateWithTime( values.eventDate, endEventTime ),
+         summary: values.eventName,
+         description: values.eventDescription,
+      };
+      setIsWaiting( true );
+      const [ promise ] = backend.addEvent( room.id, event );
+      promise.then( () => {
+         backend.invalidateCache();
+         setTimeout( () => {
+            updateCalendar();
+            form.resetFields();
+            setIsWaiting( false );
+         }, 500 );
+      } ).catch( () => {
+         setIsWaiting( false );
+      } );
+   };
+
    return (
       <StyledAddNewEventToRoom>
-         { isLoading ? (
-            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-               Loading
-            </h1>
-         ) : (
-            <RoomHeader roomData={ room.calendar } />
-         ) }
-         <Link to={ roomPath }>Go Back</Link>
+         <RoomHeader roomData={ room } />
+
          <Form
             form={ form }
             initialValues={ {
-               'eventName': eventName,
-               'eventDate': eventDate,
-               'eventTime': eventTime,
-               'eventDescription': eventDescription,
+               'eventDate': moment().startOf( 'day' ),
+               'eventTime': [ nextHour( 1 ), nextHour( 2 ) ],
             } }
-         >
+            onFinish={ addEvent }
+            hideRequiredMark>
+
             <Form.Item
                label="Event name"
                name="eventName"
-               rules={ [ { required: true, message: 'Please input event name!' } ] }
-            >
-               <Input
-                  placeholder="Event name"
-                  onChange={ ( e ) => setEventName( e.target.value ) } />
+               rules={ [ { required: true, message: 'Please input event name!' } ] }>
+               <Input placeholder="Event name" />
             </Form.Item>
 
             <Form.Item
                name="eventDate"
-               rules={ [ { required: true, message: 'Please input event date!' } ] }
-            >
-               <DatePicker
-                  style={ { display: 'flex' } }
-                  onChange={ ( val ) => setEventDate( val ) }
-               />
+               rules={ [ { required: true, message: 'Please input event date!' } ] }>
+               <FullWidthDatePicker inputReadOnly />
             </Form.Item>
-
 
             <Form.Item
                name="eventTime"
-               rules={ [ { required: true, message: 'Please input event time!' } ] }
-            >
-               <RangePicker
-                  style={ { display: 'flex' } }
+               rules={ [ { required: true, message: 'Please input event time!' } ] }>
+               <FullWidthRangePicker
+                  inputReadOnly
                   format="HH:mm"
-                  onChange={ ( val ) => setEventTime( val ) }
-               />
+                  minuteStep={ 5 } />
             </Form.Item>
-
 
             <Form.Item
                label="Description"
                name="eventDescription">
                <TextArea
                   placeholder="Description"
-                  autoSize={ { minRows: 2 } }
-                  onChange={ ( e ) => setEventDescription( e.target.value ) }
-               />
+                  autoSize={ { minRows: 2 } } />
             </Form.Item>
 
-            <Button
+            <CenteredButton
                type="primary"
-               style={ { display: 'block', margin: '0 auto' } }
-               onClick={ addEvent }
-               loading={ isWaiting }>
+               loading={ isWaiting }
+               htmlType="submit">
                Add event
-            </Button>
+            </CenteredButton>
          </Form>
       </StyledAddNewEventToRoom>
    );
 };
 
 export default AddNewEventToRoom;
+
+
+AddNewEventToRoom.propTypes = {
+   room: PropTypes.shape( {
+      id: PropTypes.string.isRequired,
+      summary: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+   } ).isRequired,
+   updateCalendar: PropTypes.func.isRequired,
+};
