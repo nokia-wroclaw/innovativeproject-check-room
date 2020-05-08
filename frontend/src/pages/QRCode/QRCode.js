@@ -7,10 +7,11 @@ import { StyledQRCode } from './QRCode_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 
 const QRCode = () => {
+   // `roomLink` is a full URL (with domain), `roomPath` is not.
    const currentLink = window.location.href;
-   const link = currentLink.substring( 0, currentLink.lastIndexOf( '/' ) );
-   const path = useLocation().pathname;
-   const backLink = path.substring( 0, path.lastIndexOf( '/' ) );
+   const roomLink = currentLink.substring( 0, currentLink.lastIndexOf( '/' ) );
+   const currentPath = useLocation().pathname;
+   const roomPath = currentPath.substring( 0, currentPath.lastIndexOf( '/' ) );
 
    const [ room, setRoom ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
@@ -39,8 +40,8 @@ const QRCode = () => {
          ) : (
             <RoomHeader roomData={ room.calendar } />
          ) }
-         <Link to={ backLink }>Go Back</Link>
-         <QRCodeLib value={ link } size={ 200 } />
+         <Link to={ roomPath }>Go Back</Link>
+         <QRCodeLib value={ roomLink } size={ 200 } />
       </StyledQRCode>
    );
 };

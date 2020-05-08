@@ -39,3 +39,7 @@ export const Indicator = styled.div`
     color: ${( { active, theme } ) => active ? theme.primary : 'gray'};
   }
 `;
+
+export const LocationLine = styled.p`
+   margin: 0;
+`;

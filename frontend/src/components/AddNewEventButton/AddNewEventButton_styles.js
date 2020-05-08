@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const StyledQrCodeButton = styled( Link )`
+export const StyledAddNewEventButton = styled( Link )`
    margin: 0 10px;
 
    display: flex;

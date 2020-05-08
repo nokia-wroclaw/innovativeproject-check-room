@@ -6,7 +6,7 @@ import { StyledQrCodeButton } from './QrCodeButton_styles';
 const QrCodeButton = ( { id } ) => {
    return (
       <StyledQrCodeButton to={ `./${id}/qrCode` }>
-         <abbr title="qrCode">
+         <abbr title="QR Code">
             <RiQrCodeLine />
          </abbr>
       </StyledQrCodeButton>
