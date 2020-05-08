@@ -130,7 +130,13 @@ class Backend {
       return [ newPromise, abort ];
    }
 
-   addEvent( calendar, event ) {
+   addEvent( calendarOrCalendarUri, event ) {
+      let calendar = calendarOrCalendarUri;
+
+      if ( calendarOrCalendarUri.indexOf( '@' ) !== -1 ) {
+         [ calendar, ] = calendarOrCalendarUri.split( '@' );
+      }
+
       return this.post( `calendar/${calendar}`, event );
    }
 }

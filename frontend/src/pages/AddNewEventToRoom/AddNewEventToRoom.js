@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Link, useLocation, useParams, useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
 import moment from 'moment';
 import { Input, Form } from 'antd';
+import PropTypes from 'prop-types';
 import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker } from '../../components/StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventToRoom } from './AddNewEventToRoom_styles';
@@ -15,30 +15,9 @@ const nextHour = ( num = 1 ) => {
    return moment( `${ currentHour + num }:00`, 'HH:mm' );
 };
 
-const AddNewEventToRoom = () => {
-   const currentPath = useLocation().pathname;
-   const roomPath = currentPath.substring( 0, currentPath.lastIndexOf( '/' ) );
-
-   const [ room, setRoom ] = useState( [] );
-   const [ isLoading, setIsLoading ] = useState( true );
-   const { roomId } = useParams();
+const AddNewEventToRoom = ( { room } ) => {
    const backend = useContext( BackendContext );
-
-   useEffect( () => {
-      const startDateTmp = moment()
-         .startOf( 'day' )
-         .toISOString();
-      const [ promise, abort ] = backend.fetchCalendar( roomId, startDateTmp );
-      promise.then( ( data ) => {
-         setRoom( data );
-         setIsLoading( false );
-      } ).catch( () => { } );
-
-      return abort;
-   }, [ roomId, backend ] );
-
    const [ isWaiting, setIsWaiting ] = useState( false );
-   const history = useHistory();
 
    const addEvent = ( values ) => {
       const startEventTime = values.eventTime[0];
@@ -58,11 +37,11 @@ const AddNewEventToRoom = () => {
          description: values.eventDescription,
       };
       setIsWaiting( true );
-      const [ promise ] = backend.addEvent( roomId, event );
+      const [ promise ] = backend.addEvent( room.id, event );
       promise.then( () => {
          backend.invalidateCache();
          setTimeout( () => {
-            history.push( roomPath );
+            window.location.reload();
          }, 500 );
       } ).catch( () => {
          setIsWaiting( false );
@@ -71,14 +50,8 @@ const AddNewEventToRoom = () => {
 
    return (
       <StyledAddNewEventToRoom>
-         { isLoading ? (
-            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-               Loading
-            </h1>
-         ) : (
-            <RoomHeader roomData={ room.calendar } />
-         ) }
-         <Link to={ roomPath }>Go Back</Link>
+         <RoomHeader roomData={ room } />
+
          <Form
             initialValues={ {
                'eventDate': moment().startOf( 'day' ),
@@ -129,3 +102,12 @@ const AddNewEventToRoom = () => {
 };
 
 export default AddNewEventToRoom;
+
+
+AddNewEventToRoom.propTypes = {
+   room: PropTypes.shape( {
+      id: PropTypes.string.isRequired,
+      summary: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+   } ).isRequired,
+};

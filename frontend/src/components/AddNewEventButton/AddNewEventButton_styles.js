@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
 
-export const StyledAddNewEventButton = styled( Link )`
+export const StyledAddNewEventButton = styled.a`
    margin: 0 10px;
 
    display: flex;
