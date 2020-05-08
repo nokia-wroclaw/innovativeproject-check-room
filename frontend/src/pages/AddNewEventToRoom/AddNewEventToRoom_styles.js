@@ -10,3 +10,12 @@ export const StyledAddNewEventToRoom = styled.main`
      padding: 10px 20px 20px;
   }
 `;
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    margin: 5px 0;
+  }
+`;
