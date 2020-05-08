@@ -37,28 +37,25 @@ const AddNewEventToRoom = () => {
       return abort;
    }, [ roomId, backend ] );
 
-   const [ eventName, setEventName ] = useState( '' );
-   const [ eventDescription, setEventDescription ] = useState( '' );
-   const [ eventDate, setEventDate ] = useState( moment().startOf( 'day' ) );
-   const [ eventTime, setEventTime ] = useState( [ nextHour( 1 ), nextHour( 2 ) ] );
-
    const [ isWaiting, setIsWaiting ] = useState( false );
    const history = useHistory();
 
-   const addEvent = () => {
+   const addEvent = ( values ) => {
+      const startEventTime = values.eventTime[0];
+      const endEventTime = values.eventTime[1];
       const event = {
-         startDate: moment( eventDate ).set( {
-            hour: eventTime[0].hour(),
-            minute: eventTime[0].minute(),
+         startDate: moment( values.eventDate ).set( {
+            hour: startEventTime.hour(),
+            minute: startEventTime.minute(),
             second: 0,
          } ).format(),
-         endDate: moment( eventDate ).set( {
-            hour: eventTime[1].hour(),
-            minute: eventTime[1].minute(),
+         endDate: moment( values.eventDate ).set( {
+            hour: endEventTime.hour(),
+            minute: endEventTime.minute(),
             second: 0,
          } ).format(),
-         summary: eventName,
-         description: eventDescription,
+         summary: values.eventName,
+         description: values.eventDescription,
       };
       setIsWaiting( true );
       const [ promise ] = backend.addEvent( roomId, event );
@@ -67,10 +64,10 @@ const AddNewEventToRoom = () => {
          setTimeout( () => {
             history.push( roomPath );
          }, 500 );
+      } ).catch( () => {
+         setIsWaiting( false );
       } );
    };
-
-   const [ form ] = Form.useForm();
 
    return (
       <StyledAddNewEventToRoom>
@@ -83,13 +80,11 @@ const AddNewEventToRoom = () => {
          ) }
          <Link to={ roomPath }>Go Back</Link>
          <Form
-            form={ form }
             initialValues={ {
-               'eventName': eventName,
-               'eventDate': eventDate,
-               'eventTime': eventTime,
-               'eventDescription': eventDescription,
+               'eventDate': moment().startOf( 'day' ),
+               'eventTime': [ nextHour( 1 ), nextHour( 2 ) ],
             } }
+            onFinish={ addEvent }
          >
             <Form.Item
                label="Event name"
@@ -98,7 +93,7 @@ const AddNewEventToRoom = () => {
             >
                <Input
                   placeholder="Event name"
-                  onChange={ ( e ) => setEventName( e.target.value ) } />
+               />
             </Form.Item>
 
             <Form.Item
@@ -108,10 +103,8 @@ const AddNewEventToRoom = () => {
                <DatePicker
                   inputReadOnly
                   style={ { display: 'flex' } }
-                  onChange={ ( val ) => setEventDate( val ) }
                />
             </Form.Item>
-
 
             <Form.Item
                name="eventTime"
@@ -122,10 +115,8 @@ const AddNewEventToRoom = () => {
                   style={ { display: 'flex' } }
                   format="HH:mm"
                   minuteStep={ 5 }
-                  onChange={ ( val ) => setEventTime( val ) }
                />
             </Form.Item>
-
 
             <Form.Item
                label="Description"
@@ -133,15 +124,14 @@ const AddNewEventToRoom = () => {
                <TextArea
                   placeholder="Description"
                   autoSize={ { minRows: 2 } }
-                  onChange={ ( e ) => setEventDescription( e.target.value ) }
                />
             </Form.Item>
 
             <Button
                type="primary"
                style={ { display: 'block', margin: '0 auto' } }
-               onClick={ addEvent }
-               loading={ isWaiting }>
+               loading={ isWaiting }
+               htmlType="submit">
                Add event
             </Button>
          </Form>
