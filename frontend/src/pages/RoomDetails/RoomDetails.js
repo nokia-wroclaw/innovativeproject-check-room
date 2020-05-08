@@ -19,7 +19,7 @@ const RoomDetails = () => {
    const { roomId } = useParams();
    const backend = useContext( BackendContext );
 
-   useEffect( () => {
+   const updateCalendar = () => {
       const startDateTmp = moment()
          .startOf( 'day' )
          .toISOString();
@@ -32,7 +32,9 @@ const RoomDetails = () => {
       } ).catch( () => { } );
 
       return abort;
-   }, [ roomId, backend ] );
+   };
+
+   useEffect( updateCalendar, [ roomId, backend ] );
 
    const [ visible, setVisible ] = useState( false );
 
@@ -70,7 +72,10 @@ const RoomDetails = () => {
                   visible={ visible }
                   bodyStyle={ { paddingBottom: 80 } }
                   footer={ <Button onClick={ onClose }>Cancel</Button> }>
-                  <AddNewEventToRoom room={ room.calendar } />
+                  <AddNewEventToRoom room={ room.calendar } updateCalendar={ () => {
+                     onClose();
+                     updateCalendar();
+                  } }/>
                </Drawer>
             </>
          ) }

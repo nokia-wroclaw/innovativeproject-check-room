@@ -15,24 +15,25 @@ const nextHour = ( num = 1 ) => {
    return moment( `${ currentHour + num }:00`, 'HH:mm' );
 };
 
-const AddNewEventToRoom = ( { room } ) => {
+const mergeDateWithTime = ( date, time ) =>
+   moment( date ).set( {
+      hour: time.hour(),
+      minute: time.minute(),
+      second: 0
+   } ).format();
+
+const AddNewEventToRoom = ( { room, updateCalendar } ) => {
    const backend = useContext( BackendContext );
    const [ isWaiting, setIsWaiting ] = useState( false );
+
+   const [ form ] = Form.useForm();
 
    const addEvent = ( values ) => {
       const startEventTime = values.eventTime[0];
       const endEventTime = values.eventTime[1];
       const event = {
-         startDate: moment( values.eventDate ).set( {
-            hour: startEventTime.hour(),
-            minute: startEventTime.minute(),
-            second: 0,
-         } ).format(),
-         endDate: moment( values.eventDate ).set( {
-            hour: endEventTime.hour(),
-            minute: endEventTime.minute(),
-            second: 0,
-         } ).format(),
+         startDate: mergeDateWithTime( values.eventDate, startEventTime ),
+         endDate: mergeDateWithTime( values.eventDate, endEventTime ),
          summary: values.eventName,
          description: values.eventDescription,
       };
@@ -41,8 +42,10 @@ const AddNewEventToRoom = ( { room } ) => {
       promise.then( () => {
          backend.invalidateCache();
          setTimeout( () => {
-            window.location.reload();
+            updateCalendar();
          }, 500 );
+         setIsWaiting( false );
+         form.resetFields();
       } ).catch( () => {
          setIsWaiting( false );
       } );
@@ -53,6 +56,7 @@ const AddNewEventToRoom = ( { room } ) => {
          <RoomHeader roomData={ room } />
 
          <Form
+            form={ form }
             initialValues={ {
                'eventDate': moment().startOf( 'day' ),
                'eventTime': [ nextHour( 1 ), nextHour( 2 ) ],
@@ -110,4 +114,5 @@ AddNewEventToRoom.propTypes = {
       summary: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
    } ).isRequired,
+   updateCalendar: PropTypes.func.isRequired,
 };
