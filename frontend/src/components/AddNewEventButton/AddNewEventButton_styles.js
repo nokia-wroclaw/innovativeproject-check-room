@@ -9,6 +9,7 @@ export const StyledAddNewEventButton = styled( Link )`
 
    abbr {
       display: flex;
+      cursor: pointer;
    }
 
    svg {

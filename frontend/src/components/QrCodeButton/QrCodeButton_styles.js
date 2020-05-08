@@ -9,6 +9,7 @@ export const StyledQrCodeButton = styled( Link )`
 
    abbr {
       display: flex;
+      cursor: pointer;
    }
 
    svg {
