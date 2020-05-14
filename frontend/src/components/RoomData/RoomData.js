@@ -11,7 +11,7 @@ const RoomData = ( { room } ) => {
 
    return (
       <StyledRoomData>
-         { description ? <RoomDescription>{ description }</RoomDescription> : null }
+         <RoomDescription>{ description || 'no description' }</RoomDescription>
          { location ? (
             <RoomLocation>
                <LocationLine>{ location.building }, </LocationLine>
