@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { Button, DatePicker, TimePicker, Input } from 'antd';
+import { Button, DatePicker, TimePicker, Input, InputNumber } from 'antd';
 
 const { TextArea } = Input;
 const { RangePicker } = TimePicker;
@@ -15,6 +15,10 @@ export const FullWidthDatePicker = styled( DatePicker )`
 
 export const FullWidthRangePicker = styled( RangePicker )`
    display: flex;
+`;
+
+export const FullWidthInputNumber = styled( InputNumber )`
+   width: 100%
 `;
 
 export const StyledTextArea = styled( TextArea )`

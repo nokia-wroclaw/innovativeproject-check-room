@@ -9,7 +9,7 @@ export const StyledHeader = styled.header`
    width: 100%;
    height: 70px;
    background-color: ${( { theme } ) => theme.primary};
-   z-index: 100;
+   z-index: 1100;
 `;
 
 export const HeaderWrapper = styled.div`
@@ -33,7 +33,7 @@ export const HeaderBrand = styled( Link )`
    color: ${( { theme } ) => theme.white};
    text-align: center;
    text-decoration: none;
-   z-index: 100;
+   z-index: 1100;
 `;
 
 export const StyledNav = styled.nav`

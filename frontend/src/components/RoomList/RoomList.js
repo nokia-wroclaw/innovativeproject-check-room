@@ -21,7 +21,7 @@ const RoomList = ( { roomsData } ) => {
 
    return (
       <StyledRoomList>
-         <RoomFilterOptions state={ [ filters, setFilters ] } />
+         <RoomFilterOptions state={ { roomsData, filters, setFilters } } />
          <FilteredRoomList>
             { rooms.length < 1 ? <h1>No Calendars</h1> : (
                rooms
