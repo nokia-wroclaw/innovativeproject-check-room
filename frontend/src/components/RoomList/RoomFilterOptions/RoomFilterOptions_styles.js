@@ -7,5 +7,5 @@ export const StyledRoomFilterOptions = styled.div`
 
    border: 2px solid ${( { theme } ) => darken( 0.1, theme.primary )};
    border-radius: 20px;
-   padding: 20px;
+   padding: 24px 24px 0 24px;
 `;

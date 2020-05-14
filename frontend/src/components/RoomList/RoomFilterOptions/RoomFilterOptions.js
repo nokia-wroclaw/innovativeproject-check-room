@@ -34,21 +34,19 @@ const RoomFilterOptions = ( { state } ) => {
                   </Form.Item>
                </Col>
             </Row>
-            <Row gutter={ 20 } align="center">
-               <Col>
+            <Row align="center">
+               <Col span={ 12 }>
                   <Form.Item
                      valuePropName="checked"
-                     label="Projector"
                      name="hasProjector">
-                     <Checkbox />
+                     <Checkbox>Projector</Checkbox>
                   </Form.Item>
                </Col>
-               <Col>
+               <Col span={ 12 }>
                   <Form.Item
                      valuePropName="checked"
-                     label="Whiteboard"
                      name="hasWhiteboard">
-                     <Checkbox />
+                     <Checkbox>Whiteboard</Checkbox>
                   </Form.Item>
                </Col>
             </Row>
