@@ -27,6 +27,11 @@ class RoomFilter {
          if ( !roomName.includes( filterName ) ) return false;
       }
 
+      if ( filters.building ) {
+         if ( !room.location ) return false;
+         if ( room.location.building !== filters.building ) return false;
+      }
+
       return true;
    }
 
