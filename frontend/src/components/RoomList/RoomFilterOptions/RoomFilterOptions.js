@@ -77,13 +77,13 @@ const RoomFilterOptions = ( { state } ) => {
                   </Form.Item>
                </Col>
             </Row>
-            <Row align="center">
-               <Col span={ 12 }>
+            <Row align="space-around">
+               <Col>
                   <Form.Item valuePropName="checked" name="hasProjector">
                      <Checkbox>Projector</Checkbox>
                   </Form.Item>
                </Col>
-               <Col span={ 12 }>
+               <Col>
                   <Form.Item valuePropName="checked" name="hasWhiteboard">
                      <Checkbox>Whiteboard</Checkbox>
                   </Form.Item>
