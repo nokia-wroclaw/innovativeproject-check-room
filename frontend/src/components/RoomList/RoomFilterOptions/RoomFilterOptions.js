@@ -1,22 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Form, Input, Checkbox, Row, Col, Select } from 'antd';
+import { Form, Input, Checkbox, Row, Col, TreeSelect } from 'antd';
 import { FullWidthInputNumber } from '../../StyledFormComponents/StyledFormComponents';
 import { StyledRoomFilterOptions } from './RoomFilterOptions_styles';
 import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
+
+const { TreeNode } = TreeSelect;
 
 const RoomFilterOptions = ( { state } ) => {
    const { roomsData, filters, setFilters } = state;
 
    const rooms = roomsData.map( ( room ) => RoomMetadataDTO.from( room ) );
-   const buildings = _.uniq(
-      rooms
-         .filter( ( room ) => room.location )
-         .map( ( room ) => room.location.building )
+   const buildings = _.groupBy(
+      _.sortedUniqBy(
+         _.sortBy(
+            rooms.filter( ( room ) => room.location ).map( ( room ) => room.location ),
+            [ 'building', 'floorNo' ]
+         ),
+         ( location ) => `${location.building}_${location.floorNo}`
+      ),
+      'building'
    );
 
-   const onValuesChange = ( newVals ) => setFilters( { ...filters, ...newVals } );
+   const onValuesChange = ( newVals ) => {
+      setFilters( { ...filters, ...newVals } );
+   };
 
    return (
       <StyledRoomFilterOptions>
@@ -40,13 +49,31 @@ const RoomFilterOptions = ( { state } ) => {
                </Col>
             </Row>
             <Row gutter={ 20 }>
-               <Col span={ 12 }>
+               <Col span={ 24 }>
                   <Form.Item label="Building" name="building">
-                     <Select placeholder="Building" showSearch allowClear>
-                        { buildings.map( ( building ) => (
-                           <Select.Option key={ building } value={ building }>{ building }</Select.Option>
-                        ) ) }
-                     </Select>
+                     <TreeSelect
+                        placeholder="Building"
+                        treeCheckable
+                        showCheckedStrategy="SHOW_PARENT"
+                     >
+                        { Object.entries( buildings ).map(
+                           ( [ buildingName, floors ] ) => (
+                              <TreeNode
+                                 key={ buildingName }
+                                 value={ buildingName }
+                                 title={ buildingName }
+                              >
+                                 { floors.map( ( { floorNo: floor } ) => (
+                                    <TreeNode
+                                       key={ `${buildingName}_${floor}` }
+                                       value={ `${buildingName}_${floor}` }
+                                       title={ `Floor ${floor}` }
+                                    />
+                                 ) ) }
+                              </TreeNode>
+                           )
+                        ) }
+                     </TreeSelect>
                   </Form.Item>
                </Col>
             </Row>

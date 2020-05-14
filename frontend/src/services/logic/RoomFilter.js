@@ -18,7 +18,7 @@ class RoomFilter {
       }
 
       if ( filters.seatsNo ) {
-         if ( room.seatsNo < filters.seatsNo ) return false;
+         if ( !( room.seatsNo >= filters.seatsNo ) ) return false;
       }
 
       if ( filters.name ) {
@@ -27,9 +27,12 @@ class RoomFilter {
          if ( !roomName.includes( filterName ) ) return false;
       }
 
-      if ( filters.building ) {
+      if ( filters.building && filters.building.length > 0 ) {
          if ( !room.location ) return false;
-         if ( room.location.building !== filters.building ) return false;
+         const location = `${room.location.building}_${room.location.floorNo}`;
+         const selectedThisFloor = filters.building.includes( location );
+         const selectedThisBuilding = filters.building.includes( room.location.building );
+         if ( !( selectedThisFloor || selectedThisBuilding ) ) return false;
       }
 
       return true;
