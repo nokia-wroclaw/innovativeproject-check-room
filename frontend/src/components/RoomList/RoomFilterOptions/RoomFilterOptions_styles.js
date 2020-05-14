@@ -8,14 +8,4 @@ export const StyledRoomFilterOptions = styled.div`
    border: 2px solid ${( { theme } ) => darken( 0.1, theme.primary )};
    border-radius: 20px;
    padding: 20px;
-
-   display: grid;
-   grid-gap: 10px;
-
-   ${( { theme } ) => theme.mdq.sm} {
-      grid-template-columns: 1fr 1fr;
-      label {
-         justify-content: center;
-      }
-   }
 `;

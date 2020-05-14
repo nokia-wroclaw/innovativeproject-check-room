@@ -1,48 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputField from '../../InputField/InputField';
+import { Form, Input, Checkbox, Row, Col } from 'antd';
+import { FullWidthInputNumber } from '../../StyledFormComponents/StyledFormComponents';
 import { StyledRoomFilterOptions } from './RoomFilterOptions_styles';
 
 const RoomFilterOptions = ( { state } ) => {
    const [ filters, setFilters ] = state;
 
+   const onValuesChange = ( newVals ) =>
+      setFilters( { ...filters, ...newVals } );
+
    return (
       <StyledRoomFilterOptions>
-         <InputField
-            label="Name"
-            type="search"
-            value={ filters.name }
-            onChange={ ( val ) => setFilters(
-               { ...filters, name: val }
-            ) } />
-
-         <InputField
-            label="Seats"
-            labelPosition="left"
-            type="number"
-            value={ filters.seatsNo }
-            min={ 0 }
-            onChange={ ( val ) => setFilters(
-               { ...filters, seatsNo: val }
-            ) } />
-
-         <InputField
-            label="Projector"
-            labelPosition="right"
-            type="checkbox"
-            value={ filters.hasProjector }
-            onChange={ ( val ) => setFilters(
-               { ...filters, hasProjector: val }
-            ) } />
-
-         <InputField
-            label="Whiteboard"
-            labelPosition="right"
-            type="checkbox"
-            value={ filters.hasWhiteboard }
-            onChange={ ( val ) => setFilters(
-               { ...filters, hasWhiteboard: val }
-            ) } />
+         <Form onValuesChange={ onValuesChange }>
+            <Row gutter={ 20 }>
+               <Col span={ 12 }>
+                  <Form.Item
+                     label="Room name"
+                     name="name">
+                     <Input placeholder="Room name" />
+                  </Form.Item>
+               </Col>
+               <Col span={ 12 }>
+                  <Form.Item
+                     label="Seats"
+                     name="seatsNo">
+                     <FullWidthInputNumber
+                        min={ 0 }
+                        placeholder="Seats"
+                        type="number"
+                        inputtype="numeric"
+                        pattern="[0-9]*" />
+                  </Form.Item>
+               </Col>
+            </Row>
+            <Row gutter={ 20 } align="center">
+               <Col>
+                  <Form.Item
+                     valuePropName="checked"
+                     label="Projector"
+                     name="hasProjector">
+                     <Checkbox />
+                  </Form.Item>
+               </Col>
+               <Col>
+                  <Form.Item
+                     valuePropName="checked"
+                     label="Whiteboard"
+                     name="hasWhiteboard">
+                     <Checkbox />
+                  </Form.Item>
+               </Col>
+            </Row>
+         </Form>
       </StyledRoomFilterOptions>
    );
 };
