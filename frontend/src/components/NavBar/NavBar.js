@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import MyGoogleLogin from './Google/MyGoogleLogin';
+import MyGoogleName from './Google/MyGoogleName';
+import MyGoogleLogout from './Google/MyGoogleLogout';
 
 import {
    HeaderWrapper,
@@ -6,6 +9,7 @@ import {
    NavList,
    NavItem,
    NavLink,
+   NavButton,
    HeaderBrand,
    StyledNav,
 } from './NavBar_styles';
@@ -26,8 +30,7 @@ const NavBar = () => {
    useEffect( () => {
       window.addEventListener( 'keydown', handleKeyboard );
 
-
-      return ()=>{
+      return () => {
          window.removeEventListener( 'keypress', handleKeyboard );
       };
    }, [] );
@@ -42,6 +45,28 @@ const NavBar = () => {
                   <NavItem>
                      <NavLink to="/">Rooms</NavLink>
                   </NavItem>
+                  <MyGoogleLogin
+                     render={ ( renderProps ) =>
+                        <NavItem>
+                           <NavButton onClick={ renderProps.onClick } disabled={ renderProps.disabled }>
+                              Log in with Google
+                           </NavButton>
+                        </NavItem>
+                     } />
+                  <MyGoogleName
+                     render={ ( renderProps ) =>
+                        <NavItem>
+                           <NavButton>{ renderProps.name }</NavButton>
+                        </NavItem>
+                     } />
+                  <MyGoogleLogout
+                     render={ ( renderProps ) =>
+                        <NavItem>
+                           <NavButton onClick={ renderProps.onClick } disabled={ renderProps.disabled }>
+                              Log out
+                           </NavButton>
+                        </NavItem>
+                     } />
                </NavList>
             </StyledNav>
          </HeaderWrapper>

@@ -92,3 +92,17 @@ export const NavLink = styled( Link )`
    text-decoration: none;
    color: ${( { theme } ) => theme.white};
 `;
+
+export const NavButton = styled.a`
+   display: block;
+   width: 100%;
+   height: 100%;
+   padding: 30px 20px;
+   ${( { theme } ) => theme.mdq.md} {
+      padding: 15px 20px;
+   }
+   text-decoration: none;
+   color: ${( { theme } ) => theme.white};
+
+   cursor: pointer;
+`;

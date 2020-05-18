@@ -1,11 +1,12 @@
 import moment from 'moment';
+import { useState } from 'react';
 import { message } from 'antd';
 import { constants } from '../../assets/configs/constants';
 import JsonParser from '../parsing/JsonParser';
 
 const errorHandler = ( error ) => {
    if ( error.name === 'AbortError' ) return;
-   message.error( `${error}` );
+   message.error( error );
 };
 
 class Backend {
@@ -13,6 +14,23 @@ class Backend {
       // `cache` entries are in the following format:
       // "url/fragment" -> { "data": {}, "retrievedAt": moment() }
       this.cache = new Map();
+      [ this.auth, this.setAuth ] = useState( null );
+   }
+
+   isLoggedIn() {
+      return this.auth !== null;
+   }
+
+   getAuth() {
+      return this.auth;
+   }
+
+   logIn( obj ) {
+      this.setAuth( obj );
+   }
+
+   logOut() {
+      this.setAuth( null );
    }
 
    invalidateCache() {
