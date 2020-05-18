@@ -24,7 +24,7 @@ class Query {
          calendarUri = `${calendarOrCalendarUri}@group.calendar.google.com`;
       }
 
-      const [ promise, abort ] = this.rooms();
+      const [ promise, abort ] = this.allRoomsMetadata();
       const newPromise = promise.then( ( calendars ) => {
          const candidates = calendars.filter(
             ( calendar ) => calendar.id === calendarUri
