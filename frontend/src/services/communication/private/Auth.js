@@ -12,6 +12,10 @@ class Auth {
    logout() {
       this.setUser( null );
    }
+
+   token() {
+      return this.user.tokenId;
+   }
 }
 
 export default Auth;
