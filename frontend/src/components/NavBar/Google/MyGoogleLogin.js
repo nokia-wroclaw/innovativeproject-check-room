@@ -8,7 +8,7 @@ import BackendContext from '../../../services/communication/BackendContext';
 const MyGoogleLogin = ( { render } ) => {
    const backend = useContext( BackendContext );
    const loginSucceeded = ( user ) => backend.auth.login( user );
-   const loginFailed = ( error ) => message.error( error );
+   const loginFailed = ( error ) => message.error( `${error}` );
 
    return backend.auth.user ? null : (
       <GoogleLogin

@@ -4,7 +4,7 @@ import JsonParser from '../../parsing/JsonParser';
 
 const errorHandler = ( error ) => {
    if ( error.name === 'AbortError' ) return;
-   message.error( error );
+   message.error( `${error}` );
 };
 
 class Fetcher {
