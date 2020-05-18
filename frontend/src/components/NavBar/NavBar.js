@@ -56,7 +56,7 @@ const NavBar = () => {
                   <MyGoogleName
                      render={ ( renderProps ) =>
                         <NavItem>
-                           <NavButton>{ renderProps.name }</NavButton>
+                           <NavButton disabled>{ renderProps.name }</NavButton>
                         </NavItem>
                      } />
                   <MyGoogleLogout

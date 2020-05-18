@@ -105,4 +105,7 @@ export const NavButton = styled.a`
    color: ${( { theme } ) => theme.white};
 
    cursor: pointer;
+   &[disabled] {
+      color: ${( { theme } ) => theme.white};
+   }
 `;
