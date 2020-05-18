@@ -8,7 +8,7 @@ const Rooms = () => {
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = backend.listRooms();
+      const [ promise, abort ] = backend.query.allRoomsMetadata();
       promise.then( ( roomList ) => {
          setRooms( roomList );
          setIsLoading( false );
