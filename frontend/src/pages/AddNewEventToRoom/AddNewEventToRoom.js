@@ -36,9 +36,9 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
          description: values.eventDescription,
       };
       setIsWaiting( true );
-      const [ promise ] = backend.addEvent( room.id, event );
+      const [ promise ] = backend.command.addEvent( room.id, event );
       promise.then( () => {
-         backend.invalidateCache();
+         backend.cache.reset();
          setTimeout( () => {
             updateCalendar();
             form.resetFields();

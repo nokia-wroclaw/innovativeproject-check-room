@@ -18,7 +18,7 @@ const QRCode = () => {
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = backend.fetchRoomMetadata( roomId );
+      const [ promise, abort ] = backend.query.roomMetadata( roomId );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );

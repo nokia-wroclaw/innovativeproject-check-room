@@ -4,9 +4,9 @@ import BackendContext from '../../../services/communication/BackendContext';
 
 const MyGoogleName = ( { render } ) => {
    const backend = useContext( BackendContext );
-   const auth = backend.getAuth();
+   const { user } = backend.auth;
 
-   return auth ? render( { name: auth.profileObj.name } ) : null;
+   return user ? render( { name: user.profileObj.name } ) : null;
 };
 
 MyGoogleName.propTypes = {

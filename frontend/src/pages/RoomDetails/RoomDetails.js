@@ -25,7 +25,7 @@ const RoomDetails = () => {
          .toISOString();
       setStartDate( startDateTmp );
 
-      const [ promise, abort ] = backend.fetchRoom( roomId, startDateTmp );
+      const [ promise, abort ] = backend.query.roomMetadataAndEvents( roomId, startDateTmp );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );

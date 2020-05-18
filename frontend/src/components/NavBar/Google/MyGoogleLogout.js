@@ -6,9 +6,9 @@ import BackendContext from '../../../services/communication/BackendContext';
 
 const MyGoogleLogout = ( { render } ) => {
    const backend = useContext( BackendContext );
-   const logoutSucceeded = () => backend.logOut();
+   const logoutSucceeded = () => backend.auth.logout();
 
-   return backend.isLoggedIn() ? (
+   return backend.auth.user ? (
       <GoogleLogout
          render={ render }
          clientId={ constants.google.CLIENT_ID }
