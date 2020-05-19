@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const StyledRoomList = styled.div`
-  padding: 20px;
+  padding: 13px;
   display: flex;
   flex-direction: column;
   align-items: center;
