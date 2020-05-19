@@ -1,7 +1,7 @@
 const mongoose = require( 'mongoose' );
 
 class DBConnection {
-   async create() {
+   async make() {
       if ( DBConnection.connected ) {
          return;
       }
