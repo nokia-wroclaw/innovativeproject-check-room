@@ -1,6 +1,7 @@
 class Command {
-   constructor( fetcher ) {
+   constructor( fetcher, auth ) {
       this.fetcher = fetcher;
+      this.auth = auth;
    }
 
    // Create an event.
@@ -11,7 +12,7 @@ class Command {
          [ calendar, ] = calendarOrCalendarUri.split( '@' );
       }
 
-      return this.fetcher.post( `calendar/${calendar}`, event );
+      return this.fetcher.post( `calendar/${calendar}`, event, this.auth );
    }
 }
 

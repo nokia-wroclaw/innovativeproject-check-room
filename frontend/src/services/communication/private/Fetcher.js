@@ -40,7 +40,9 @@ class Fetcher {
       return [ promise, abort ];
    }
 
-   post( urlFragment, object ) {
+   post( urlFragment, object, auth = null ) {
+      const authHeader = auth ? { 'X-GOOGLE-AUTH': auth.token() } : {};
+
       const controller = new AbortController();
       const { signal } = controller;
       const abort = () => controller.abort();
@@ -55,6 +57,7 @@ class Fetcher {
                   headers: {
                      'X-APP-TOKEN': 'Check Room',
                      'Content-Type': 'application/json',
+                     ...authHeader
                   },
                   body: JSON.stringify( object ),
                }

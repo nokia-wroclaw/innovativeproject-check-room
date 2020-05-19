@@ -1,6 +1,7 @@
 class Query {
-   constructor( cache ) {
+   constructor( cache, auth ) {
       this.cache = cache;
+      this.auth = auth;
    }
 
    roomMetadataAndEvents( calendarOrCalendarUri, startDate ) {
