@@ -2,7 +2,7 @@ const { OAuth2Client } = require( 'google-auth-library' );
 
 class GoogleOAuthConnection {
    constructor() {
-      this.clientId = process.env.GOOGLE_CLIENT_ID;
+      this.clientId = process.env.GOOGLE_CLIENT_SECRET;
 
       if ( this.clientId === undefined ) {
          throw new Error( 'Google client ID is missing' );

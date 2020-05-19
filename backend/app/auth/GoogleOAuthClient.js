@@ -20,3 +20,7 @@ class GoogleOAuthClient {
       return userId;
    }
 }
+
+GoogleOAuthClient.connection = null;
+
+module.exports = GoogleOAuthClient;
