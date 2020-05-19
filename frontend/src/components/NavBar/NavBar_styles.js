@@ -2,14 +2,9 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
-   position: fixed;
-   top: 0;
-   left: 0;
-   right: 0;
    width: 100%;
    height: 70px;
    background-color: ${( { theme } ) => theme.primary};
-   z-index: 1100;
 `;
 
 export const HeaderWrapper = styled.div`
@@ -22,7 +17,7 @@ export const HeaderWrapper = styled.div`
    padding: 10px 10%;
    ${( props ) => props.theme.mdq.sm} {
       justify-content: space-around;
-      padding: 10px;
+      padding: 5px 10px;
    }
 `;
 
@@ -33,7 +28,6 @@ export const HeaderBrand = styled( Link )`
    color: ${( { theme } ) => theme.white};
    text-align: center;
    text-decoration: none;
-   z-index: 1100;
 `;
 
 export const StyledNav = styled.nav`
