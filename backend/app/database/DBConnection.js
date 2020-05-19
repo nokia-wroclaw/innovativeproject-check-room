@@ -1,27 +1,24 @@
 const mongoose = require( 'mongoose' );
 
 class DBConnection {
-   async getConnection() {
-      if ( DBConnection.connection == null ) {
-         await this.$connect();
+   async create() {
+      if ( DBConnection.connected ) {
+         return;
       }
 
-      return DBConnection.connection;
-   }
-
-   async $connect() {
       try {
-         DBConnection.connection = await mongoose.connect( process.env.MONGO_URL, {
+         await mongoose.connect( process.env.MONGO_URL, {
             useNewUrlParser: true,
          } );
+         DBConnection.connected = true;
       }
       catch ( e ) {
-         console.log( `Failed to connect to database: ${e}` );
+         console.error( `Failed to connect to database: ${e}` );
          throw e;
       }
    }
 }
 
-DBConnection.connection = null;
+DBConnection.connected = false;
 
 module.exports = DBConnection;
