@@ -1,9 +1,9 @@
 const supertest = require( 'supertest' );
 
 const CalendarClient = require( '../app/calendar/CalendarClient' );
-const Connection = require( './app/calendar/Connection' );
+const CalendarConnection = require( './app/calendar/CalendarConnection' );
 
-CalendarClient.connection = new Connection();
+CalendarClient.connection = new CalendarConnection();
 
 const Cors = require( '../app/middleware/cors/Automatic' );
 const AllAllowed = require( '../app/middleware/cors/AllAllowed' );

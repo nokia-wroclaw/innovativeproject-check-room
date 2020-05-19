@@ -1,8 +1,11 @@
 const { google } = require( 'googleapis' );
 
-class Connection {
+class CalendarConnection {
    constructor() {
-      this.connection = google.calendar( { version: 'v3', auth: this.makeOAuthClient() } );
+      this.connection = google.calendar( {
+         version: 'v3',
+         auth: this.makeOAuthClient(),
+      } );
    }
 
    makeOAuthClient() {
@@ -18,7 +21,9 @@ class Connection {
       // eslint-disable-next-line camelcase
       const { client_secret, client_id, redirect_uris } = credentials.installed;
       const oAuth2Client = new google.auth.OAuth2(
-         client_id, client_secret, redirect_uris[0],
+         client_id,
+         client_secret,
+         redirect_uris[0],
       );
 
       oAuth2Client.setCredentials( JSON.parse( token ) );
@@ -31,4 +36,4 @@ class Connection {
    }
 }
 
-module.exports = Connection;
+module.exports = CalendarConnection;
