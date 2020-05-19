@@ -17,6 +17,7 @@
       "express": "^4.17.1",
       "googleapis": "^48.0.0",
       "moment": "^2.24.0",
+      "mongoose": "^5.9.15",
       "morgan": "^1.10.0",
       "node-fetch": "^2.6.0",
       "yargs": "^15.3.1",
