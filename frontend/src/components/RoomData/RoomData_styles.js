@@ -13,12 +13,22 @@ export const RoomDescription = styled.div`
 
 export const RoomLocation = styled.div`
   font-style: italic;
-  margin: 10px;
+  font-size: 0.8em;
+  margin-bottom: 2px;
+`;
+
+export const Bottom = styled.div`
   margin-top: auto;
 `;
 
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${( { theme } ) => theme.primary };
+  margin-bottom: 5px;
+`;
+
 export const RoomIndicators = styled.div`
-  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,8 +48,4 @@ export const Indicator = styled.div`
     margin: 0 5px;
     color: ${( { active, theme } ) => active ? theme.primary : 'gray'};
   }
-`;
-
-export const LocationLine = styled.p`
-   margin: 0;
 `;
