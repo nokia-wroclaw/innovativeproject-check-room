@@ -12,7 +12,7 @@ class Command {
          [ calendar, ] = calendarOrCalendarUri.split( '@' );
       }
 
-      return this.fetcher.post( `calendar/${calendar}`, event, this.auth );
+      return this.fetcher.post( `calendar/${calendar}`, { body: event, auth: this.auth } );
    }
 }
 

@@ -8,7 +8,9 @@ const errorHandler = ( error ) => {
 };
 
 class Fetcher {
-   get( urlFragment ) {
+   get( urlFragment, options = {} ) {
+      const authHeader = options.auth ? { 'X-GOOGLE-AUTH': options.auth.token() } : {};
+
       const controller = new AbortController();
       const { signal } = controller;
       const abort = () => controller.abort();
@@ -21,6 +23,7 @@ class Fetcher {
                   signal,
                   headers: {
                      'X-APP-TOKEN': 'Check Room',
+                     ...authHeader
                   }
                }
             );
@@ -40,8 +43,9 @@ class Fetcher {
       return [ promise, abort ];
    }
 
-   post( urlFragment, object, auth = null ) {
-      const authHeader = auth ? { 'X-GOOGLE-AUTH': auth.token() } : {};
+   post( urlFragment, options = {} ) {
+      const authHeader = options.auth ? { 'X-GOOGLE-AUTH': options.auth.token() } : {};
+      const bodySetting = options.body ? { body: JSON.stringify( options.body ) } : {};
 
       const controller = new AbortController();
       const { signal } = controller;
@@ -59,7 +63,7 @@ class Fetcher {
                      'Content-Type': 'application/json',
                      ...authHeader
                   },
-                  body: JSON.stringify( object ),
+                  ...bodySetting
                }
             );
 

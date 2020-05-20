@@ -13,7 +13,7 @@ class Query {
 
       const url = `calendar/${calendar}?startDate=${startDate}`;
 
-      return this.cache.get( url, 15 );
+      return this.cache.get( url, { freshness: 15 } );
    }
 
    // This function fetches the metadata only.
