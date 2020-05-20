@@ -10,7 +10,7 @@ import RoomHeader from '../../components/RoomHeader/RoomHeader';
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
 
-   return moment( `${ currentHour + num }:00`, 'HH:mm' );
+   return moment( `${ ( currentHour + num ) % 24 }:00`, 'HH:mm' );
 };
 
 const mergeDateWithTime = ( date, time ) =>
