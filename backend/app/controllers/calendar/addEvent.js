@@ -26,8 +26,6 @@ module.exports = async ( req, res ) => {
          description: body.description,
       };
 
-      console.log( event );
-
       const client = new CalendarClient();
       const resp = await client.addEvent( event );
       res.send( resp );

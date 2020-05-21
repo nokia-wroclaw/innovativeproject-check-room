@@ -1,6 +1,7 @@
 class Query {
-   constructor( cache ) {
+   constructor( cache, auth ) {
       this.cache = cache;
+      this.auth = auth;
    }
 
    roomMetadataAndEvents( calendarOrCalendarUri, startDate ) {
@@ -12,7 +13,7 @@ class Query {
 
       const url = `calendar/${calendar}?startDate=${startDate}`;
 
-      return this.cache.get( url, 15 );
+      return this.cache.get( url, { freshness: 15 } );
    }
 
    // This function fetches the metadata only.
@@ -53,6 +54,10 @@ class Query {
       );
 
       return [ newPromise, abort ];
+   }
+
+   userInfo() {
+      return this.cache.get( 'user', { auth: this.auth } );
    }
 }
 

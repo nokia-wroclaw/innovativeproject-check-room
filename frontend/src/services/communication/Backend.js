@@ -9,10 +9,10 @@ class Backend {
       this.auth = new Auth();
 
       this.fetcher = new Fetcher();
-      this.command = new Command( this.fetcher );
+      this.command = new Command( this.fetcher, this.auth );
 
       this.cache = new CachedFetcher( this.fetcher );
-      this.query = new Query( this.cache );
+      this.query = new Query( this.cache, this.auth );
    }
 }
 

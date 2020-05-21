@@ -1,10 +1,10 @@
-const Connection = require( './Connection' );
+const CalendarConnection = require( './CalendarConnection' );
 const { sleep } = require( '../util.js' );
 
 class CalendarClient {
    constructor() {
       if ( CalendarClient.connection === null ) {
-         CalendarClient.connection = new Connection();
+         CalendarClient.connection = new CalendarConnection();
       }
 
       this.calendar = CalendarClient.connection.getConnection();

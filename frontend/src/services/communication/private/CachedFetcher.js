@@ -12,9 +12,10 @@ class CachedFetcher {
       this.cache = new Map();
    }
 
-   get( urlFragment, freshness = 5 * 60 ) {
+   get( urlFragment, options = {} ) {
       if ( this.cache.has( urlFragment ) ) {
          const entry = this.cache.get( urlFragment );
+         const freshness = options.freshness ?? 5 * 60;
 
          if ( moment().diff( entry.retrievedAt, 'seconds' ) < freshness ) {
             const promise = ( async () => entry.data )();
@@ -25,7 +26,7 @@ class CachedFetcher {
          }
       }
 
-      const [ promise, abort ] = this.fetcher.get( urlFragment );
+      const [ promise, abort ] = this.fetcher.get( urlFragment, options );
       const promiseWithCache = promise.then( ( data ) => {
          this.cache.set( urlFragment, {
             data,
