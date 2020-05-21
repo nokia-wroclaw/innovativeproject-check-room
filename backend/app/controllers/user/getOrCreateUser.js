@@ -1,4 +1,3 @@
-const yup = require( 'yup' );
 const User = require( '../../../schema/user' );
 const DBConnection = require( '../../database/DBConnection' );
 const GoogleOAuthClient = require( '../../auth/GoogleOAuthClient' );
