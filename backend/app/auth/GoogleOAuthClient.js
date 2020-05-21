@@ -17,7 +17,11 @@ class GoogleOAuthClient {
       const payload = ticket.getPayload();
       const userId = payload.sub;
 
-      return userId;
+      return {
+         id: payload.sub,
+         name: payload.name,
+         email: payload.email,
+      };
    }
 }
 

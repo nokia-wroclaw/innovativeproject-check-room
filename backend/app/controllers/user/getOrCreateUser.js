@@ -5,7 +5,6 @@ const GoogleOAuthClient = require( '../../auth/GoogleOAuthClient' );
 
 module.exports = async ( req, res ) => {
    try {
-      console.log( req.headers );
       const token = req.header( 'X-GOOGLE-AUTH' );
 
       if ( !token ) {
@@ -13,13 +12,18 @@ module.exports = async ( req, res ) => {
       }
 
       const OAuthClient = new GoogleOAuthClient();
-      const googleId = await OAuthClient.verify( token );
+      const googleUser = await OAuthClient.verify( token );
 
       await new DBConnection().make();
-      const user = await User.findOne( { googleId } ).exec();
+      let user = await User.findOne( { googleId: googleUser.id } ).exec();
 
       if ( !user ) {
-         // TODO: create an user.
+         const newUser = {
+            name: googleUser.name,
+            email: googleUser.email,
+            googleId: googleUser.id,
+         };
+         user = await new User( newUser ).save();
       }
 
       res.send( user );
