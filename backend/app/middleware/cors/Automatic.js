@@ -14,7 +14,6 @@ class Automatic {
 
    handler() {
       const Policy = Automatic.policy;
-      console.log( `Loading CORS policy: ${Policy.prototype.constructor.name}` );
 
       return new Policy().handler();
    }
