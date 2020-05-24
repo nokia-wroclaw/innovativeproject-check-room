@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import UserList from '../../components/UserList/UserList';
 import BackendContext from '../../services/communication/BackendContext';
+import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
 const Users = () => {
    const [ users, setUsers ] = useState( [] );
@@ -19,17 +20,8 @@ const Users = () => {
       return abort;
    }, [ backend, backend.auth.user ] );
 
-   return (
-      <>
-         { isLoading ? (
-            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-               Loading
-            </h1>
-         ) : (
-            <UserList usersData={ users } />
-         ) }
-      </>
-   );
+   return isLoading ? <LoadingPage />
+      : <UserList usersData={ users } />;
 };
 
 export default Users;

@@ -10,6 +10,7 @@ import QrCodeButton from '../../components/QrCodeButton/QrCodeButton';
 import AddNewEventButton from '../../components/AddNewEventButton/AddNewEventButton';
 import AddNewEventToRoom from '../AddNewEventToRoom/AddNewEventToRoom';
 import { FlexCenter } from './RoomDetails_styles';
+import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
 const RoomDetails = () => {
    const [ room, setRoom ] = useState( [] );
@@ -40,42 +41,33 @@ const RoomDetails = () => {
 
    const canAdd = backend.auth.can( 'add event' );
 
-   return (
+   return isLoading ? <LoadingPage /> :
       <>
-         { isLoading ? (
-            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-               Loading
-            </h1>
-         ) : (
-            <>
-               <RoomHeader roomData={ room.calendar } />
-               <FlexCenter style={ { display: 'flex' } }>
-                  <QrCodeButton id={ roomId } />
-                  <ToggleSwitch
-                     toggleFunc={ toggleIsCompact }
-                     value={ isCompact }
-                     name="compact"
-                  />
-                  { canAdd ? <AddNewEventButton openDrawer={ openDrawer } /> : null }
-               </FlexCenter>
+         <RoomHeader roomData={ room.calendar } />
+         <FlexCenter style={ { display: 'flex' } }>
+            <QrCodeButton id={ roomId } />
+            <ToggleSwitch
+               toggleFunc={ toggleIsCompact }
+               value={ isCompact }
+               name="compact"
+            />
+            { canAdd ? <AddNewEventButton openDrawer={ openDrawer } /> : null }
+         </FlexCenter>
 
-               <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
+         <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
 
-               <Drawer
-                  title="Add an event"
-                  width="min(600px, 90%)"
-                  onClose={ closeDrawer }
-                  visible={ drawerOpen }
-                  bodyStyle={ { paddingBottom: 80 } }>
-                  <AddNewEventToRoom room={ room.calendar } onSubmit={ () => {
-                     closeDrawer();
-                     updateCalendar();
-                  } }/>
-               </Drawer>
-            </>
-         ) }
-      </>
-   );
+         <Drawer
+            title="Add an event"
+            width="min(600px, 90%)"
+            onClose={ closeDrawer }
+            visible={ drawerOpen }
+            bodyStyle={ { paddingBottom: 80 } }>
+            <AddNewEventToRoom room={ room.calendar } onSubmit={ () => {
+               closeDrawer();
+               updateCalendar();
+            } }/>
+         </Drawer>
+      </>;
 };
 
 export default RoomDetails;

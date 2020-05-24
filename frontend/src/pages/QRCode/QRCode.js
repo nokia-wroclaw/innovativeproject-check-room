@@ -4,6 +4,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledQRCode } from './QRCode_styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
+import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
 const QRCode = () => {
    // `roomLink` is a full URL (with domain), `roomPath` is not.
@@ -29,13 +30,9 @@ const QRCode = () => {
 
    return (
       <StyledQRCode>
-         { isLoading ? (
-            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-               Loading
-            </h1>
-         ) : (
+         { isLoading ? <LoadingPage /> :
             <RoomHeader roomData={ room } />
-         ) }
+         }
          <Link to={ roomPath }>Go Back</Link>
          <QRCodeLib value={ roomLink } size={ 400 } />
       </StyledQRCode>
