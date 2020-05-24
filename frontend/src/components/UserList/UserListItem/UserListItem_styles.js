@@ -4,6 +4,7 @@ export const StyledUserListItem = styled.div`
    padding: 8px;
 
    display: grid;
+   grid-gap: 2px;
    grid-template-columns: 1fr 100px 70px;
 `;
 

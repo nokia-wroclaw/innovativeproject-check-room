@@ -23,6 +23,14 @@ class Command {
 
       return this.fetcher.post( 'user', { body, auth: this.auth } );
    }
+
+   deleteUser( userId ) {
+      const body = {
+         id: userId,
+      };
+
+      return this.fetcher.post( 'user/delete', { body, auth: this.auth } );
+   }
 }
 
 export default Command;
