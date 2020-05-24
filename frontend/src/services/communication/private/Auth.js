@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 class Auth {
-   constructor( backend ) {
-      this.backend = backend;
+   constructor( fetcher ) {
+      this.fetcher = fetcher;
 
       [ this.user, this.setUser ] = useState( null );
 
@@ -15,7 +15,7 @@ class Auth {
       this.setUser( user );
 
       const auth = this.$simpleAuth( user );
-      const [ promise, abort ] = this.backend.fetcher.get( 'user', { auth } );
+      const [ promise, abort ] = this.fetcher.get( 'user', { auth } );
       this.taskToAbort = abort;
       const reply = await promise;
 
