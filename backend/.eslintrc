@@ -23,6 +23,7 @@
    },
    "rules": {
       "import/prefer-default-export": 0,
+      "no-underscore-dangle": [ "off" ],
       "semi": [
          1,
          "always"
