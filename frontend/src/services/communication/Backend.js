@@ -6,7 +6,7 @@ import Command from './private/Command';
 
 class Backend {
    constructor() {
-      this.auth = new Auth();
+      this.auth = new Auth( this );
 
       this.fetcher = new Fetcher();
       this.command = new Command( this.fetcher, this.auth );

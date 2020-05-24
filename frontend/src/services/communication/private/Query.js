@@ -55,10 +55,6 @@ class Query {
 
       return [ newPromise, abort ];
    }
-
-   userInfo() {
-      return this.cache.get( 'user', { auth: this.auth } );
-   }
 }
 
 export default Query;
