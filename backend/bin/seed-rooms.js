@@ -64,8 +64,7 @@ async function seedEvents( days, room ) {
             const startDate = moment( day ).add( start, 'minute' );
             const endDate = moment( startDate ).add( length, 'minute' );
 
-            // eslint-disable-next-line no-await-in-loop
-            await addEvent( calendar, startDate, endDate, randomSummary() );
+            addEvent( calendar, startDate, endDate, randomSummary() );
          }
       }
    }
