@@ -8,7 +8,7 @@ import BackendContext from '../../services/communication/BackendContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import QrCodeButton from '../../components/QrCodeButton/QrCodeButton';
 import AddNewEventButton from '../../components/AddNewEventButton/AddNewEventButton';
-import AddNewEventToRoom from '../AddNewEventToRoom/AddNewEventToRoom';
+import AddNewEventForm from '../../components/AddNewEventForm/AddNewEventForm';
 import { FlexCenter } from './RoomDetails_styles';
 import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
@@ -62,7 +62,7 @@ const RoomDetails = () => {
             onClose={ closeDrawer }
             visible={ drawerOpen }
             bodyStyle={ { paddingBottom: 80 } }>
-            <AddNewEventToRoom room={ room.calendar } onSubmit={ () => {
+            <AddNewEventForm room={ room.calendar } onSubmit={ () => {
                closeDrawer();
                updateCalendar();
             } }/>

@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const StyledAddNewEventToRoom = styled.main`
+export const StyledAddNewEventForm = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
