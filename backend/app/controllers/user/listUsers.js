@@ -6,7 +6,7 @@ const DBConnection = require( '../../database/DBConnection' );
 module.exports = async ( req, res ) => {
    try {
       const user = await new FindOrCreateUserService().fromRequest( req );
-      new UserPolicy( user ).wantsTo( 'list users' );
+      new UserPolicy( user ).wantsTo( 'manage users' );
 
       await new DBConnection().make();
       const users = await User.find( {} ).exec();

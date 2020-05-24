@@ -14,7 +14,7 @@ module.exports = async ( req, res ) => {
       const body = await bodySchema.validate( req.body );
 
       const user = await new FindOrCreateUserService().fromRequest( req );
-      new UserPolicy( user ).wantsTo( 'edit user' );
+      new UserPolicy( user ).wantsTo( 'manage users' );
 
       await new DBConnection().make();
       const newUser = await User.updateOne( { _id: body.id }, { type: body.newType } ).exec();

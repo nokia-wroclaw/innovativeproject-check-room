@@ -38,7 +38,7 @@ const NavBar = () => {
       };
    }, [] );
 
-   const canManageUsers = backend.auth.can( 'list users' );
+   const canManageUsers = backend.auth.can( 'manage users' );
 
    return (
       <StyledHeader>
