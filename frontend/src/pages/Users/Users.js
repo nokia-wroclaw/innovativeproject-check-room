@@ -9,7 +9,12 @@ const Users = () => {
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      if ( !backend.auth.can( 'manage users' ) ) return () => { };
+      if ( !backend.auth.can( 'manage users' ) ) {
+         setUsers( [] );
+         setIsLoading( false );
+
+         return undefined;
+      }
 
       const [ promise, abort ] = backend.query.allUsers();
       promise.then( ( userList ) => {
