@@ -1,6 +1,8 @@
 const moment = require( 'moment' );
 const yup = require( 'yup' );
 const CalendarClient = require( '../../calendar/CalendarClient' );
+const FindOrCreateUserService = require( '../../services/FindOrCreateUserService' );
+const UserPolicy = require( '../../policies/UserPolicy' );
 
 const paramsSchema = yup.object().shape( {
    calendar: yup.string().required().matches( /[a-zA-Z0-9]{10,64}/ ),
@@ -17,6 +19,9 @@ module.exports = async ( req, res ) => {
    try {
       const params = await paramsSchema.validate( req.params );
       const body = await bodySchema.validate( req.body );
+
+      const user = await new FindOrCreateUserService().fromRequest( req );
+      new UserPolicy( user ).wantsTo( 'add event' );
 
       const event = {
          calendar: params.calendar,
