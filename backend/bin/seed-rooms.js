@@ -1,36 +1,32 @@
 #!/usr/bin/env node
 
-const fetch = require( 'node-fetch' );
 const moment = require( 'moment' );
 const yargs = require( 'yargs' );
+const CalendarClient = require( '../app/calendar/CalendarClient' );
 
 async function addEvent( calendar, startDate, endDate, summary ) {
-   const res = await fetch( `http://127.0.0.1:2000/api/calendar/${calendar}`,
-      {
-         method: 'POST',
-         headers: { 'X-APP-TOKEN': 'Check Room', 'Content-Type': 'application/json' },
-         body: JSON.stringify( {
-            startDate: startDate.format(),
-            endDate: endDate.format(),
-            summary,
-            description: '',
-         } ),
-      } );
+   const event = {
+      calendar,
+      start: startDate,
+      end: endDate,
+      summary,
+      description: '',
+   };
 
-   if ( !res.ok ) {
-      console.warn( `Failed to add event: ${await res.text()}` );
+   try {
+      const client = new CalendarClient();
+      await client.addEvent( event );
+   }
+   catch ( e ) {
+      console.warn( `Failed to add event: ${e}` );
    }
 }
 
 async function allRooms() {
-   const res = await fetch( 'http://127.0.0.1:2000/api/calendars',
-      {
-         headers: { 'X-APP-TOKEN': 'Check Room' },
-      } );
+   const client = new CalendarClient();
+   const calendars = await client.listCalendars();
 
-   const data = await res.json();
-
-   return data
+   return calendars
       .filter( ( x ) => x.summary.substr( 0, 5 ) === 'ROOM_' )
       .map( ( x ) => x.id.split( '@' )[0] );
 }
@@ -74,6 +70,8 @@ async function seedEvents( days, room ) {
       }
    }
 }
+
+require( 'dotenv' ).config();
 
 const { argv } = yargs
    .usage( 'Usage: npm run seed-rooms -- --days [days] --room [calendar|"all"]' )
