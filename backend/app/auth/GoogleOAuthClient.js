@@ -10,6 +10,10 @@ class GoogleOAuthClient {
    }
 
    async verify( token ) {
+      if ( !token ) {
+         throw new Error( 'Missing user token' );
+      }
+
       const ticket = await this.conn.verifyIdToken( {
          idToken: token,
          audience: this.conn.clientId,
