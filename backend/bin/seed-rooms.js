@@ -48,7 +48,7 @@ function randomSummary() {
    return summaries[randUniform( 0, summaries.length - 1 )];
 }
 
-async function seedEvents( days, room ) {
+async function seedEvents( days, room, eventsPerDay ) {
    const calendars = room === 'all' ? await allRooms() : [ room ];
 
    for ( let i = 0; i < calendars.length; i += 1 ) {
@@ -57,7 +57,7 @@ async function seedEvents( days, room ) {
       for ( let j = 0; j < days; j += 1 ) {
          const day = moment().startOf( 'day' ).add( j, 'day' );
 
-         for ( let l = 0; l < 3; l += 1 ) {
+         for ( let l = 0; l < eventsPerDay; l += 1 ) {
             const start = randUniform( 7 * 2, 15 * 2 ) * 30;
             const length = randUniform( 1, 4 ) * 60;
 
@@ -73,10 +73,10 @@ async function seedEvents( days, room ) {
 require( 'dotenv' ).config();
 
 const { argv } = yargs
-   .usage( 'Usage: npm run seed-rooms -- --days [days] --room [calendar|"all"]' )
-   .demandOption( [ 'days', 'room' ] );
+   .usage( 'Usage: npm run seed-rooms -- --days [num] --room [calendar|"all"] --eventsPerDay [num]' )
+   .demandOption( [ 'days', 'room', 'eventsPerDay' ] );
 
-seedEvents( argv.days, argv.room ).catch( ( e ) => {
+seedEvents( argv.days, argv.room, argv.eventsPerDay ).catch( ( e ) => {
    console.error( `Error: ${e}` );
    process.exit( 1 );
 } );
