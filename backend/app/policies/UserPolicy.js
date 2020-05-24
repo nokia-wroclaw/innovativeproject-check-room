@@ -13,11 +13,15 @@ class UserPolicy {
       this.type = user.type;
    }
 
-   can( action ) {
-      if ( this.type === 'admin' && adminCan.includes( action ) ) return true;
-      if ( this.type === 'user' && userCan.includes( action ) ) return true;
+   listPermissions() {
+      if ( this.type === 'admin' ) return adminCan;
+      if ( this.type === 'user' ) return userCan;
 
-      return false;
+      return [];
+   }
+
+   can( action ) {
+      return this.listPermissions().includes( action );
    }
 
    wantsTo( action ) {
