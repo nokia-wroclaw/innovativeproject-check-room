@@ -11,7 +11,9 @@ router.get( '/calendar/:calendar', fetchCalendar );
 router.post( '/calendar/:calendar', addEvent );
 
 const getOrCreateUser = require( '../app/controllers/user/getOrCreateUser' );
+const listUsers = require( '../app/controllers/user/listUsers' );
 
 router.get( '/user', getOrCreateUser );
+router.get( '/users', listUsers );
 
 module.exports = router;
