@@ -26,8 +26,6 @@ class Auth {
    }
 
    logout() {
-      this.setUser( null );
-
       if ( this.taskToAbort ) {
          this.taskToAbort();
          this.taskToAbort = null;
@@ -36,6 +34,8 @@ class Auth {
       this.setId( null );
       this.setType( null );
       this.setPermissions( [] );
+
+      this.setUser( null );
    }
 
    token() {
