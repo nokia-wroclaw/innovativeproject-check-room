@@ -14,18 +14,16 @@ import { FlexCenter } from './RoomDetails_styles';
 const RoomDetails = () => {
    const [ room, setRoom ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
-   const [ startDate, setStartDate ] = useState( '' );
    const [ isCompact, toggleIsCompact ] = useReducer( ( state ) => !state, false );
    const { roomId } = useParams();
    const backend = useContext( BackendContext );
 
-   const updateCalendar = () => {
-      const startDateTmp = moment()
-         .startOf( 'day' )
-         .toISOString();
-      setStartDate( startDateTmp );
+   const startDate = moment()
+      .startOf( 'day' )
+      .toISOString();
 
-      const [ promise, abort ] = backend.query.roomMetadataAndEvents( roomId, startDateTmp );
+   const updateCalendar = () => {
+      const [ promise, abort ] = backend.query.roomMetadataAndEvents( roomId, startDate );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );
@@ -36,15 +34,9 @@ const RoomDetails = () => {
 
    useEffect( updateCalendar, [ roomId, backend ] );
 
-   const [ visible, setVisible ] = useState( false );
-
-   const openDrawer = () => {
-      setVisible( true );
-   };
-
-   const onClose = () => {
-      setVisible( false );
-   };
+   const [ drawerOpen, setDrawerOpen ] = useState( false );
+   const openDrawer = () => setDrawerOpen( true );
+   const closeDrawer = () => setDrawerOpen( false );
 
    const canAdd = backend.auth.can( 'add event' );
 
@@ -72,11 +64,11 @@ const RoomDetails = () => {
                <Drawer
                   title="Add an event"
                   width="min(600px, 90%)"
-                  onClose={ onClose }
-                  visible={ visible }
+                  onClose={ closeDrawer }
+                  visible={ drawerOpen }
                   bodyStyle={ { paddingBottom: 80 } }>
-                  <AddNewEventToRoom room={ room.calendar } updateCalendar={ () => {
-                     onClose();
+                  <AddNewEventToRoom room={ room.calendar } onSubmit={ () => {
+                     closeDrawer();
                      updateCalendar();
                   } }/>
                </Drawer>

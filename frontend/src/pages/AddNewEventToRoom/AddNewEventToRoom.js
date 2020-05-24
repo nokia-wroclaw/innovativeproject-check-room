@@ -20,7 +20,7 @@ const mergeDateWithTime = ( date, time ) =>
       second: 0
    } ).format();
 
-const AddNewEventToRoom = ( { room, updateCalendar } ) => {
+const AddNewEventToRoom = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
    const [ isWaiting, setIsWaiting ] = useState( false );
 
@@ -40,7 +40,7 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
       promise.then( () => {
          backend.cache.reset();
          setTimeout( () => {
-            updateCalendar();
+            onSubmit();
             form.resetFields();
             setIsWaiting( false );
          }, 500 );
@@ -112,5 +112,5 @@ AddNewEventToRoom.propTypes = {
       summary: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
    } ).isRequired,
-   updateCalendar: PropTypes.func.isRequired,
+   onSubmit: PropTypes.func.isRequired,
 };
