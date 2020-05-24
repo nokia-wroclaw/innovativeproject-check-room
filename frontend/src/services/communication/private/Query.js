@@ -1,5 +1,6 @@
 class Query {
-   constructor( cache, auth ) {
+   constructor( fetcher, cache, auth ) {
+      this.fetcher = fetcher;
       this.cache = cache;
       this.auth = auth;
    }
@@ -54,6 +55,10 @@ class Query {
       );
 
       return [ newPromise, abort ];
+   }
+
+   allUsers() {
+      return this.fetcher.get( 'users', { auth: this.auth } );
    }
 }
 

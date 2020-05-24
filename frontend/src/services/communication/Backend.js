@@ -12,7 +12,7 @@ class Backend {
       this.command = new Command( this.fetcher, this.auth );
 
       this.cache = new CachedFetcher( this.fetcher );
-      this.query = new Query( this.cache, this.auth );
+      this.query = new Query( this.fetcher, this.cache, this.auth );
    }
 }
 

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MyGoogleLogin from './Google/MyGoogleLogin';
 import MyGoogleName from './Google/MyGoogleName';
 import MyGoogleLogout from './Google/MyGoogleLogout';
+import BackendContext from '../../services/communication/BackendContext';
 
 import {
    HeaderWrapper,
@@ -16,6 +17,8 @@ import {
 import Hamburger from './Hamburger/Hamburger';
 
 const NavBar = () => {
+   const backend = useContext( BackendContext );
+
    const [ isMenuOpen, setIsMenuOpen ] = useState( false );
    const handleMenuClick = () => setIsMenuOpen( !isMenuOpen );
 
@@ -35,6 +38,8 @@ const NavBar = () => {
       };
    }, [] );
 
+   const canManageUsers = backend.auth.can( 'list users' );
+
    return (
       <StyledHeader>
          <HeaderWrapper>
@@ -45,6 +50,10 @@ const NavBar = () => {
                   <NavItem>
                      <NavLink to="/">Rooms</NavLink>
                   </NavItem>
+                  { canManageUsers ?
+                     <NavItem>
+                        <NavLink to="/users">Users</NavLink>
+                     </NavItem> : null }
                   <MyGoogleLogin
                      render={ ( renderProps ) =>
                         <NavItem>
