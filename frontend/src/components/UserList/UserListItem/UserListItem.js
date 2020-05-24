@@ -9,7 +9,6 @@ const UserList = ( { user } ) => {
    const [ isSaving, setIsSaving ] = useState( false );
    const [ isDeleted, setIsDeleted ] = useState( false );
    const backend = useContext( BackendContext );
-   const type = user.type || 'guest';
    const ourselves = backend.auth.id === user._id;
 
    const changeType = ( value ) => {
@@ -36,7 +35,7 @@ const UserList = ( { user } ) => {
          <UserInfo>{ user.name } ({ user.email })</UserInfo>
          <UserType>
             <FullWidthSelect
-               defaultValue={ type }
+               defaultValue={ user.type }
                disabled={ ourselves || isSaving }
                loading={ isSaving }
                onChange={ changeType }

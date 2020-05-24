@@ -20,7 +20,7 @@ class Auth {
       const reply = await promise;
 
       this.setId( reply.user._id );
-      this.setType( reply.user.type || 'guest' );
+      this.setType( reply.user.type );
       this.setPermissions( reply.permissions );
       this.taskToAbort = null;
    }
