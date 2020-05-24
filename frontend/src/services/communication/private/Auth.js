@@ -3,7 +3,10 @@ import { useState } from 'react';
 class Auth {
    constructor( backend ) {
       this.backend = backend;
+
       [ this.user, this.setUser ] = useState( null );
+
+      [ this.id, this.setId ] = useState( null );
       [ this.type, this.setType ] = useState( null );
       [ this.permissions, this.setPermissions ] = useState( [] );
    }
@@ -16,6 +19,7 @@ class Auth {
       this.taskToAbort = abort;
       const reply = await promise;
 
+      this.setId( reply.user._id );
       this.setType( reply.user.type || 'guest' );
       this.setPermissions( reply.permissions );
       this.taskToAbort = null;
@@ -29,6 +33,7 @@ class Auth {
          this.taskToAbort = null;
       }
 
+      this.setId( null );
       this.setType( null );
       this.setPermissions( [] );
    }
