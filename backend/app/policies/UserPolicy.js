@@ -5,7 +5,7 @@ const userCan = [
 const adminCan = [
    ...userCan,
    'list users',
-   'add user',
+   'edit user',
 ];
 
 class UserPolicy {

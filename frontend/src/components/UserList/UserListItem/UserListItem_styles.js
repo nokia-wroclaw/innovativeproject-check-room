@@ -14,4 +14,5 @@ export const UserType = styled.div`
 `;
 
 export const UserActions = styled.div`
+   text-align: center;
 `;

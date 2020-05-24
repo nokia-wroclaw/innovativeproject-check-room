@@ -14,6 +14,15 @@ class Command {
 
       return this.fetcher.post( `calendar/${calendar}`, { body: event, auth: this.auth } );
    }
+
+   editUser( userId, newType ) {
+      const body = {
+         id: userId,
+         newType,
+      };
+
+      return this.fetcher.post( 'user', { body, auth: this.auth } );
+   }
 }
 
 export default Command;
