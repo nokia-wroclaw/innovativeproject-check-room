@@ -1,8 +1,19 @@
 # Check Room
 
-Site that lets you can quickly check room availability. Features Google Calendar integration, room search and filtering options, and (soon) event adding.
+Site that lets you can quickly check room availability, and create events.
 
-Project made under the Innovative Projects program. Live at [checkroom.herokuapp.com](https://checkroom.herokuapp.com).
+Features:
+
+- integration with Google Calendar,
+- logging in with Google accounts,
+- searching and filtering rooms,
+- adding event,
+- generating QR codes,
+- admin panel.
+
+Project made under the Innovative Projects program.
+
+Live at [checkroom.herokuapp.com](https://checkroom.herokuapp.com).
 
 ## Running
 
@@ -25,10 +36,12 @@ Our backend expects these environment variables to be present:
 ```text
 GOOGLE_API_CREDENTIALS={"installed":{"client_id":"...","project_id":"...","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"...","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}
 GOOGLE_API_TOKEN={"access_token":"...","refresh_token":"...","scope":"https://www.googleapis.com/auth/calendar","token_type":"Bearer","expiry_date":...}
+MONGO_URL=mongodb+srv://...:...@.../...?retryWrites=true&w=majority
+GOOGLE_CLIENT_SECRET=abcdefghijklmnopqrstu_wx
 ENVIRONMENT=development
 ```
 
-You can generate the credentials in the Google Developer Console, and get the token by running `npm run get-google-token` wizard in `backend`. `ENVIRONMENT` should be either `development` or `production`.
+You can generate the API credentials in the Google Developer Console, and get the API token by running `npm run get-google-token` wizard in `backend`. `ENVIRONMENT` should be either `development` or `production`. Client secret is for logging in with Google functionality. If you set it, you will also need to change the ID in `frontend/src/assets/configs/constants.js`.
 
 Our project supports `.env` files - you can place the variables into `backend/.env` file.
 

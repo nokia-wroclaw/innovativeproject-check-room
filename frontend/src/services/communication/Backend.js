@@ -6,11 +6,9 @@ import Command from './private/Command';
 
 class Backend {
    constructor() {
-      this.auth = new Auth( this );
-
       this.fetcher = new Fetcher();
+      this.auth = new Auth( this.fetcher );
       this.command = new Command( this.fetcher, this.auth );
-
       this.cache = new CachedFetcher( this.fetcher );
       this.query = new Query( this.fetcher, this.cache, this.auth );
    }
