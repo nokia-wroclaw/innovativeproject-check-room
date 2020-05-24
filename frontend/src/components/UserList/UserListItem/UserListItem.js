@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledUserListItem } from './UserListItem_styles';
+import { StyledUserListItem, UserInfo, UserType, UserActions } from './UserListItem_styles';
 
 const UserList = ( { user } ) => {
    return (
       <StyledUserListItem>
-         { user.name } ({ user.email })
+         <UserInfo>{ user.name } ({ user.email })</UserInfo>
+         <UserType>{ user.type || 'guest' }</UserType>
+         <UserActions>btn</UserActions>
       </StyledUserListItem>
    );
 };
