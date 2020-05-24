@@ -1,5 +1,5 @@
 const CalendarConnection = require( './CalendarConnection' );
-const { sleep } = require( '../util.js' );
+const MutexPool = require( './MutexPool' );
 
 class CalendarClient {
    constructor() {
@@ -7,7 +7,12 @@ class CalendarClient {
          CalendarClient.connection = new CalendarConnection();
       }
 
+      if ( CalendarClient.mutexPool === null ) {
+         CalendarClient.mutexPool = new MutexPool();
+      }
+
       this.calendar = CalendarClient.connection.getConnection();
+      this.mutexPool = CalendarClient.mutexPool;
    }
 
    calendarId( calendar ) {
@@ -48,38 +53,44 @@ class CalendarClient {
          throw new Error( 'Invalid event length' );
       }
 
-      await sleep( 500 );
+      const release = await this.mutexPool.acquire( calendarId );
 
-      const overlapping = await this.calendar.events.list( {
-         calendarId,
-         timeMin: event.start.format(),
-         timeMax: event.end.format(),
-         maxResults: 1,
-         singleEvents: true,
-      } );
+      try {
+         const overlapping = await this.calendar.events.list( {
+            calendarId,
+            timeMin: event.start.format(),
+            timeMax: event.end.format(),
+            maxResults: 1,
+            singleEvents: true,
+         } );
 
-      if ( overlapping.data.items.length > 0 ) {
-         throw new Error( 'Overlapping events!' );
+         if ( overlapping.data.items.length > 0 ) {
+            throw new Error( 'Overlapping events!' );
+         }
+
+         const res = await this.calendar.events.insert( {
+            calendarId,
+            resource: {
+               start: {
+                  dateTime: event.start.format(),
+               },
+               end: {
+                  dateTime: event.end.format(),
+               },
+               summary: event.summary,
+               description: event.description,
+            },
+         } );
+
+         return res.data;
       }
-
-      const res = await this.calendar.events.insert( {
-         calendarId,
-         resource: {
-            start: {
-               dateTime: event.start.format(),
-            },
-            end: {
-               dateTime: event.end.format(),
-            },
-            summary: event.summary,
-            description: event.description,
-         },
-      } );
-
-      return res.data;
+      finally {
+         release();
+      }
    }
 }
 
 CalendarClient.connection = null;
+CalendarClient.mutexPool = null;
 
 module.exports = CalendarClient;
