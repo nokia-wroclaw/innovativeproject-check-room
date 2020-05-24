@@ -37,6 +37,10 @@ class Auth {
       return this.user.tokenId;
    }
 
+   can( action ) {
+      return this.permissions && this.permissions.includes( action );
+   }
+
    $simpleAuth( user ) {
       return {
          token: () => user.tokenId

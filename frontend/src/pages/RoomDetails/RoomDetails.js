@@ -46,6 +46,8 @@ const RoomDetails = () => {
       setVisible( false );
    };
 
+   const canAdd = backend.auth.can( 'add event' );
+
    return (
       <>
          { isLoading ? (
@@ -62,9 +64,11 @@ const RoomDetails = () => {
                      value={ isCompact }
                      name="compact"
                   />
-                  <AddNewEventButton openDrawer={ openDrawer } />
+                  { canAdd ? <AddNewEventButton openDrawer={ openDrawer } /> : null }
                </FlexCenter>
+
                <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
+
                <Drawer
                   title="Add an event"
                   width="min(600px, 90%)"
