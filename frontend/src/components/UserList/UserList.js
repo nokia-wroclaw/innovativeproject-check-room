@@ -6,7 +6,7 @@ import { StyledUserList } from './UserList_styles';
 const UserList = ( { usersData } ) => {
    return (
       <StyledUserList>
-         { usersData.map( ( user ) => ( <UserListItem key={ user.id } user={ user } /> ) ) }
+         { usersData.map( ( user ) => ( <UserListItem key={ user._id } user={ user } /> ) ) }
       </StyledUserList>
    );
 };
