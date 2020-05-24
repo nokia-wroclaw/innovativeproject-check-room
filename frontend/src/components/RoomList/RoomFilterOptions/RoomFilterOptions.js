@@ -11,17 +11,13 @@ const { TreeNode } = TreeSelect;
 const RoomFilterOptions = ( { state } ) => {
    const { roomsData, filters, setFilters } = state;
 
+   const locationToKey = ( location ) => `${location.building}_${location.floorNo}`;
+
    const rooms = roomsData.map( ( room ) => RoomMetadataDTO.from( room ) );
-   const buildings = _.groupBy(
-      _.sortedUniqBy(
-         _.sortBy(
-            rooms.filter( ( room ) => room.location ).map( ( room ) => room.location ),
-            [ 'building', 'floorNo' ]
-         ),
-         ( location ) => `${location.building}_${location.floorNo}`
-      ),
-      'building'
-   );
+   const locations = rooms.filter( ( room ) => room.location ).map( ( room ) => room.location );
+   const sortedLocations = _.sortBy( locations, [ 'building', 'floorNo' ] );
+   const uniqueLocations = _.sortedUniqBy( sortedLocations, locationToKey );
+   const buildings = _.groupBy( uniqueLocations, 'building' );
 
    const onValuesChange = ( newVals ) => {
       setFilters( { ...filters, ...newVals } );

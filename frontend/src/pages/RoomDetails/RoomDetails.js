@@ -8,24 +8,23 @@ import BackendContext from '../../services/communication/BackendContext';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import QrCodeButton from '../../components/QrCodeButton/QrCodeButton';
 import AddNewEventButton from '../../components/AddNewEventButton/AddNewEventButton';
-import AddNewEventToRoom from '../AddNewEventToRoom/AddNewEventToRoom';
+import AddNewEventForm from '../../components/AddNewEventForm/AddNewEventForm';
 import { FlexCenter } from './RoomDetails_styles';
+import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
 const RoomDetails = () => {
    const [ room, setRoom ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
-   const [ startDate, setStartDate ] = useState( '' );
    const [ isCompact, toggleIsCompact ] = useReducer( ( state ) => !state, false );
    const { roomId } = useParams();
    const backend = useContext( BackendContext );
 
-   const updateCalendar = () => {
-      const startDateTmp = moment()
-         .startOf( 'day' )
-         .toISOString();
-      setStartDate( startDateTmp );
+   const startDate = moment()
+      .startOf( 'day' )
+      .toISOString();
 
-      const [ promise, abort ] = backend.query.roomMetadataAndEvents( roomId, startDateTmp );
+   const updateCalendar = () => {
+      const [ promise, abort ] = backend.query.roomMetadataAndEvents( roomId, startDate );
       promise.then( ( data ) => {
          setRoom( data );
          setIsLoading( false );
@@ -36,50 +35,39 @@ const RoomDetails = () => {
 
    useEffect( updateCalendar, [ roomId, backend ] );
 
-   const [ visible, setVisible ] = useState( false );
+   const [ drawerOpen, setDrawerOpen ] = useState( false );
+   const openDrawer = () => setDrawerOpen( true );
+   const closeDrawer = () => setDrawerOpen( false );
 
-   const openDrawer = () => {
-      setVisible( true );
-   };
+   const canAdd = backend.auth.can( 'add event' );
 
-   const onClose = () => {
-      setVisible( false );
-   };
-
-   return (
+   return isLoading ? <LoadingPage /> :
       <>
-         { isLoading ? (
-            <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-               Loading
-            </h1>
-         ) : (
-            <>
-               <RoomHeader roomData={ room.calendar } />
-               <FlexCenter style={ { display: 'flex' } }>
-                  <QrCodeButton id={ roomId } />
-                  <ToggleSwitch
-                     toggleFunc={ toggleIsCompact }
-                     value={ isCompact }
-                     name="compact"
-                  />
-                  <AddNewEventButton openDrawer={ openDrawer } />
-               </FlexCenter>
-               <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
-               <Drawer
-                  title="Add an event"
-                  width="min(600px, 90%)"
-                  onClose={ onClose }
-                  visible={ visible }
-                  bodyStyle={ { paddingBottom: 80 } }>
-                  <AddNewEventToRoom room={ room.calendar } updateCalendar={ () => {
-                     onClose();
-                     updateCalendar();
-                  } }/>
-               </Drawer>
-            </>
-         ) }
-      </>
-   );
+         <RoomHeader roomData={ room.calendar } />
+         <FlexCenter style={ { display: 'flex' } }>
+            <QrCodeButton id={ roomId } />
+            <ToggleSwitch
+               toggleFunc={ toggleIsCompact }
+               value={ isCompact }
+               name="compact"
+            />
+            { canAdd ? <AddNewEventButton openDrawer={ openDrawer } /> : null }
+         </FlexCenter>
+
+         <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
+
+         <Drawer
+            title="Add an event"
+            width="min(600px, 90%)"
+            onClose={ closeDrawer }
+            visible={ drawerOpen }
+            bodyStyle={ { paddingBottom: 80 } }>
+            <AddNewEventForm room={ room.calendar } onSubmit={ () => {
+               closeDrawer();
+               updateCalendar();
+            } }/>
+         </Drawer>
+      </>;
 };
 
 export default RoomDetails;

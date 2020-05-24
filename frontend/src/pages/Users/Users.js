@@ -1,25 +1,27 @@
 import React, { useEffect, useState, useContext } from 'react';
-import RoomList from '../../components/RoomList/RoomList';
+import UserList from '../../components/UserList/UserList';
 import BackendContext from '../../services/communication/BackendContext';
 import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
-const Rooms = () => {
-   const [ rooms, setRooms ] = useState( [] );
+const Users = () => {
+   const [ users, setUsers ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const backend = useContext( BackendContext );
 
    useEffect( () => {
-      const [ promise, abort ] = backend.query.allRoomsMetadata();
-      promise.then( ( roomList ) => {
-         setRooms( roomList );
+      if ( !backend.auth.can( 'manage users' ) ) return () => { };
+
+      const [ promise, abort ] = backend.query.allUsers();
+      promise.then( ( userList ) => {
+         setUsers( userList );
          setIsLoading( false );
       } ).catch( () => { } );
 
       return abort;
-   }, [ backend ] );
+   }, [ backend, backend.auth.user ] );
 
    return isLoading ? <LoadingPage />
-      : <RoomList roomsData={ rooms } />;
+      : <UserList usersData={ users } />;
 };
 
-export default Rooms;
+export default Users;

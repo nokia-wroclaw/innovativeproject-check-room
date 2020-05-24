@@ -19,7 +19,6 @@ class GoogleOAuthClient {
          audience: this.conn.clientId,
       } );
       const payload = ticket.getPayload();
-      const userId = payload.sub;
 
       return {
          id: payload.sub,

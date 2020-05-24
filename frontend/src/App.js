@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Rooms from './pages/Rooms/Rooms';
+import Users from './pages/Users/Users';
 import RoomDetails from './pages/RoomDetails/RoomDetails';
 import PageTemplate from './templates/PageTemplate/PageTemplate';
 import Backend from './services/communication/Backend';
@@ -20,6 +21,9 @@ const App = () => {
                   </Route>
                   <Route path="/room/:roomId">
                      <RoomDetails />
+                  </Route>
+                  <Route path="/users">
+                     <Users />
                   </Route>
                   <Route path="/">
                      <Rooms />

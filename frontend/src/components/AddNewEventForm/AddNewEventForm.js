@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import moment from 'moment';
 import { Input, Form } from 'antd';
 import PropTypes from 'prop-types';
-import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea } from '../../components/StyledFormComponents/StyledFormComponents';
+import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea } from '../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
-import { StyledAddNewEventToRoom } from './AddNewEventToRoom_styles';
-import RoomHeader from '../../components/RoomHeader/RoomHeader';
+import { StyledAddNewEventForm } from './AddNewEventForm_styles';
+import RoomHeader from '../RoomHeader/RoomHeader';
 
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
@@ -20,7 +20,7 @@ const mergeDateWithTime = ( date, time ) =>
       second: 0
    } ).format();
 
-const AddNewEventToRoom = ( { room, updateCalendar } ) => {
+const AddNewEventForm = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
    const [ isWaiting, setIsWaiting ] = useState( false );
 
@@ -40,7 +40,7 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
       promise.then( () => {
          backend.cache.reset();
          setTimeout( () => {
-            updateCalendar();
+            onSubmit();
             form.resetFields();
             setIsWaiting( false );
          }, 500 );
@@ -50,7 +50,7 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
    };
 
    return (
-      <StyledAddNewEventToRoom>
+      <StyledAddNewEventForm>
          <RoomHeader roomData={ room } />
 
          <Form
@@ -99,18 +99,18 @@ const AddNewEventToRoom = ( { room, updateCalendar } ) => {
                Add event
             </CenteredButton>
          </Form>
-      </StyledAddNewEventToRoom>
+      </StyledAddNewEventForm>
    );
 };
 
-export default AddNewEventToRoom;
+export default AddNewEventForm;
 
 
-AddNewEventToRoom.propTypes = {
+AddNewEventForm.propTypes = {
    room: PropTypes.shape( {
       id: PropTypes.string.isRequired,
       summary: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
    } ).isRequired,
-   updateCalendar: PropTypes.func.isRequired,
+   onSubmit: PropTypes.func.isRequired,
 };
