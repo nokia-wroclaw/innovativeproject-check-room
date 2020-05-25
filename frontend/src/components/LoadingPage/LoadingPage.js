@@ -1,9 +1,13 @@
 import React from 'react';
+import { Spin } from 'antd';
+import { StyledLoadingPage } from './LoadingPage_styles';
 
 const LoadingPage = () => {
-   return <h1 style={ { textAlign: 'center', padding: '45px 20px' } }>
-        Loading
-   </h1>;
+   return (
+      <StyledLoadingPage>
+         <Spin size="large" />
+      </StyledLoadingPage>
+   );
 };
 
 export default LoadingPage;

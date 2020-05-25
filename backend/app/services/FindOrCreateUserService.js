@@ -12,7 +12,6 @@ class FindOrCreateUserService {
             name: googleUser.name,
             email: googleUser.email,
             googleId: googleUser.id,
-            type: 'guest',
          };
          user = await new User( newUser ).save();
       }

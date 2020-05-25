@@ -16,7 +16,7 @@ module.exports = async ( req, res ) => {
       new UserPolicy( user ).wantsTo( 'manage users' );
 
       await new DBConnection().make();
-      await User.deleteOne( { _id: body.id } ).exec();
+      await User.findByIdAndDelete( body.id ).exec();
 
       res.send( {} );
    }
