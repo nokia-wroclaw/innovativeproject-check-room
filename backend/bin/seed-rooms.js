@@ -4,15 +4,7 @@ const moment = require( 'moment' );
 const yargs = require( 'yargs' );
 const CalendarClient = require( '../app/calendar/CalendarClient' );
 
-async function addEvent( calendar, startDate, endDate, summary ) {
-   const event = {
-      calendar,
-      start: startDate,
-      end: endDate,
-      summary,
-      description: '',
-   };
-
+async function addEvent( event ) {
    try {
       const client = new CalendarClient();
       await client.addEvent( event );
@@ -32,20 +24,25 @@ async function allRooms() {
 }
 
 function randUniform( min, max ) {
-   return Math.floor( Math.random() * ( max - min ) + min );
+   return Math.floor( Math.random() * ( max - min + 1 ) + min );
 }
 
-function randomSummary() {
-   const summaries = [
-      'Daily stand-up',
-      'Investor meeting',
-      'Event storming session',
-      'TBD',
-      'Training session',
-      'Sprint retro',
+function randomEvent() {
+   const events = [
+      [ 'Daily stand-up', 'Plan how you will sit for the rest of the day.' ],
+      [ 'Investor meeting', 'Hopefully the projector will work this time.' ],
+      [ 'Event storming session', 'We\'re meeting an important customer.' ],
+      [ 'TBD', 'To Be Determined.' ],
+      [ 'Training session', 'Gotta train these fingers.' ],
+      [ 'Sprint retro', 'Remember the happy days.' ],
+      [ 'Job interview', 'Shouldn\'t take long.' ],
+      [ 'Student projects', 'Under our supervision.' ],
+      [ 'Seminar on workplace safety', 'BHP.' ],
+      [ 'Seminar on unit testing', '' ], // left blank on purpose
+      [ 'Seminar on monorepo usage', '-Seminar on repo usage\n+Seminar on monorepo usage' ],
    ];
 
-   return summaries[randUniform( 0, summaries.length - 1 )];
+   return events[randUniform( 0, events.length - 1 )];
 }
 
 async function seedEvents( days, room, eventsPerDay ) {
@@ -55,16 +52,19 @@ async function seedEvents( days, room, eventsPerDay ) {
       const calendar = calendars[i];
 
       for ( let j = 0; j < days; j += 1 ) {
-         const day = moment().startOf( 'day' ).add( j, 'day' );
+         const dayStart = moment().startOf( 'day' ).add( j, 'day' );
 
          for ( let l = 0; l < eventsPerDay; l += 1 ) {
-            const start = randUniform( 7 * 2, 15 * 2 ) * 30;
-            const length = randUniform( 1, 4 ) * 60;
+            const startMinutes = randUniform( 7 * 2, 15 * 2 ) * 30;
+            const lengthMinutes = randUniform( 1, 4 ) * 60;
 
-            const startDate = moment( day ).add( start, 'minute' );
-            const endDate = moment( startDate ).add( length, 'minute' );
+            const start = moment( dayStart ).add( startMinutes, 'minute' );
+            const end = moment( start ).add( lengthMinutes, 'minute' );
 
-            addEvent( calendar, startDate, endDate, randomSummary() );
+            const [ summary, description ] = randomEvent();
+            addEvent( {
+               calendar, start, end, summary, description,
+            } );
          }
       }
    }
