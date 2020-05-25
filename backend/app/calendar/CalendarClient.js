@@ -1,5 +1,5 @@
+const { Mutex } = require( 'async-mutex' );
 const CalendarConnection = require( './CalendarConnection' );
-const MutexPool = require( './MutexPool' );
 
 class CalendarClient {
    constructor() {
@@ -7,12 +7,12 @@ class CalendarClient {
          CalendarClient.connection = new CalendarConnection();
       }
 
-      if ( CalendarClient.mutexPool === null ) {
-         CalendarClient.mutexPool = new MutexPool();
+      if ( CalendarClient.mutex === null ) {
+         CalendarClient.mutex = new Mutex();
       }
 
       this.calendar = CalendarClient.connection.getConnection();
-      this.mutexPool = CalendarClient.mutexPool;
+      this.mutex = CalendarClient.mutex;
    }
 
    calendarId( calendar ) {
@@ -53,7 +53,7 @@ class CalendarClient {
          throw new Error( 'Invalid event length' );
       }
 
-      const release = await this.mutexPool.acquire( calendarId );
+      const release = await this.mutex.acquire();
 
       try {
          const overlapping = await this.calendar.events.list( {
@@ -91,6 +91,6 @@ class CalendarClient {
 }
 
 CalendarClient.connection = null;
-CalendarClient.mutexPool = null;
+CalendarClient.mutex = null;
 
 module.exports = CalendarClient;
