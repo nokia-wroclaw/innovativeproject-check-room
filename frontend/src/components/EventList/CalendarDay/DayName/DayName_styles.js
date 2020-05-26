@@ -8,7 +8,7 @@ export const StyledDayName = styled.div`
       ${( { theme } ) => theme.mdq.lg} {
          font-size: ${( { theme } ) => theme.font.size.m};
       }
-      margin: 0 0 5px 0;
+      margin: 0;
    }
 
    p:first-of-type {
