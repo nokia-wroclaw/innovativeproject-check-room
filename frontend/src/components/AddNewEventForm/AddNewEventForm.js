@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import { Input, Form } from 'antd';
 import PropTypes from 'prop-types';
-import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea } from '../StyledFormComponents/StyledFormComponents';
+import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea, FullWidthSelect, OptionMainLine, OptionSmallLine } from '../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventForm } from './AddNewEventForm_styles';
 import RoomHeader from '../RoomHeader/RoomHeader';
@@ -22,9 +22,27 @@ const mergeDateWithTime = ( date, time ) =>
 
 const AddNewEventForm = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
-   const [ isWaiting, setIsWaiting ] = useState( false );
-
+   const [ isWaiting, setIsWaiting ] = useState( false ); // waiting for save
+   const [ isLoading, setIsLoading ] = useState( false ); // loading user list
+   const [ users, setUsers ] = useState( [] );
    const [ form ] = Form.useForm();
+
+   useEffect( () => {
+      if ( !backend.auth.can( 'list users' ) ) {
+         setUsers( [] );
+         setIsLoading( false );
+
+         return undefined;
+      }
+
+      const [ promise, abort ] = backend.query.allUsers();
+      promise.then( ( userList ) => {
+         setUsers( userList );
+         setIsLoading( false );
+      } ).catch( () => { } );
+
+      return abort;
+   }, [ backend, backend.auth.user ] );
 
    const addEvent = ( values ) => {
       const startEventTime = values.eventTime[0];
@@ -34,6 +52,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
          endDate: mergeDateWithTime( values.eventDate, endEventTime ),
          summary: values.eventName,
          description: values.eventDescription,
+         participants: values.participants,
       };
       setIsWaiting( true );
       const [ promise ] = backend.command.addEvent( room.id, event );
@@ -90,6 +109,24 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                <StyledTextArea
                   placeholder="Description"
                   autoSize={ { minRows: 2 } } />
+            </Form.Item>
+
+            <Form.Item
+               label="Participants"
+               name="participants">
+               <FullWidthSelect
+                  placeholder="Participants"
+                  mode="multiple"
+                  loading={ isLoading }
+                  disabled={ isLoading }
+                  optionLabelProp="label">
+                  { users.map( ( user ) => (
+                     <FullWidthSelect.Option key={ user._id } value={ user._id } label={ user.name }>
+                        <OptionMainLine>{ user.name }</OptionMainLine>
+                        <OptionSmallLine>{ user.email }, { user.type }</OptionSmallLine>
+                     </FullWidthSelect.Option>
+                  ) ) }
+               </FullWidthSelect>
             </Form.Item>
 
             <CenteredButton

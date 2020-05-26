@@ -28,3 +28,11 @@ export const FullWidthSelect = styled( Select )`
 export const StyledTextArea = styled( TextArea )`
    resize: none;
 `;
+
+export const OptionMainLine = styled.div`
+`;
+
+export const OptionSmallLine = styled.div`
+   font-size: 0.9em;
+   font-style: italic;
+`;
