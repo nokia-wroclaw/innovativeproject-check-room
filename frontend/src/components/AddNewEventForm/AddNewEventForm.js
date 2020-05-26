@@ -116,12 +116,12 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                name="participants">
                <FullWidthSelect
                   placeholder="Participants"
-                  mode="multiple"
+                  mode="tags"
                   loading={ isLoading }
                   disabled={ isLoading }
                   optionLabelProp="label">
                   { users.map( ( user ) => (
-                     <FullWidthSelect.Option key={ user._id } value={ user._id } label={ user.name }>
+                     <FullWidthSelect.Option key={ user._id } value={ user.email } label={ user.email }>
                         <OptionMainLine>{ user.name }</OptionMainLine>
                         <OptionSmallLine>{ user.email }, { user.type }</OptionSmallLine>
                      </FullWidthSelect.Option>
