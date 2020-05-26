@@ -23,9 +23,10 @@ export const Bottom = styled.div`
 
 export const Divider = styled.div`
   width: 100%;
+  max-width: 95vw;
   height: 1px;
   background-color: ${( { theme } ) => theme.primary };
-  margin-bottom: 5px;
+  margin: 0 auto 5px auto;
 `;
 
 export const RoomIndicators = styled.div`
