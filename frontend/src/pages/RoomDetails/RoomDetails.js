@@ -39,7 +39,8 @@ const RoomDetails = () => {
    const openDrawer = () => setDrawerOpen( true );
    const closeDrawer = () => setDrawerOpen( false );
 
-   const canAdd = backend.auth.can( 'add event' );
+   const canAdd = backend.auth.can( 'add event' )
+      && backend.auth.can( 'list users' );
 
    return isLoading ? <LoadingPage /> :
       <>
@@ -62,10 +63,10 @@ const RoomDetails = () => {
             onClose={ closeDrawer }
             visible={ drawerOpen }
             bodyStyle={ { paddingBottom: 80 } }>
-            <AddNewEventForm room={ room.calendar } onSubmit={ () => {
+            { canAdd ? <AddNewEventForm room={ room.calendar } onSubmit={ () => {
                closeDrawer();
                updateCalendar();
-            } }/>
+            } } /> : null }
          </Drawer>
       </>;
 };

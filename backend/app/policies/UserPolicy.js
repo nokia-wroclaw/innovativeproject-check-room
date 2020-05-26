@@ -1,5 +1,6 @@
 const userCan = [
    'add event',
+   'list users',
 ];
 
 const adminCan = [

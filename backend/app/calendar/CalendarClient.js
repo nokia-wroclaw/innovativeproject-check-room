@@ -79,6 +79,9 @@ class CalendarClient {
                },
                summary: event.summary,
                description: event.description,
+               attendees: event.participants.map( ( participant ) => ( {
+                  email: participant,
+               } ) ),
             },
          } );
 

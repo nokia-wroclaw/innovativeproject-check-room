@@ -13,6 +13,7 @@ const bodySchema = yup.object().shape( {
    endDate: yup.string().required(),
    summary: yup.string().required().max( 200 ),
    description: yup.string().default( '' ),
+   participants: yup.array( yup.string().email() ).default( [] ),
 } );
 
 module.exports = async ( req, res ) => {
@@ -29,6 +30,7 @@ module.exports = async ( req, res ) => {
          end: moment( body.endDate ),
          summary: body.summary,
          description: body.description,
+         participants: body.participants,
       };
 
       const client = new CalendarClient();
