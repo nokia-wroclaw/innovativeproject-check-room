@@ -18,10 +18,17 @@ const NearbyRooms = ( { freeRooms, thisRoomData } ) => {
 
    return (
       <StyledNearbyRooms>
-         <h2>Room is already reserved :/ </h2>
-         <p>
-            But we have { nearbyRooms.length } empty rooms nearby for that period.
-         </p>
+         <h2>This room is already reserved :/ </h2>
+
+         { nearbyRooms.length ? (
+            <p>
+               But we have { nearbyRooms.length } empty rooms nearby for that
+               period.
+            </p>
+         ) : (
+            <p>Unfortunately we don&apos;t have any free rooms nearby. <span role="img" aria-label="cry">😢</span></p>
+         ) }
+
          <NearbyRoomsList>
             { nearbyRooms.map( ( nearbyRoom ) => (
                <NearbyRoom key={ nearbyRoom.id } roomData={ nearbyRoom } />
