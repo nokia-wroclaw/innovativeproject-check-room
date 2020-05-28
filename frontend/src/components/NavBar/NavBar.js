@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import MyGoogleLogin from './Google/MyGoogleLogin';
 import MyGoogleName from './Google/MyGoogleName';
 import MyGoogleLogout from './Google/MyGoogleLogout';
@@ -21,6 +21,7 @@ const NavBar = () => {
 
    const [ isMenuOpen, setIsMenuOpen ] = useState( false );
    const handleMenuClick = () => setIsMenuOpen( !isMenuOpen );
+   const closeMenu = () => setIsMenuOpen( false );
 
    const handleKeyboard = ( e ) => {
       const code = e.keyCode;
@@ -30,52 +31,84 @@ const NavBar = () => {
       }
    };
 
+   const navRef = useRef( null );
+
+   const closeIfClickOutside = ( e ) => {
+      if ( !navRef.current.contains( e.target ) ) setIsMenuOpen( false );
+   };
+
    useEffect( () => {
       window.addEventListener( 'keydown', handleKeyboard );
+      document.addEventListener( 'mousedown', closeIfClickOutside );
 
       return () => {
          window.removeEventListener( 'keypress', handleKeyboard );
+         document.removeEventListener( 'mousedown', closeIfClickOutside );
       };
    }, [] );
 
    const canManageUsers = backend.auth.can( 'manage users' );
 
    return (
-      <StyledHeader>
+      <StyledHeader ref={ navRef }>
          <HeaderWrapper>
-            <HeaderBrand to="/">Checkroom</HeaderBrand>
+            <HeaderBrand onClick={ closeMenu } to="/">
+               Checkroom
+            </HeaderBrand>
             <Hamburger onClick={ handleMenuClick } isOpen={ isMenuOpen } />
             <StyledNav isOpen={ isMenuOpen }>
                <NavList isOpen={ isMenuOpen }>
                   <NavItem>
-                     <NavLink to="/">Rooms</NavLink>
+                     <NavLink onClick={ closeMenu } to="/">
+                        Rooms
+                     </NavLink>
                   </NavItem>
-                  { canManageUsers ?
+                  { canManageUsers ? (
                      <NavItem>
-                        <NavLink to="/users">Users</NavLink>
-                     </NavItem> : null }
+                        <NavLink onClick={ closeMenu } to="/users">
+                           Users
+                        </NavLink>
+                     </NavItem>
+                  ) : null }
                   <MyGoogleLogin
-                     render={ ( renderProps ) =>
+                     render={ ( renderProps ) => (
                         <NavItem>
-                           <NavButton onClick={ renderProps.onClick } disabled={ renderProps.disabled }>
+                           <NavButton
+                              onClick={ () => {
+                                 renderProps.onClick();
+                                 closeMenu();
+                              } }
+                              disabled={ renderProps.disabled }
+                           >
                               Log in with Google
                            </NavButton>
                         </NavItem>
-                     } />
+                     ) }
+                  />
                   <MyGoogleName
-                     render={ ( renderProps ) =>
+                     render={ ( renderProps ) => (
                         <NavItem>
-                           <NavButton disabled>{ renderProps.name } ({ renderProps.type })</NavButton>
+                           <NavButton disabled>
+                              { renderProps.name } ({ renderProps.type })
+                           </NavButton>
                         </NavItem>
-                     } />
+                     ) }
+                  />
                   <MyGoogleLogout
-                     render={ ( renderProps ) =>
+                     render={ ( renderProps ) => (
                         <NavItem>
-                           <NavButton onClick={ renderProps.onClick } disabled={ renderProps.disabled }>
+                           <NavButton
+                              onClick={ () => {
+                                 renderProps.onClick();
+                                 closeMenu();
+                              } }
+                              disabled={ renderProps.disabled }
+                           >
                               Log out
                            </NavButton>
                         </NavItem>
-                     } />
+                     ) }
+                  />
                </NavList>
             </StyledNav>
          </HeaderWrapper>

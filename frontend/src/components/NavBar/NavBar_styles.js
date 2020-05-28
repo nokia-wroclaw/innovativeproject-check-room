@@ -2,6 +2,8 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
+   position: fixed;
+   z-index: 100;
    width: 100%;
    height: 70px;
    background-color: ${( { theme } ) => theme.primary};
@@ -28,6 +30,9 @@ export const HeaderBrand = styled( Link )`
    color: ${( { theme } ) => theme.white};
    text-align: center;
    text-decoration: none;
+   :focus {
+      color: ${( { theme } ) => theme.white};
+   }
 `;
 
 export const StyledNav = styled.nav`

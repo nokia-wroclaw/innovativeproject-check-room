@@ -13,7 +13,7 @@ const PageTemplate = ( { children } ) => {
       <ThemeProvider theme={ theme }>
          <GlobalStyle />
          <NavBar />
-         <PageWrapper className="aaaa">
+         <PageWrapper>
             { children }
          </PageWrapper>
       </ThemeProvider>
