@@ -1,18 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RoomMetadataDTO from '../../../../services/parsing/RoomMetadataDTO';
-import RoomData from '../../../RoomData/RoomData';
-import { NearbyRoomLink } from './NearbyRoom_styles';
-import { RoomTitle } from '../../../RoomHeader/RoomHeader_styles';
+import RoomListItem from '../../../RoomList/RoomListItem/RoomListItem';
 
 const NearbyRoom = ( { roomData } ) => {
-   const room = RoomMetadataDTO.from( roomData );
-
    return (
-      <NearbyRoomLink to={ `/room/${room.id}` }>
-         <RoomTitle>{ room.name }</RoomTitle>
-         <RoomData room={ room } />
-      </NearbyRoomLink>
+      <RoomListItem roomData={ roomData } />
    );
 };
 

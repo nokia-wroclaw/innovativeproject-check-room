@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NearbyRoom from './NearbyRoom/NearbyRoom';
-import { StyledNearbyRooms } from './NearbyRooms_styles';
+import { StyledNearbyRooms, NearbyRoomsList } from './NearbyRooms_styles';
 
 const NearbyRooms = ( { nearbyRooms } ) => {
-   console.log( nearbyRooms );
-
    return (
       <StyledNearbyRooms>
-         { nearbyRooms.map( ( nearbyRoom ) => (
-            <NearbyRoom key={ nearbyRoom.id } roomData={ nearbyRoom } />
-         ) ) }
+         <h2>Room is already reserved :/ </h2>
+         <p> But we have { nearbyRooms.length } empty rooms for that period.</p>
+         <NearbyRoomsList>
+            { nearbyRooms.map( ( nearbyRoom ) => (
+               <NearbyRoom key={ nearbyRoom.id } roomData={ nearbyRoom } />
+            ) ) }
+         </NearbyRoomsList>
       </StyledNearbyRooms>
    );
 };
