@@ -20,21 +20,27 @@ const QRCode = () => {
 
    useEffect( () => {
       const [ promise, abort ] = backend.query.roomMetadata( roomId );
-      promise.then( ( data ) => {
-         setRoom( data );
-         setIsLoading( false );
-      } ).catch( () => { } );
+      promise
+         .then( ( data ) => {
+            setRoom( data );
+            setIsLoading( false );
+         } )
+         .catch( () => {} );
 
       return abort;
    }, [ roomId, backend ] );
 
    return (
       <StyledQRCode>
-         { isLoading ? <LoadingPage /> :
-            <RoomHeader roomData={ room } />
-         }
-         <Link to={ roomPath }>Go Back</Link>
-         <QRCodeLib value={ roomLink } size={ 400 } />
+         { isLoading ? (
+            <LoadingPage />
+         ) : (
+            <>
+               <RoomHeader roomData={ room } />
+               <Link to={ roomPath }>Go Back</Link>
+               <QRCodeLib value={ roomLink } size={ 400 } />
+            </>
+         ) }
       </StyledQRCode>
    );
 };
