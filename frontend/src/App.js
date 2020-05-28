@@ -7,9 +7,14 @@ import PageTemplate from './templates/PageTemplate/PageTemplate';
 import Backend from './services/communication/Backend';
 import BackendContext from './services/communication/BackendContext';
 import QRCode from './pages/QRCode/QRCode';
+import { constants } from './assets/configs/constants';
 
 const App = () => {
    const backend = new Backend();
+
+   if ( constants.exposeDebugTools ) {
+      window.backend = backend;
+   }
 
    return (
       <BackendContext.Provider value={ backend }>
