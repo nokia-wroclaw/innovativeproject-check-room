@@ -30,6 +30,9 @@ export const HeaderBrand = styled( Link )`
    color: ${( { theme } ) => theme.white};
    text-align: center;
    text-decoration: none;
+   :focus {
+      color: ${( { theme } ) => theme.white};
+   }
 `;
 
 export const StyledNav = styled.nav`
