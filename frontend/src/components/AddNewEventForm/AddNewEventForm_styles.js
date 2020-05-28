@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { Form } from 'antd';
+import RoomHeader from '../RoomHeader/RoomHeader';
 
 export const StyledAddNewEventForm = styled.main`
    display: flex;
@@ -7,9 +8,6 @@ export const StyledAddNewEventForm = styled.main`
    align-items: center;
    justify-content: space-between;
 
-   a {
-      padding: 10px 20px 20px;
-   }
 `;
 
 export const StyledForm = styled( Form )`
