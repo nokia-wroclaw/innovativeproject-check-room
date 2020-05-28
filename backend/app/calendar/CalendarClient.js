@@ -1,4 +1,5 @@
 const { Mutex } = require( 'async-mutex' );
+const moment = require( 'moment' );
 const CalendarConnection = require( './CalendarConnection' );
 
 class CalendarClient {
@@ -37,7 +38,7 @@ class CalendarClient {
       const res = await this.calendar.events.list( {
          calendarId: this.calendarId( calendar ),
          timeMin: startDate.format(),
-         timeMax: startDate.add( 1, 'week' ).format(),
+         timeMax: moment( startDate ).add( 1, 'week' ).format(),
          maxResults: 100,
          singleEvents: true,
          orderBy: 'startTime',
