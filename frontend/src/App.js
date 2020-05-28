@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Rooms from './pages/Rooms/Rooms';
 import Users from './pages/Users/Users';
@@ -14,6 +15,7 @@ const App = () => {
 
    if ( constants.exposeDebugTools ) {
       window.backend = backend;
+      window.moment = moment;
    }
 
    return (
