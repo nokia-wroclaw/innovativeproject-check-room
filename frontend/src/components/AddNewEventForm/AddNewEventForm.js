@@ -2,7 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import { Input, Form } from 'antd';
 import PropTypes from 'prop-types';
-import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea, FullWidthSelect, OptionMainLine, OptionSmallLine } from '../StyledFormComponents/StyledFormComponents';
+import {
+   CenteredButton,
+   FullWidthDatePicker,
+   FullWidthRangePicker,
+   StyledTextArea,
+   FullWidthSelect,
+   OptionMainLine,
+   OptionSmallLine,
+} from '../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventForm, StyledForm } from './AddNewEventForm_styles';
 import RoomHeader from '../RoomHeader/RoomHeader';
@@ -10,15 +18,17 @@ import RoomHeader from '../RoomHeader/RoomHeader';
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
 
-   return moment( `${ ( currentHour + num ) % 24 }:00`, 'HH:mm' );
+   return moment( `${( currentHour + num ) % 24}:00`, 'HH:mm' );
 };
 
 const mergeDateWithTime = ( date, time ) =>
-   moment( date ).set( {
-      hour: time.hour(),
-      minute: time.minute(),
-      second: 0
-   } ).format();
+   moment( date )
+      .set( {
+         hour: time.hour(),
+         minute: time.minute(),
+         second: 0,
+      } )
+      .format();
 
 const AddNewEventForm = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
@@ -36,10 +46,12 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
       }
 
       const [ promise, abort ] = backend.query.allUsers();
-      promise.then( ( userList ) => {
-         setUsers( userList );
-         setIsLoading( false );
-      } ).catch( () => { } );
+      promise
+         .then( ( userList ) => {
+            setUsers( userList );
+            setIsLoading( false );
+         } )
+         .catch( () => {} );
 
       return abort;
    }, [ backend, backend.auth.user ] );
@@ -56,16 +68,18 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
       };
       setIsWaiting( true );
       const [ promise ] = backend.command.addEvent( room.id, event );
-      promise.then( () => {
-         backend.cache.reset();
-         setTimeout( () => {
-            onSubmit();
-            form.resetFields();
+      promise
+         .then( () => {
+            backend.cache.reset();
+            setTimeout( () => {
+               onSubmit();
+               form.resetFields();
+               setIsWaiting( false );
+            }, 500 );
+         } )
+         .catch( () => {
             setIsWaiting( false );
-         }, 500 );
-      } ).catch( () => {
-         setIsWaiting( false );
-      } );
+         } );
    };
 
    return (
@@ -75,55 +89,63 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
          <StyledForm
             form={ form }
             initialValues={ {
-               'eventDate': moment().startOf( 'day' ),
-               'eventTime': [ nextHour( 1 ), nextHour( 2 ) ],
+               eventDate: moment().startOf( 'day' ),
+               eventTime: [ nextHour( 1 ), nextHour( 2 ) ],
             } }
             onFinish={ addEvent }
-            hideRequiredMark>
-
+            hideRequiredMark
+         >
             <Form.Item
                label="Event name"
                name="eventName"
-               rules={ [ { required: true, message: 'Please input event name!' } ] }>
+               rules={ [ { required: true, message: 'Please input event name!' } ] }
+            >
                <Input placeholder="Event name" />
             </Form.Item>
 
             <Form.Item
                name="eventDate"
-               rules={ [ { required: true, message: 'Please input event date!' } ] }>
+               rules={ [ { required: true, message: 'Please input event date!' } ] }
+            >
                <FullWidthDatePicker inputReadOnly />
             </Form.Item>
 
             <Form.Item
                name="eventTime"
-               rules={ [ { required: true, message: 'Please input event time!' } ] }>
+               rules={ [ { required: true, message: 'Please input event time!' } ] }
+            >
                <FullWidthRangePicker
                   inputReadOnly
                   format="HH:mm"
-                  minuteStep={ 5 } />
+                  minuteStep={ 5 }
+               />
             </Form.Item>
 
-            <Form.Item
-               label="Description"
-               name="eventDescription">
+            <Form.Item label="Description" name="eventDescription">
                <StyledTextArea
                   placeholder="Description"
-                  autoSize={ { minRows: 2 } } />
+                  autoSize={ { minRows: 2 } }
+               />
             </Form.Item>
 
-            <Form.Item
-               label="Participants"
-               name="participants">
+            <Form.Item label="Participants" name="participants">
                <FullWidthSelect
                   placeholder="Participants"
                   mode="tags"
                   loading={ isLoading }
                   disabled={ isLoading }
-                  optionLabelProp="label">
+                  optionLabelProp="label"
+               >
                   { users.map( ( user ) => (
-                     <FullWidthSelect.Option key={ user._id } value={ user.email } label={ user.email }>
+                     <FullWidthSelect.Option
+                        key={ user._id }
+                        value={ user.email }
+                        label={ user.email }
+                     >
                         <OptionMainLine>{ user.name }</OptionMainLine>
-                        <OptionSmallLine>{ user.email }, { user.type }</OptionSmallLine>
+                        <OptionSmallLine>
+                           { user.email }, { user.type }
+                        </OptionSmallLine>
                      </FullWidthSelect.Option>
                   ) ) }
                </FullWidthSelect>
@@ -132,7 +154,8 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
             <CenteredButton
                type="primary"
                loading={ isWaiting }
-               htmlType="submit">
+               htmlType="submit"
+            >
                Add event
             </CenteredButton>
          </StyledForm>
@@ -141,7 +164,6 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
 };
 
 export default AddNewEventForm;
-
 
 AddNewEventForm.propTypes = {
    room: PropTypes.shape( {
