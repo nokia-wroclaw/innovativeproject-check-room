@@ -14,6 +14,7 @@ import {
 import BackendContext from '../../services/communication/BackendContext';
 import { StyledAddNewEventForm, StyledForm } from './AddNewEventForm_styles';
 import RoomHeader from '../RoomHeader/RoomHeader';
+import NearbyRooms from './NearbyRooms/NearbyRooms';
 
 const nextHour = ( num = 1 ) => {
    const currentHour = moment().hour();
@@ -34,6 +35,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
    const [ isWaiting, setIsWaiting ] = useState( false ); // waiting for save
    const [ isLoading, setIsLoading ] = useState( false ); // loading user list
+   const [ nearbyRooms, setNearbyRooms ] = useState( [] ); // loading user list
    const [ users, setUsers ] = useState( [] );
    const [ form ] = Form.useForm();
 
@@ -77,8 +79,18 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                setIsWaiting( false );
             }, 500 );
          } )
-         .catch( () => {
+         .catch( ( e ) => {
             setIsWaiting( false );
+
+            if ( e.message === 'Overlapping events!' ) {
+               const [ freeRoomsPromise ] = backend.command.freeRooms(
+                  event.startDate,
+                  event.endDate
+               );
+               freeRoomsPromise.then( ( list ) => {
+                  setNearbyRooms( list );
+               } );
+            }
          } );
    };
 
@@ -159,6 +171,9 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                Add event
             </CenteredButton>
          </StyledForm>
+         { nearbyRooms.length === 0 ? null : (
+            <NearbyRooms nearbyRooms={ nearbyRooms } />
+         ) }
       </StyledAddNewEventForm>
    );
 };
