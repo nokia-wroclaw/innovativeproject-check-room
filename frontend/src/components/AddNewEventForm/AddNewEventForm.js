@@ -35,7 +35,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
    const [ isWaiting, setIsWaiting ] = useState( false ); // waiting for save
    const [ isLoading, setIsLoading ] = useState( false ); // loading user list
-   const [ freeRooms, setFreeRooms ] = useState( [] ); // loading user list
+   const [ freeRooms, setFreeRooms ] = useState( undefined ); // loading user list
    const [ users, setUsers ] = useState( [] );
    const [ form ] = Form.useForm();
 
@@ -57,6 +57,10 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
 
       return abort;
    }, [ backend, backend.auth.user ] );
+
+   useEffect( () => {
+      return () => setFreeRooms( undefined );
+   }, [ room ] );
 
    const addEvent = ( values ) => {
       const startEventTime = values.eventTime[0];
@@ -171,7 +175,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                Add event
             </CenteredButton>
          </StyledForm>
-         { freeRooms.length === 0 ? null : (
+         { freeRooms && (
             <NearbyRooms freeRooms={ freeRooms } thisRoomData={ room } />
          ) }
       </StyledAddNewEventForm>
