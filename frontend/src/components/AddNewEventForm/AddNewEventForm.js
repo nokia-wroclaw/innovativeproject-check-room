@@ -172,7 +172,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
             </CenteredButton>
          </StyledForm>
          { freeRooms.length === 0 ? null : (
-            <NearbyRooms freeRooms={ freeRooms } />
+            <NearbyRooms freeRooms={ freeRooms } thisRoomData={ room } />
          ) }
       </StyledAddNewEventForm>
    );
