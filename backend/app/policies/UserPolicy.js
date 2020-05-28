@@ -1,6 +1,7 @@
 const userCan = [
    'add event',
    'list users',
+   'get free calendars',
 ];
 
 const adminCan = [

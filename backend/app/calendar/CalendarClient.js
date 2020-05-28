@@ -34,6 +34,25 @@ class CalendarClient {
       return res.data;
    }
 
+   async filterFreeCalendars( calendars, startDate, endDate ) {
+      const res = await this.calendar.freebusy.query( {
+         requestBody: {
+            timeMin: startDate.format(),
+            timeMax: endDate.format(),
+            items: calendars.map( ( calendar ) => ( {
+               id: calendar.id,
+            } ) ),
+         },
+      } );
+
+      const potentiallyBusy = Object.entries( res.data.calendars );
+      const busy = potentiallyBusy.filter( ( [ id, data ] ) => data.busy.length > 0 );
+      const busyIds = busy.map( ( [ id, data ] ) => id );
+      const freeCalendars = calendars.filter( ( { id } ) => !busyIds.includes( id ) );
+
+      return freeCalendars;
+   }
+
    async getEvents( calendar, startDate ) {
       const res = await this.calendar.events.list( {
          calendarId: this.calendarId( calendar ),
