@@ -3,10 +3,12 @@ const express = require( 'express' );
 const router = express.Router();
 
 const listCalendars = require( '../app/controllers/calendar/listCalendars' );
+const getFreeCalendars = require( '../app/controllers/calendar/getFreeCalendars' );
 const fetchCalendar = require( '../app/controllers/calendar/fetchCalendar' );
 const addEvent = require( '../app/controllers/calendar/addEvent' );
 
 router.get( '/calendars', listCalendars );
+router.post( '/calendars/free', getFreeCalendars );
 router.get( '/calendar/:calendar', fetchCalendar );
 router.post( '/calendar/:calendar', addEvent );
 

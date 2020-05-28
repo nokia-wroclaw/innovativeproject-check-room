@@ -50,9 +50,7 @@ class Query {
       const [ promise, abort ] = this.cache.get( 'calendars' );
       const newPromise = promise.then(
          ( calendars ) => calendars.filter(
-            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_'
-         )
-      );
+            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_' ) );
 
       return [ newPromise, abort ];
    }
