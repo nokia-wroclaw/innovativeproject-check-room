@@ -21,6 +21,7 @@ const NavBar = () => {
 
    const [ isMenuOpen, setIsMenuOpen ] = useState( false );
    const handleMenuClick = () => setIsMenuOpen( !isMenuOpen );
+   const closeMenu = () => setIsMenuOpen( false );
 
    const handleKeyboard = ( e ) => {
       const code = e.keyCode;
@@ -51,18 +52,20 @@ const NavBar = () => {
    return (
       <StyledHeader ref={ navRef }>
          <HeaderWrapper>
-            <HeaderBrand to="/">Checkroom</HeaderBrand>
+            <HeaderBrand onClick={ closeMenu } to="/">
+               Checkroom
+            </HeaderBrand>
             <Hamburger onClick={ handleMenuClick } isOpen={ isMenuOpen } />
             <StyledNav isOpen={ isMenuOpen }>
                <NavList isOpen={ isMenuOpen }>
                   <NavItem>
-                     <NavLink onClick={ handleMenuClick } to="/">
+                     <NavLink onClick={ closeMenu } to="/">
                         Rooms
                      </NavLink>
                   </NavItem>
                   { canManageUsers ? (
                      <NavItem>
-                        <NavLink onClick={ handleMenuClick } to="/users">
+                        <NavLink onClick={ closeMenu } to="/users">
                            Users
                         </NavLink>
                      </NavItem>
@@ -73,7 +76,7 @@ const NavBar = () => {
                            <NavButton
                               onClick={ () => {
                                  renderProps.onClick();
-                                 handleMenuClick();
+                                 closeMenu();
                               } }
                               disabled={ renderProps.disabled }
                            >
@@ -97,7 +100,7 @@ const NavBar = () => {
                            <NavButton
                               onClick={ () => {
                                  renderProps.onClick();
-                                 handleMenuClick();
+                                 closeMenu();
                               } }
                               disabled={ renderProps.disabled }
                            >
