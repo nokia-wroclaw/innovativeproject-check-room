@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import NearbyRoom from './NearbyRoom/NearbyRoom';
 import { StyledNearbyRooms, NearbyRoomsList } from './NearbyRooms_styles';
 
-const NearbyRooms = ( { nearbyRooms } ) => {
+const NearbyRooms = ( { freeRooms } ) => {
+   const nearbyRooms = freeRooms.filter( ( room ) => room );
+
    return (
       <StyledNearbyRooms>
          <h2>Room is already reserved :/ </h2>
-         <p> But we have { nearbyRooms.length } empty rooms for that period.</p>
+         <p>
+            { ' ' }
+            But we have { nearbyRooms.length } empty rooms nearby for that period.
+         </p>
          <NearbyRoomsList>
             { nearbyRooms.map( ( nearbyRoom ) => (
                <NearbyRoom key={ nearbyRoom.id } roomData={ nearbyRoom } />
@@ -18,7 +23,7 @@ const NearbyRooms = ( { nearbyRooms } ) => {
 };
 
 NearbyRooms.propTypes = {
-   nearbyRooms: PropTypes.arrayOf(
+   freeRooms: PropTypes.arrayOf(
       PropTypes.shape( {
          id: PropTypes.string.isRequired,
          summary: PropTypes.string.isRequired,

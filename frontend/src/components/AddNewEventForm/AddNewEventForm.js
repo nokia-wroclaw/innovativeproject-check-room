@@ -35,7 +35,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
    const backend = useContext( BackendContext );
    const [ isWaiting, setIsWaiting ] = useState( false ); // waiting for save
    const [ isLoading, setIsLoading ] = useState( false ); // loading user list
-   const [ nearbyRooms, setNearbyRooms ] = useState( [] ); // loading user list
+   const [ freeRooms, setFreeRooms ] = useState( [] ); // loading user list
    const [ users, setUsers ] = useState( [] );
    const [ form ] = Form.useForm();
 
@@ -88,7 +88,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                   event.endDate
                );
                freeRoomsPromise.then( ( list ) => {
-                  setNearbyRooms( list );
+                  setFreeRooms( list );
                } );
             }
          } );
@@ -171,8 +171,8 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                Add event
             </CenteredButton>
          </StyledForm>
-         { nearbyRooms.length === 0 ? null : (
-            <NearbyRooms nearbyRooms={ nearbyRooms } />
+         { freeRooms.length === 0 ? null : (
+            <NearbyRooms freeRooms={ freeRooms } />
          ) }
       </StyledAddNewEventForm>
    );
