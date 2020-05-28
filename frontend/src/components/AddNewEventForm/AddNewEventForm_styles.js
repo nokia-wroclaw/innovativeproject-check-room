@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro';
 import { Form } from 'antd';
-import RoomHeader from '../RoomHeader/RoomHeader';
 
 export const StyledAddNewEventForm = styled.main`
    display: flex;
