@@ -31,6 +31,16 @@ class Command {
 
       return this.fetcher.post( 'user/delete', { body, auth: this.auth } );
    }
+
+   freeRooms( startDate, endDate ) {
+      const body = { startDate, endDate };
+      const [ promise, abort ] = this.fetcher.post( 'calendars/free', { auth: this.auth, body } );
+      const newPromise = promise.then(
+         ( calendars ) => calendars.filter(
+            ( calendar ) => calendar.summary.slice( 0, 5 ) === 'ROOM_' ) );
+
+      return [ newPromise, abort ];
+   }
 }
 
 export default Command;
