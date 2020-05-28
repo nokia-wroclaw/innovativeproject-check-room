@@ -4,7 +4,7 @@ import { Input, Form } from 'antd';
 import PropTypes from 'prop-types';
 import { CenteredButton, FullWidthDatePicker, FullWidthRangePicker, StyledTextArea, FullWidthSelect, OptionMainLine, OptionSmallLine } from '../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../services/communication/BackendContext';
-import { StyledAddNewEventForm } from './AddNewEventForm_styles';
+import { StyledAddNewEventForm, StyledForm } from './AddNewEventForm_styles';
 import RoomHeader from '../RoomHeader/RoomHeader';
 
 const nextHour = ( num = 1 ) => {
@@ -72,7 +72,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
       <StyledAddNewEventForm>
          <RoomHeader roomData={ room } />
 
-         <Form
+         <StyledForm
             form={ form }
             initialValues={ {
                'eventDate': moment().startOf( 'day' ),
@@ -135,7 +135,7 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
                htmlType="submit">
                Add event
             </CenteredButton>
-         </Form>
+         </StyledForm>
       </StyledAddNewEventForm>
    );
 };
