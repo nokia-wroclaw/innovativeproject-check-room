@@ -7,6 +7,7 @@ const UserPolicy = require( '../../policies/UserPolicy' );
 const bodySchema = yup.object().shape( {
    startDate: yup.string().required(),
    endDate: yup.string().required(),
+   calendars: yup.array( yup.string() ).default( [] ),
 } );
 
 module.exports = async ( req, res ) => {
@@ -17,9 +18,14 @@ module.exports = async ( req, res ) => {
       new UserPolicy( user ).wantsTo( 'get free calendars' );
 
       const client = new CalendarClient();
-      const allCalendars = await client.listCalendars();
+      let { calendars } = body;
+
+      if ( calendars.length === 0 ) {
+         calendars = await client.listCalendars();
+      }
+
       const calendarIds = await client.filterFreeCalendars(
-         allCalendars,
+         calendars,
          moment( body.startDate ),
          moment( body.endDate ),
       );
