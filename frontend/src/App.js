@@ -8,6 +8,7 @@ import PageTemplate from './templates/PageTemplate/PageTemplate';
 import Backend from './services/communication/Backend';
 import BackendContext from './services/communication/BackendContext';
 import QRCode from './pages/QRCode/QRCode';
+import ProtectedRoute from './services/logic/ProtectedRoute';
 import { constants } from './assets/configs/constants';
 
 const App = () => {
@@ -29,9 +30,9 @@ const App = () => {
                   <Route path="/room/:roomId">
                      <RoomDetails />
                   </Route>
-                  <Route path="/users">
+                  <ProtectedRoute path="/users" permission="manage users">
                      <Users />
-                  </Route>
+                  </ProtectedRoute>
                   <Route path="/">
                      <Rooms />
                   </Route>
