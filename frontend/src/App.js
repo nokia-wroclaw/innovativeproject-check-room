@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Rooms from './pages/Rooms/Rooms';
 import Users from './pages/Users/Users';
 import RoomDetails from './pages/RoomDetails/RoomDetails';
@@ -33,8 +33,11 @@ const App = () => {
                   <ProtectedRoute path="/users" permission="manage users">
                      <Users />
                   </ProtectedRoute>
-                  <Route path="/">
+                  <Route path="/" exact>
                      <Rooms />
+                  </Route>
+                  <Route path="/">
+                     <Redirect to="/" />
                   </Route>
                </Switch>
             </PageTemplate>
