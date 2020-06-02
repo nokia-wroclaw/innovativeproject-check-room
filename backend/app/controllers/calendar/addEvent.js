@@ -2,6 +2,7 @@ const moment = require( 'moment' );
 const yup = require( 'yup' );
 const CalendarClient = require( '../../calendar/CalendarClient' );
 const FindOrCreateUserService = require( '../../services/FindOrCreateUserService' );
+const EventOwnerService = require( '../../services/EventOwnerService' );
 const UserPolicy = require( '../../policies/UserPolicy' );
 
 const paramsSchema = yup.object().shape( {
@@ -24,7 +25,7 @@ module.exports = async ( req, res ) => {
       const user = await new FindOrCreateUserService().fromRequest( req );
       new UserPolicy( user ).wantsTo( 'add event' );
 
-      const event = {
+      const eventData = {
          calendar: params.calendar,
          start: moment( body.startDate ),
          end: moment( body.endDate ),
@@ -34,8 +35,11 @@ module.exports = async ( req, res ) => {
       };
 
       const client = new CalendarClient();
-      const resp = await client.addEvent( event );
-      res.send( resp );
+      const event = await client.addEvent( eventData );
+
+      await new EventOwnerService().makeUserAnOwnerOf( user, event );
+
+      res.send( event );
    }
    catch ( e ) {
       res.status( 400 ).send( e.message );

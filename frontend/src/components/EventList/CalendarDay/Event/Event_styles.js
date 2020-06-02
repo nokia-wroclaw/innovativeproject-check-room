@@ -3,7 +3,7 @@ import { rgba } from 'polished';
 
 export const StyledEvent = styled.div`
    display: flex;
-   background: ${( { theme } ) => rgba( theme.primary, 0.4 )};
+   background: ${( { theme, isOwned } ) => rgba( isOwned ? theme.secondary : theme.primary, 0.4 )};
    overflow: hidden;
    margin: -1px 0 2px;
    border-radius: 3px;

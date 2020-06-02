@@ -26,6 +26,7 @@ const Event = ( { event, isCompact } ) => {
    return (
       <StyledEvent
          label={ event.summary }
+         isOwned={ event.ownedByCurrentUser }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
          <EventButton onClick={ () => showModal( event ) }>
@@ -48,6 +49,7 @@ Event.propTypes = {
       end: PropTypes.shape( {
          dateTime: PropTypes.string.isRequired,
       } ).isRequired,
+      ownedByCurrentUser: PropTypes.bool,
       htmlLink: PropTypes.string.isRequired,
    } ).isRequired,
    isCompact: PropTypes.bool.isRequired,
