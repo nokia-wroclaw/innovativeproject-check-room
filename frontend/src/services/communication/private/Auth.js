@@ -48,6 +48,7 @@ class Auth {
 
    $simpleAuth( user ) {
       return {
+         user,
          token: () => user.tokenId
       };
    }

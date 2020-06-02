@@ -9,7 +9,7 @@ const errorHandler = ( error ) => {
 
 class Fetcher {
    get( urlFragment, options = {} ) {
-      const authHeader = options.auth ? { 'X-GOOGLE-AUTH': options.auth.token() } : {};
+      const authHeader = options.auth && options.auth.user ? { 'X-GOOGLE-AUTH': options.auth.token() } : {};
 
       const controller = new AbortController();
       const { signal } = controller;
@@ -44,7 +44,7 @@ class Fetcher {
    }
 
    post( urlFragment, options = {} ) {
-      const authHeader = options.auth ? { 'X-GOOGLE-AUTH': options.auth.token() } : {};
+      const authHeader = options.auth && options.auth.user ? { 'X-GOOGLE-AUTH': options.auth.token() } : {};
       const bodySetting = options.body ? { body: JSON.stringify( options.body ) } : {};
 
       const controller = new AbortController();
