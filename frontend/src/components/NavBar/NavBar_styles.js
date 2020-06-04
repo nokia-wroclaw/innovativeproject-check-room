@@ -121,7 +121,7 @@ export const DropdownMenu = styled.div`
    border-radius: 0 0 10px 10px;
    border: 3px solid ${( { theme } ) => theme.primary};
    transition: max-height 0.4s ease, opacity 0.2s ${( { isOpen } ) => ( isOpen ? 0 : 0.2 )}s ease;
-   max-height: ${( { isOpen } ) => ( isOpen ? '600px' : 0 )};
+   max-height: ${( { isOpen } ) => ( isOpen ? '250px' : 0 )};
    opacity: ${( { isOpen } ) => ( isOpen ? 1 : 0 )};
    overflow: hidden;
    position: absolute;
