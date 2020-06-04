@@ -111,6 +111,13 @@ class CalendarClient {
          release();
       }
    }
+
+   async deleteEvent( calendar, eventId ) {
+      await this.calendar.events.delete( {
+         calendarId: this.calendarId( calendar ),
+         eventId,
+      } );
+   }
 }
 
 CalendarClient.connection = null;

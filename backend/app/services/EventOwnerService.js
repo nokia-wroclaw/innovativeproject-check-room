@@ -13,6 +13,15 @@ class EventOwnerService {
       return ownershipPair;
    }
 
+   async removeOwnership( userId, eventId ) {
+      await new DBConnection().make();
+      const ownershipPair = await EventOwner.findOne( {
+         userId,
+         googleEventId: eventId,
+      } ).exec();
+      await ownershipPair.remove();
+   }
+
    async isUserAnOwnerOf( userId, eventId ) {
       await new DBConnection().make();
       const result = await EventOwner.exists( {

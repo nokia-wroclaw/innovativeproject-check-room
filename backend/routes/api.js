@@ -6,10 +6,12 @@ const listCalendars = require( '../app/controllers/calendar/listCalendars' );
 const getFreeCalendars = require( '../app/controllers/calendar/getFreeCalendars' );
 const fetchCalendar = require( '../app/controllers/calendar/fetchCalendar' );
 const addEvent = require( '../app/controllers/calendar/addEvent' );
+const deleteEvent = require( '../app/controllers/calendar/deleteEvent' );
 
 router.get( '/calendars', listCalendars );
 router.post( '/calendars/free', getFreeCalendars );
 router.get( '/calendar/:calendar', fetchCalendar );
+router.post( '/calendar/delete/:calendar', deleteEvent );
 router.post( '/calendar/:calendar', addEvent );
 
 const getOrCreateUser = require( '../app/controllers/user/getOrCreateUser' );
