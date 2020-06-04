@@ -55,7 +55,11 @@ const RoomDetails = () => {
             { canAdd ? <AddNewEventButton openDrawer={ openDrawer } /> : null }
          </FlexCenter>
 
-         <EventList eventsData={ room.events } startDate={ startDate } isCompact={ isCompact } />
+         <EventList
+            eventsData={ room.events }
+            startDate={ startDate }
+            isCompact={ isCompact }
+            onEventDeleted={ () => updateCalendar() }/>
 
          <Drawer
             title="Add an event"

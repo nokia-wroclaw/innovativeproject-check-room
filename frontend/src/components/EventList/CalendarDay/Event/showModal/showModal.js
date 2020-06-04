@@ -5,8 +5,9 @@ import {
    LinkLikeButton,
 } from './showModal_styles';
 
-const showModal = ( event ) => {
-   Modal.info( {
+const showModal = ( event, removeEventCallback ) => {
+   let ref = null;
+   ref = Modal.info( {
       title: event.summary || '(no name)',
       content: (
          <EventDescription>
@@ -21,7 +22,10 @@ const showModal = ( event ) => {
             </a></p>
 
             { event.ownedByCurrentUser
-               ? <p><LinkLikeButton>
+               ? <p><LinkLikeButton onClick={ () => {
+                  removeEventCallback( event.id );
+                  ref.destroy();
+               } }>
                   Remove
                </LinkLikeButton></p>
                : null }

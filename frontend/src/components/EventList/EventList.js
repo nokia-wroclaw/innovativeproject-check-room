@@ -6,7 +6,7 @@ import { StyledEventList, Hours } from './EventList_styles';
 import CalendarDay from './CalendarDay/CalendarDay';
 import { GridlineHour } from './CalendarDay/CalendarDay_styles';
 
-const EventList = ( { eventsData, startDate, isCompact } ) => {
+const EventList = ( { eventsData, startDate, isCompact, onEventDeleted } ) => {
    const groupedEvents = _.groupBy( eventsData, ( event ) =>
       moment( event.start.dateTime ).format( 'YYYY-MM-DD' )
    );
@@ -23,6 +23,7 @@ const EventList = ( { eventsData, startDate, isCompact } ) => {
             events={ groupedEvents[day] ?? [] }
             isCompact={ isCompact }
             hourRangeWhenNotFullDay={ hourRangeWhenNotFullDay }
+            onEventDeleted={ onEventDeleted }
          />
       );
    } );
@@ -50,11 +51,13 @@ EventList.propTypes = {
    eventsData: PropTypes.arrayOf( PropTypes.object ),
    startDate: PropTypes.string,
    isCompact: PropTypes.bool,
+   onEventDeleted: PropTypes.func,
 };
 EventList.defaultProps = {
    eventsData: [],
    startDate: '',
    isCompact: false,
+   onEventDeleted: () => {},
 };
 
 export default EventList;
