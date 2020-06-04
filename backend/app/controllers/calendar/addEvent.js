@@ -37,7 +37,7 @@ module.exports = async ( req, res ) => {
       const client = new CalendarClient();
       const event = await client.addEvent( eventData );
 
-      await new EventOwnerService().makeUserAnOwnerOf( user, event );
+      await new EventOwnerService().makeUserAnOwnerOf( user.id, event.id );
 
       res.send( event );
    }

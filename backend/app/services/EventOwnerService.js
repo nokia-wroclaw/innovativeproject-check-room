@@ -3,21 +3,21 @@ const DBConnection = require( '../database/DBConnection' );
 const FindOrCreateUserService = require( './FindOrCreateUserService' );
 
 class EventOwnerService {
-   async makeUserAnOwnerOf( user, event ) {
+   async makeUserAnOwnerOf( userId, eventId ) {
       await new DBConnection().make();
       const ownershipPair = await new EventOwner( {
-         userId: user.id,
-         googleEventId: event.id,
+         userId,
+         googleEventId: eventId,
       } ).save();
 
       return ownershipPair;
    }
 
-   async isUserAnOwnerOf( user, event ) {
+   async isUserAnOwnerOf( userId, eventId ) {
       await new DBConnection().make();
       const result = await EventOwner.exists( {
-         userId: user.id,
-         googleEventId: event.id,
+         userId,
+         googleEventId: eventId,
       } );
 
       return result;
