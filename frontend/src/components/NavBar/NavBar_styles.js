@@ -120,8 +120,9 @@ export const DropdownMenu = styled.div`
    font-size: ${( { theme } ) => theme.font.size.s};
    border-radius: 0 0 10px 10px;
    border: 3px solid ${( { theme } ) => theme.primary};
-   transition: max-height 0.3s ease;
+   transition: max-height 0.4s ease, opacity 0.2s ${( { isOpen } ) => ( isOpen ? 0 : 0.2 )}s ease;
    max-height: ${( { isOpen } ) => ( isOpen ? '600px' : 0 )};
+   opacity: ${( { isOpen } ) => ( isOpen ? 1 : 0 )};
    overflow: hidden;
    position: absolute;
    left: 0;
@@ -161,4 +162,6 @@ export const DropdownButton = styled.button`
 
 export const DropdownLink = styled( Link )`
    ${dropdownNodeStyles}
+   color: ${( { theme } ) => theme.text};
+
 `;
