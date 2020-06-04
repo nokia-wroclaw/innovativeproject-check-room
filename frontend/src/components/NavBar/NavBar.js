@@ -89,7 +89,7 @@ const NavBar = () => {
                      render={ ( renderProps ) => (
                         <NavItem>
                            <NavButton disabled>
-                              { renderProps.name } ({ renderProps.type })
+                              { renderProps.name }
                            </NavButton>
                         </NavItem>
                      ) }
