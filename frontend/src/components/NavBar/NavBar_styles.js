@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled, { css }  from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
@@ -80,6 +80,11 @@ export const NavItem = styled.li`
    text-align: center;
 `;
 
+export const NavNestedItem = styled.li`
+   position: relative;
+   text-align: center;
+`;
+
 export const NavLink = styled( Link )`
    display: block;
    width: 100%;
@@ -107,4 +112,53 @@ export const NavButton = styled.a`
    &[disabled] {
       color: ${( { theme } ) => theme.white};
    }
+`;
+
+export const DropdownMenu = styled.div`
+   min-width: 100%;
+   background-color: ${( { theme } ) => theme.white};
+   font-size: ${( { theme } ) => theme.font.size.s};
+   border-radius: 0 0 10px 10px;
+   border: 3px solid ${( { theme } ) => theme.primary};
+   transition: max-height 0.3s ease;
+   max-height: ${( { isOpen } ) => ( isOpen ? '600px' : 0 )};
+   overflow: hidden;
+   position: absolute;
+   left: 0;
+   top: 100%;
+`;
+
+export const DropdownMenuItem = styled.div`
+   text-align: center;
+   display: block;
+   background: none;
+   border: none;
+   transition: color 0.3s;
+   cursor: pointer;
+   color: ${( { theme } ) => theme.text};
+   :hover {
+      color: ${( { theme } ) => theme.primary};
+   }
+`;
+
+const dropdownNodeStyles = css`
+   text-align: center;
+   display: block;
+   width: 100%;
+   padding: 10px 5px;
+   background: none;
+   border: none;
+   transition: color 0.3s;
+   cursor: pointer;
+   :hover {
+      color: ${( { theme } ) => theme.primary};
+   }
+`;
+
+export const DropdownButton = styled.button`
+   ${dropdownNodeStyles}
+`;
+
+export const DropdownLink = styled( Link )`
+   ${dropdownNodeStyles}
 `;

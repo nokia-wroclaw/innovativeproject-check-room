@@ -1,6 +1,8 @@
 import styled from 'styled-components/macro';
 
 export const StyledRoomData = styled.div`
+  font-size: 1.9rem;
+
   text-align: center;
   display: flex;
   flex-direction: column;

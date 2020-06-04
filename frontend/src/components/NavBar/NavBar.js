@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, {
+   useState,
+   useEffect,
+   useContext,
+   useRef,
+   useReducer,
+} from 'react';
 import MyGoogleLogin from './Google/MyGoogleLogin';
 import MyGoogleName from './Google/MyGoogleName';
 import MyGoogleLogout from './Google/MyGoogleLogout';
@@ -13,6 +19,11 @@ import {
    NavButton,
    HeaderBrand,
    StyledNav,
+   NavNestedItem,
+   DropdownLink,
+   DropdownMenu,
+   DropdownMenuItem,
+   DropdownButton,
 } from './NavBar_styles';
 import Hamburger from './Hamburger/Hamburger';
 
@@ -22,6 +33,10 @@ const NavBar = () => {
    const [ isMenuOpen, setIsMenuOpen ] = useState( false );
    const handleMenuClick = () => setIsMenuOpen( !isMenuOpen );
    const closeMenu = () => setIsMenuOpen( false );
+   const [ isUserDropdownOpen, toggleIsUserDropdownOpen ] = useReducer(
+      ( state ) => !state,
+      false
+   );
 
    const handleKeyboard = ( e ) => {
       const code = e.keyCode;
@@ -63,13 +78,6 @@ const NavBar = () => {
                         Rooms
                      </NavLink>
                   </NavItem>
-                  { canManageUsers ? (
-                     <NavItem>
-                        <NavLink onClick={ closeMenu } to="/users">
-                           Users
-                        </NavLink>
-                     </NavItem>
-                  ) : null }
                   <MyGoogleLogin
                      render={ ( renderProps ) => (
                         <NavItem>
@@ -87,26 +95,44 @@ const NavBar = () => {
                   />
                   <MyGoogleName
                      render={ ( renderProps ) => (
-                        <NavItem>
-                           <NavButton disabled>
-                              { renderProps.name } ({ renderProps.type })
+                        <NavNestedItem>
+                           <NavButton onClick={ toggleIsUserDropdownOpen }>
+                              { renderProps.name }
                            </NavButton>
-                        </NavItem>
-                     ) }
-                  />
-                  <MyGoogleLogout
-                     render={ ( renderProps ) => (
-                        <NavItem>
-                           <NavButton
-                              onClick={ () => {
-                                 renderProps.onClick();
-                                 closeMenu();
-                              } }
-                              disabled={ renderProps.disabled }
-                           >
-                              Log out
-                           </NavButton>
-                        </NavItem>
+
+                           <DropdownMenu isOpen={ isUserDropdownOpen }>
+                              { canManageUsers ? (
+                                 <DropdownMenuItem>
+                                    <DropdownLink
+                                       onClick={ () => {
+                                          closeMenu();
+                                          toggleIsUserDropdownOpen();
+                                       } }
+                                       to="/users"
+                                    >
+                                       Users
+                                    </DropdownLink>
+                                 </DropdownMenuItem>
+                              ) : null }
+
+                              <MyGoogleLogout
+                                 render={ ( renderProps2 ) => (
+                                    <DropdownMenuItem>
+                                       <DropdownButton
+                                          onClick={ () => {
+                                             renderProps2.onClick();
+                                             toggleIsUserDropdownOpen();
+                                             closeMenu();
+                                          } }
+                                          disabled={ renderProps2.disabled }
+                                       >
+                                          Log out
+                                       </DropdownButton>
+                                    </DropdownMenuItem>
+                                 ) }
+                              />
+                           </DropdownMenu>
+                        </NavNestedItem>
                      ) }
                   />
                </NavList>
