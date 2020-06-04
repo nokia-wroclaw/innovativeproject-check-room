@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import BackendContext from '../../../../services/communication/BackendContext';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
 import showModal from './showModal/showModal';
 
-const Event = ( { event, isCompact } ) => {
+const Event = ( { event, isCompact, onEventDeleted } ) => {
+   const backend = useContext( BackendContext );
+
    const startDateTime = moment( event.start.dateTime );
    const endDateTime = moment( event.end.dateTime );
 
@@ -23,13 +26,21 @@ const Event = ( { event, isCompact } ) => {
 
    const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
+   const deleteEvent = () => {
+      const calendarMail = event.organizer.email;
+      // FIXME: pass calendar ID via React component tree.
+      const calendarId = calendarMail.split( '@' )[0];
+      const [ promise, ] = backend.command.deleteEvent( calendarId, event.id );
+      promise.then( () => onEventDeleted( event.id ) );
+   };
+
    return (
       <StyledEvent
          label={ event.summary }
          isOwned={ event.ownedByCurrentUser }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventButton onClick={ () => showModal( event ) }>
+         <EventButton onClick={ () => showModal( event, deleteEvent ) }>
             <EventName isCompact={ isCompact }>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>
@@ -51,8 +62,16 @@ Event.propTypes = {
       } ).isRequired,
       ownedByCurrentUser: PropTypes.bool,
       htmlLink: PropTypes.string.isRequired,
+      organizer: PropTypes.shape( {
+         email: PropTypes.string.isRequired,
+      } ).isRequired,
    } ).isRequired,
    isCompact: PropTypes.bool.isRequired,
+   onEventDeleted: PropTypes.func,
+};
+
+Event.defaultProps = {
+   onEventDeleted: () => { },
 };
 
 export default Event;

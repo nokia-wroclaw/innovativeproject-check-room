@@ -41,6 +41,14 @@ class Command {
 
       return [ newPromise, abort ];
    }
+
+   deleteEvent( calendar, eventId ) {
+      const body = {
+         id: eventId,
+      };
+
+      return this.fetcher.post( `calendar/delete/${calendar}`, { body, auth: this.auth } );
+   }
 }
 
 export default Command;
