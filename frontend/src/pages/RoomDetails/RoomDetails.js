@@ -23,7 +23,7 @@ const RoomDetails = () => {
       .startOf( 'day' )
       .toISOString();
 
-   const updateCalendar = () => {
+   const getCalendar = () => {
       const [ promise, abort ] = backend.query.roomMetadataAndEvents( roomId, startDate );
       promise.then( ( data ) => {
          setRoom( data );
@@ -33,7 +33,12 @@ const RoomDetails = () => {
       return abort;
    };
 
-   useEffect( updateCalendar, [ roomId, backend ] );
+   const refreshCalendar = () => {
+      backend.cache.reset();
+      setTimeout( getCalendar, 500 );
+   };
+
+   useEffect( getCalendar, [ roomId, backend ] );
 
    const [ drawerOpen, setDrawerOpen ] = useState( false );
    const openDrawer = () => setDrawerOpen( true );
@@ -59,7 +64,7 @@ const RoomDetails = () => {
             eventsData={ room.events }
             startDate={ startDate }
             isCompact={ isCompact }
-            onEventDeleted={ () => updateCalendar() }/>
+            onEventDeleted={ () => refreshCalendar() }/>
 
          <Drawer
             title="Add an event"
@@ -69,7 +74,7 @@ const RoomDetails = () => {
             bodyStyle={ { paddingBottom: 80 } }>
             { canAdd ? <AddNewEventForm room={ room.calendar } onSubmit={ () => {
                closeDrawer();
-               updateCalendar();
+               refreshCalendar();
             } } /> : null }
          </Drawer>
       </>;

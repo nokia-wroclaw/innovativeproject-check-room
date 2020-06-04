@@ -76,12 +76,9 @@ const AddNewEventForm = ( { room, onSubmit } ) => {
       const [ promise ] = backend.command.addEvent( room.id, event );
       promise
          .then( () => {
-            backend.cache.reset();
-            setTimeout( () => {
-               onSubmit();
-               form.resetFields();
-               setIsWaiting( false );
-            }, 500 );
+            onSubmit();
+            form.resetFields();
+            setIsWaiting( false );
          } )
          .catch( ( e ) => {
             setIsWaiting( false );
