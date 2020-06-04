@@ -19,6 +19,7 @@ class GoogleOAuthClient {
          audience: this.conn.clientId,
       } );
       const payload = ticket.getPayload();
+      console.log( token );
 
       return {
          id: payload.sub,

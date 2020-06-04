@@ -118,6 +118,15 @@ class CalendarClient {
          eventId,
       } );
    }
+
+   async updateCalendar( calendar, calendarData ) {
+      const res = await this.calendar.calendars.update( {
+         calendarId: this.calendarId( calendar ),
+         resource: calendarData,
+      } );
+
+      return res.data;
+   }
 }
 
 CalendarClient.connection = null;

@@ -7,6 +7,7 @@ const userCan = [
 const adminCan = [
    ...userCan,
    'manage users',
+   'edit calendar',
 ];
 
 class UserPolicy {
