@@ -1,7 +1,12 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Select, Button } from 'antd';
-import { StyledUserListItem, UserInfo, UserType, UserActions } from './UserListItem_styles';
+import {
+   StyledUserListItem,
+   UserInfo,
+   UserType,
+   UserActions,
+} from './UserListItem_styles';
 import { FullWidthSelect } from '../../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../../services/communication/BackendContext';
 
@@ -13,7 +18,7 @@ const UserList = ( { user } ) => {
 
    const changeType = ( value ) => {
       setIsSaving( true );
-      const [ promise, ] = backend.command.editUser( user._id, value );
+      const [ promise ] = backend.command.editUser( user._id, value );
       promise.then( () => {
          setIsSaving( false );
       } );
@@ -21,7 +26,7 @@ const UserList = ( { user } ) => {
 
    const deleteUser = () => {
       setIsSaving( true );
-      const [ promise, ] = backend.command.deleteUser( user._id );
+      const [ promise ] = backend.command.deleteUser( user._id );
       promise.then( () => {
          setIsSaving( false );
          setIsDeleted( true );
@@ -32,7 +37,9 @@ const UserList = ( { user } ) => {
 
    return (
       <StyledUserListItem>
-         <UserInfo>{ user.name } ({ user.email })</UserInfo>
+         <UserInfo>
+            { user.name } ({ user.email })
+         </UserInfo>
          <UserType>
             <FullWidthSelect
                defaultValue={ user.type }
@@ -51,7 +58,9 @@ const UserList = ( { user } ) => {
                loading={ isSaving }
                danger
                onClick={ deleteUser }
-            >Delete</Button>
+            >
+               Delete
+            </Button>
          </UserActions>
       </StyledUserListItem>
    );
