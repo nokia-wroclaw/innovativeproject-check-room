@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 import {
    EventDescription,
+   LinkLikeButton,
 } from './showModal_styles';
 
 const showModal = ( event ) => {
@@ -10,13 +11,20 @@ const showModal = ( event ) => {
       content: (
          <EventDescription>
             <p>{ event.description || 'No description.' }</p>
-            <a
+
+            <p><a
                href={ event.htmlLink }
                target="_blank"
                rel="noopener noreferrer"
             >
                Open in Google Calendar
-            </a>
+            </a></p>
+
+            { event.ownedByCurrentUser
+               ? <p><LinkLikeButton>
+                  Remove
+               </LinkLikeButton></p>
+               : null }
          </EventDescription>
       ),
       icon: null,
