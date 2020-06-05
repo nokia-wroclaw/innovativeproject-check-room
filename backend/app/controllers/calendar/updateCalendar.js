@@ -13,6 +13,7 @@ const paramsSchema = yup.object().shape( {
 const bodySchema = yup.object().shape( {
    summary: yup
       .string()
+      .matches( /(ROOM_.*)/ )
       .required()
       .max( 200 ),
    name: yup
