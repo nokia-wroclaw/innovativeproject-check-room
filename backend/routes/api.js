@@ -14,10 +14,12 @@ router.post( '/calendars/update/:calendar', updateCalendar );
 
 const fetchCalendar = require( '../app/controllers/event/fetchCalendar' );
 const addEvent = require( '../app/controllers/event/addEvent' );
+const updateEvent = require( '../app/controllers/event/updateEvent' );
 const deleteEvent = require( '../app/controllers/event/deleteEvent' );
 
 router.get( '/events/:calendar', fetchCalendar );
 router.post( '/events/:calendar', addEvent );
+router.post( '/events/update/:calendar', updateEvent );
 router.post( '/events/delete/:calendar', deleteEvent );
 
 const getOrCreateUser = require( '../app/controllers/user/getOrCreateUser' );

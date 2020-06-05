@@ -118,6 +118,14 @@ class CalendarClient {
       }
    }
 
+   async updateEvent( calendar, eventId, eventData ) {
+      await this.calendar.events.delete( {
+         calendarId: this.calendarId( calendar ),
+         eventId,
+         resource: eventData,
+      } );
+   }
+
    async deleteEvent( calendar, eventId ) {
       await this.calendar.events.delete( {
          calendarId: this.calendarId( calendar ),
