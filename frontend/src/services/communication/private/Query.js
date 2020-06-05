@@ -12,7 +12,7 @@ class Query {
          [ calendar, ] = calendarOrCalendarUri.split( '@' );
       }
 
-      const url = `calendar/${calendar}?startDate=${startDate}`;
+      const url = `events/${calendar}?startDate=${startDate}`;
 
       return this.cache.get( url, { freshness: 15, auth: this.auth } );
    }

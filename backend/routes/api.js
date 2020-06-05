@@ -4,17 +4,19 @@ const router = express.Router();
 
 const listCalendars = require( '../app/controllers/calendar/listCalendars' );
 const getFreeCalendars = require( '../app/controllers/calendar/getFreeCalendars' );
-const fetchCalendar = require( '../app/controllers/event/fetchCalendar' );
-const addEvent = require( '../app/controllers/event/addEvent' );
-const deleteEvent = require( '../app/controllers/event/deleteEvent' );
 const updateCalendar = require( '../app/controllers/calendar/updateCalendar' );
 
 router.get( '/calendars', listCalendars );
 router.post( '/calendars/free', getFreeCalendars );
-router.get( '/calendar/:calendar', fetchCalendar );
-router.post( '/calendar/delete/:calendar', deleteEvent );
-router.post( '/calendar/update/:calendar', updateCalendar );
-router.post( '/calendar/:calendar', addEvent );
+router.post( '/calendars/update/:calendar', updateCalendar );
+
+const fetchCalendar = require( '../app/controllers/event/fetchCalendar' );
+const addEvent = require( '../app/controllers/event/addEvent' );
+const deleteEvent = require( '../app/controllers/event/deleteEvent' );
+
+router.get( '/events/:calendar', fetchCalendar );
+router.post( '/events/:calendar', addEvent );
+router.post( '/events/delete/:calendar', deleteEvent );
 
 const getOrCreateUser = require( '../app/controllers/user/getOrCreateUser' );
 const editUser = require( '../app/controllers/user/editUser' );

@@ -12,7 +12,7 @@ class Command {
          [ calendar, ] = calendarOrCalendarUri.split( '@' );
       }
 
-      return this.fetcher.post( `calendar/${calendar}`, { body: event, auth: this.auth } );
+      return this.fetcher.post( `events/${calendar}`, { body: event, auth: this.auth } );
    }
 
    editUser( userId, newType ) {
@@ -47,7 +47,7 @@ class Command {
          id: eventId,
       };
 
-      return this.fetcher.post( `calendar/delete/${calendar}`, { body, auth: this.auth } );
+      return this.fetcher.post( `events/delete/${calendar}`, { body, auth: this.auth } );
    }
 }
 
