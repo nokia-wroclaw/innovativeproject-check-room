@@ -19,14 +19,14 @@ jobs:
     before_install:
     - cd backend
     script:
-    - eslint . --max-warnings=0
+    - npx eslint . --max-warnings=0
     - npm run test
 
   - stage: lint frontend
     before_install:
     - cd frontend
     script:
-    - eslint . --max-warnings=0
+    - npx eslint src --max-warnings=0
 
   - stage: deploy
     if: branch = master
