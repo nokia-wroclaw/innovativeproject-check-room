@@ -6,13 +6,19 @@ const EventOwnerService = require( '../../services/EventOwnerService' );
 const UserPolicy = require( '../../policies/UserPolicy' );
 
 const paramsSchema = yup.object().shape( {
-   calendar: yup.string().required().matches( /[a-zA-Z0-9]{10,64}/ ),
+   calendar: yup
+      .string()
+      .required()
+      .matches( /[a-zA-Z0-9]{10,64}/ ),
 } );
 
 const bodySchema = yup.object().shape( {
    startDate: yup.string().required(),
    endDate: yup.string().required(),
-   summary: yup.string().required().max( 200 ),
+   summary: yup
+      .string()
+      .required()
+      .max( 200 ),
    description: yup.string().default( '' ),
    participants: yup.array( yup.string().email() ).default( [] ),
 } );

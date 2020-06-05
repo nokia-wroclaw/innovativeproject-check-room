@@ -43,9 +43,7 @@ class EventOwnerService {
 
       const isOwned = ( event ) => ownedEventIds.includes( event.id );
       const markEvent = ( event ) => (
-         isOwned( event )
-            ? { ownedByCurrentUser: true, ...event }
-            : event );
+         isOwned( event ) ? { ownedByCurrentUser: true, ...event } : event );
 
       return events.map( markEvent );
    }

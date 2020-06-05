@@ -4,12 +4,21 @@ const FindOrCreateUserService = require( '../../services/FindOrCreateUserService
 const UserPolicy = require( '../../policies/UserPolicy' );
 
 const paramsSchema = yup.object().shape( {
-   calendar: yup.string().required().matches( /[a-zA-Z0-9]{10,64}/ ),
+   calendar: yup
+      .string()
+      .required()
+      .matches( /[a-zA-Z0-9]{10,64}/ ),
 } );
 
 const bodySchema = yup.object().shape( {
-   summary: yup.string().required().max( 200 ),
-   name: yup.string().required().max( 30 ),
+   summary: yup
+      .string()
+      .required()
+      .max( 200 ),
+   name: yup
+      .string()
+      .required()
+      .max( 30 ),
    description: yup.string().max( 50 ),
    building: yup.string().max( 30 ),
    floor: yup.number(),
@@ -48,7 +57,10 @@ module.exports = async ( req, res ) => {
       };
 
       const client = new CalendarClient();
-      const calendar = await client.updateCalendar( params.calendar, calendarData );
+      const calendar = await client.updateCalendar(
+         params.calendar,
+         calendarData,
+      );
 
       res.send( calendar );
    }

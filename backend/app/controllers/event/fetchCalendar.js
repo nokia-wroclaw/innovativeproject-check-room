@@ -4,7 +4,10 @@ const CalendarClient = require( '../../calendar/CalendarClient' );
 const EventOwnerService = require( '../../services/EventOwnerService' );
 
 const paramsSchema = yup.object().shape( {
-   calendar: yup.string().required().matches( /[^@]+/ ),
+   calendar: yup
+      .string()
+      .required()
+      .matches( /[^@]+/ ),
 } );
 
 const querySchema = yup.object().shape( {
@@ -21,8 +24,10 @@ module.exports = async ( req, res ) => {
       const client = new CalendarClient();
       const calendar = await client.getCalendar( params.calendar );
       const events = await client.getEvents( params.calendar, startDate );
-      const eventsWithOwnership = await new EventOwnerService()
-         .markOwnedEventsFromRequest( req, events );
+      const eventsWithOwnership = await new EventOwnerService().markOwnedEventsFromRequest(
+         req,
+         events,
+      );
 
       res.send( { calendar, events: eventsWithOwnership } );
    }
