@@ -1,3 +1,5 @@
+import CalendarID from '../CalendarID';
+
 class Query {
    constructor( fetcher, cache, auth ) {
       this.fetcher = fetcher;
@@ -6,13 +8,8 @@ class Query {
    }
 
    roomMetadataAndEvents( calendarOrCalendarUri, startDate ) {
-      let calendar = calendarOrCalendarUri;
-
-      if ( calendarOrCalendarUri.indexOf( '@' ) !== -1 ) {
-         [ calendar, ] = calendarOrCalendarUri.split( '@' );
-      }
-
-      const url = `calendar/${calendar}?startDate=${startDate}`;
+      const calendar = CalendarID.toId( calendarOrCalendarUri );
+      const url = `events/${calendar}?startDate=${startDate}`;
 
       return this.cache.get( url, { freshness: 15, auth: this.auth } );
    }
@@ -20,16 +17,12 @@ class Query {
    // This function fetches the metadata only.
    // It's main benefit is longer caching.
    roomMetadata( calendarOrCalendarUri ) {
-      let calendarUri = calendarOrCalendarUri;
-
-      if ( calendarOrCalendarUri.indexOf( '@' ) === -1 ) {
-         calendarUri = `${calendarOrCalendarUri}@group.calendar.google.com`;
-      }
+      const calendarMail = CalendarID.toMail( calendarOrCalendarUri );
 
       const [ promise, abort ] = this.allRoomsMetadata();
       const newPromise = promise.then( ( calendars ) => {
          const candidates = calendars.filter(
-            ( calendar ) => calendar.id === calendarUri
+            ( calendar ) => calendar.id === calendarMail
          );
 
          if ( candidates.length === 0 ) {
@@ -37,7 +30,7 @@ class Query {
          }
 
          if ( candidates.length > 1 ) {
-            throw new Error( `Multiple calendars found for ${calendarUri}` );
+            throw new Error( `Multiple calendars found for ${calendarMail}` );
          }
 
          return candidates[0];

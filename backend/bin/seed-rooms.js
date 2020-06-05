@@ -31,15 +31,18 @@ function randomEvent() {
    const events = [
       [ 'Daily stand-up', 'Plan how you will sit for the rest of the day.' ],
       [ 'Investor meeting', 'Hopefully the projector will work this time.' ],
-      [ 'Event storming session', 'We\'re meeting an important customer.' ],
+      [ 'Event storming session', "We're meeting an important customer." ],
       [ 'TBD', 'To Be Determined.' ],
       [ 'Training session', 'Gotta train these fingers.' ],
       [ 'Sprint retro', 'Remember the happy days.' ],
-      [ 'Job interview', 'Shouldn\'t take long.' ],
+      [ 'Job interview', "Shouldn't take long." ],
       [ 'Student projects', 'Under our supervision.' ],
       [ 'Seminar on workplace safety', 'BHP.' ],
       [ 'Seminar on unit testing', '' ], // left blank on purpose
-      [ 'Seminar on monorepo usage', '-Seminar on repo usage\n+Seminar on monorepo usage' ],
+      [
+         'Seminar on monorepo usage',
+         '-Seminar on repo usage\n+Seminar on monorepo usage',
+      ],
    ];
 
    return events[randUniform( 0, events.length - 1 )];
@@ -52,7 +55,9 @@ async function seedEvents( days, room, eventsPerDay ) {
       const calendar = calendars[i];
 
       for ( let j = 0; j < days; j += 1 ) {
-         const dayStart = moment().startOf( 'day' ).add( j, 'day' );
+         const dayStart = moment()
+            .startOf( 'day' )
+            .add( j, 'day' );
 
          for ( let l = 0; l < eventsPerDay; l += 1 ) {
             const startMinutes = randUniform( 7 * 2, 15 * 2 ) * 30;
@@ -63,7 +68,11 @@ async function seedEvents( days, room, eventsPerDay ) {
 
             const [ summary, description ] = randomEvent();
             addEvent( {
-               calendar, start, end, summary, description,
+               calendar,
+               start,
+               end,
+               summary,
+               description,
             } );
          }
       }
@@ -73,7 +82,9 @@ async function seedEvents( days, room, eventsPerDay ) {
 require( 'dotenv' ).config();
 
 const { argv } = yargs
-   .usage( 'Usage: npm run seed-rooms -- --days [num] --room [calendar|"all"] --eventsPerDay [num]' )
+   .usage(
+      'Usage: npm run seed-rooms -- --days [num] --room [calendar|"all"] --eventsPerDay [num]',
+   )
    .demandOption( [ 'days', 'room', 'eventsPerDay' ] );
 
 seedEvents( argv.days, argv.room, argv.eventsPerDay ).catch( ( e ) => {

@@ -1,4 +1,5 @@
 import JsonParser from './JsonParser';
+import CalendarID from '../communication/CalendarID';
 
 class RoomMetadataDTO {
    static from( roomData ) {
@@ -12,7 +13,7 @@ class RoomMetadataDTO {
          dc: description,
       };
       const room = JsonParser.parseOrDefault( description, fallback );
-      [ room.id, ] = roomData.id.split( '@' );
+      room.id = CalendarID.toId( roomData.id );
 
       return this.fromJSON( room );
    }

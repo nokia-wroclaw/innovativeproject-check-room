@@ -17,7 +17,11 @@ class CalendarClient {
    }
 
    calendarId( calendar ) {
-      return `${calendar}@group.calendar.google.com`;
+      if ( calendar.indexOf( '@' ) === -1 ) {
+         return `${calendar}@group.calendar.google.com`;
+      }
+
+      return calendar;
    }
 
    async listCalendars() {
@@ -57,7 +61,9 @@ class CalendarClient {
       const res = await this.calendar.events.list( {
          calendarId: this.calendarId( calendar ),
          timeMin: startDate.format(),
-         timeMax: moment( startDate ).add( 1, 'week' ).format(),
+         timeMax: moment( startDate )
+            .add( 1, 'week' )
+            .format(),
          maxResults: 100,
          singleEvents: true,
          orderBy: 'startTime',
@@ -112,11 +118,36 @@ class CalendarClient {
       }
    }
 
+   async updateEvent( calendar, eventId, eventData ) {
+      await this.calendar.events.delete( {
+         calendarId: this.calendarId( calendar ),
+         eventId,
+         resource: eventData,
+      } );
+   }
+
    async deleteEvent( calendar, eventId ) {
       await this.calendar.events.delete( {
          calendarId: this.calendarId( calendar ),
          eventId,
       } );
+   }
+
+   async updateCalendar( calendar, calendarData ) {
+      const res = await this.calendar.calendars.update( {
+         calendarId: this.calendarId( calendar ),
+         resource: calendarData,
+      } );
+
+      return res.data;
+   }
+
+   async addCalendar( calendarData ) {
+      const res = await this.calendar.calendars.insert( {
+         resource: { summary: calendarData.summary },
+      } );
+
+      return this.updateCalendar( res.data.id, calendarData );
    }
 }
 

@@ -4,7 +4,10 @@ const FindOrCreateUserService = require( '../../services/FindOrCreateUserService
 const EventOwnerService = require( '../../services/EventOwnerService' );
 
 const paramsSchema = yup.object().shape( {
-   calendar: yup.string().required().matches( /[a-zA-Z0-9]{10,64}/ ),
+   calendar: yup
+      .string()
+      .required()
+      .matches( /[a-zA-Z0-9]{10,64}/ ),
 } );
 
 const bodySchema = yup.object().shape( {
@@ -17,7 +20,10 @@ module.exports = async ( req, res ) => {
       const body = await bodySchema.validate( req.body );
 
       const user = await new FindOrCreateUserService().fromRequest( req );
-      const isOwner = await new EventOwnerService().isUserAnOwnerOf( user.id, body.id );
+      const isOwner = await new EventOwnerService().isUserAnOwnerOf(
+         user.id,
+         body.id,
+      );
 
       if ( !isOwner ) {
          throw new Error( 'Not authorized' );

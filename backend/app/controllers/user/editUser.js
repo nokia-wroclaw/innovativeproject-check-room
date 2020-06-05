@@ -17,7 +17,10 @@ module.exports = async ( req, res ) => {
       new UserPolicy( user ).wantsTo( 'manage users' );
 
       await new DBConnection().make();
-      const newUser = await User.updateOne( { _id: body.id }, { type: body.newType } ).exec();
+      const newUser = await User.updateOne(
+         { _id: body.id },
+         { type: body.newType },
+      ).exec();
 
       res.send( newUser );
    }

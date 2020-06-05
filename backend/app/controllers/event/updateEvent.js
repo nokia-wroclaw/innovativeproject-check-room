@@ -2,17 +2,23 @@ const moment = require( 'moment' );
 const yup = require( 'yup' );
 const CalendarClient = require( '../../calendar/CalendarClient' );
 const FindOrCreateUserService = require( '../../services/FindOrCreateUserService' );
-const EventOwnerService = require( '../../services/EventOwnerService' );
 const UserPolicy = require( '../../policies/UserPolicy' );
 
 const paramsSchema = yup.object().shape( {
-   calendar: yup.string().required().matches( /[a-zA-Z0-9]{10,64}/ ),
+   calendar: yup
+      .string()
+      .required()
+      .matches( /[a-zA-Z0-9]{10,64}/ ),
 } );
 
 const bodySchema = yup.object().shape( {
+   eventId: yup.string().required(),
    startDate: yup.string().required(),
    endDate: yup.string().required(),
-   summary: yup.string().required().max( 200 ),
+   summary: yup
+      .string()
+      .required()
+      .max( 200 ),
    description: yup.string().default( '' ),
    participants: yup.array( yup.string().email() ).default( [] ),
 } );
@@ -35,9 +41,7 @@ module.exports = async ( req, res ) => {
       };
 
       const client = new CalendarClient();
-      const event = await client.addEvent( eventData );
-
-      await new EventOwnerService().makeUserAnOwnerOf( user.id, event.id );
+      const event = await client.updateEvent( params.calendar, body.eventId, eventData );
 
       res.send( event );
    }
