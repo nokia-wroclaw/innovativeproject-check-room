@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import BackendContext from '../../../../services/communication/BackendContext';
+import CalendarID from '../../../../services/communication/CalendarID';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
 import showModal from './showModal/showModal';
 
@@ -29,7 +30,7 @@ const Event = ( { event, isCompact, onEventDeleted } ) => {
    const deleteEvent = () => {
       const calendarMail = event.organizer.email;
       // FIXME: pass calendar ID via React component tree.
-      const calendarId = calendarMail.split( '@' )[0];
+      const calendarId = CalendarID.toId( calendarMail );
       const [ promise, ] = backend.command.deleteEvent( calendarId, event.id );
       promise.then( () => onEventDeleted( event.id ) );
    };

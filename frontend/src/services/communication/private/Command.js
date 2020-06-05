@@ -1,16 +1,13 @@
+import CalendarID from '../CalendarID';
+
 class Command {
    constructor( fetcher, auth ) {
       this.fetcher = fetcher;
       this.auth = auth;
    }
 
-   // Create an event.
    addEvent( calendarOrCalendarUri, event ) {
-      let calendar = calendarOrCalendarUri;
-
-      if ( calendarOrCalendarUri.indexOf( '@' ) !== -1 ) {
-         [ calendar, ] = calendarOrCalendarUri.split( '@' );
-      }
+      const calendar = CalendarID.toId( calendarOrCalendarUri );
 
       return this.fetcher.post( `events/${calendar}`, { body: event, auth: this.auth } );
    }
