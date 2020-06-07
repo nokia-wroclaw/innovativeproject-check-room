@@ -27,7 +27,7 @@ const Event = ( { event, isCompact, onUpdate } ) => {
 
    const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
-   const deleteEvent = () => {
+   const removeEvent = () => {
       const calendarMail = event.organizer.email;
       // FIXME: pass calendar ID via React component tree.
       const calendarId = CalendarID.toId( calendarMail );
@@ -45,7 +45,7 @@ const Event = ( { event, isCompact, onUpdate } ) => {
          isOwned={ event.ownedByCurrentUser }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventButton onClick={ () => showEventDetailsModal( event, deleteEvent, updateEvent ) }>
+         <EventButton onClick={ () => showEventDetailsModal( event, removeEvent, updateEvent ) }>
             <EventName isCompact={ isCompact }>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>

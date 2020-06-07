@@ -1,11 +1,13 @@
 import React from 'react';
 import { Modal } from 'antd';
+import showEventRemovalModal from './EventRemovalModal/EventRemovalModal';
+import showEventUpdatingModal from './EventUpdatingModal/EventUpdatingModal';
 import {
    EventDescription,
    LinkLikeButton,
 } from './EventDetailsModal_styles';
 
-const showEventDetailsModal = ( event, removeEventCallback ) => {
+const showEventDetailsModal = ( event, removeEvent, updateEvent ) => {
    let ref = null;
    ref = Modal.info( {
       title: event.summary || '(no name)',
@@ -21,14 +23,21 @@ const showEventDetailsModal = ( event, removeEventCallback ) => {
                Open in Google Calendar
             </a></p>
 
-            { event.ownedByCurrentUser
-               ? <p><LinkLikeButton onClick={ () => {
-                  removeEventCallback( event.id );
+            { event.ownedByCurrentUser ? <p>
+               <LinkLikeButton onClick={ () => {
+                  showEventUpdatingModal( event, updateEvent );
                   ref.destroy();
                } }>
-                  Remove
-               </LinkLikeButton></p>
-               : null }
+                  Edit
+               </LinkLikeButton>
+               { ' / ' }
+               <LinkLikeButton onClick={ () => {
+                  showEventRemovalModal( event, removeEvent );
+                  ref.destroy();
+               } }>
+                     Remove
+               </LinkLikeButton>
+            </p> : null }
          </EventDescription>
       ),
       icon: null,
