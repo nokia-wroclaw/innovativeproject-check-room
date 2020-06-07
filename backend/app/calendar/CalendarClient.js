@@ -119,7 +119,7 @@ class CalendarClient {
    }
 
    async updateEvent( calendar, eventId, eventData ) {
-      await this.calendar.events.delete( {
+      await this.calendar.events.patch( {
          calendarId: this.calendarId( calendar ),
          eventId,
          resource: eventData,
