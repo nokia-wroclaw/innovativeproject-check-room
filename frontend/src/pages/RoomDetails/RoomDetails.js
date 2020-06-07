@@ -64,7 +64,7 @@ const RoomDetails = () => {
             eventsData={ room.events }
             startDate={ startDate }
             isCompact={ isCompact }
-            onUpdate={ () => refreshCalendar() }/>
+            onUpdate={ refreshCalendar }/>
 
          <Drawer
             title="Add an event"
