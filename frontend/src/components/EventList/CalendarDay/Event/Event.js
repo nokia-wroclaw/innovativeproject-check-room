@@ -27,16 +27,18 @@ const Event = ( { event, isCompact, onUpdate } ) => {
 
    const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
+   const calendarMail = event.organizer.email;
+   // FIXME: pass calendar ID via React component tree.
+   const calendarId = CalendarID.toId( calendarMail );
+
    const removeEvent = () => {
-      const calendarMail = event.organizer.email;
-      // FIXME: pass calendar ID via React component tree.
-      const calendarId = CalendarID.toId( calendarMail );
       const [ promise, ] = backend.command.deleteEvent( calendarId, event.id );
-      promise.then( () => onUpdate( event.id ) );
+      promise.then( () => onUpdate() );
    };
 
    const updateEvent = ( eventData ) => {
-      console.log( eventData );
+      const [ promise, ] = backend.command.updateEvent( calendarId, event.id, eventData );
+      promise.then( () => onUpdate() );
    };
 
    return (
