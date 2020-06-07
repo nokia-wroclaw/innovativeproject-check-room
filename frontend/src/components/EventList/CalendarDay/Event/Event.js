@@ -4,7 +4,7 @@ import moment from 'moment';
 import BackendContext from '../../../../services/communication/BackendContext';
 import CalendarID from '../../../../services/communication/CalendarID';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
-import showModal from './showModal/showModal';
+import showEventDetailsModal from './EventDetailsModal/EventDetailsModal';
 
 const Event = ( { event, isCompact, onUpdate } ) => {
    const backend = useContext( BackendContext );
@@ -35,13 +35,17 @@ const Event = ( { event, isCompact, onUpdate } ) => {
       promise.then( () => onUpdate( event.id ) );
    };
 
+   const updateEvent = ( eventData ) => {
+      console.log( eventData );
+   };
+
    return (
       <StyledEvent
          label={ event.summary }
          isOwned={ event.ownedByCurrentUser }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventButton onClick={ () => showModal( event, deleteEvent ) }>
+         <EventButton onClick={ () => showEventDetailsModal( event, deleteEvent, updateEvent ) }>
             <EventName isCompact={ isCompact }>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>

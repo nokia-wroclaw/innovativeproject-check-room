@@ -3,9 +3,9 @@ import { Modal } from 'antd';
 import {
    EventDescription,
    LinkLikeButton,
-} from './showModal_styles';
+} from './EventDetailsModal_styles';
 
-const showModal = ( event, removeEventCallback ) => {
+const showEventDetailsModal = ( event, removeEventCallback ) => {
    let ref = null;
    ref = Modal.info( {
       title: event.summary || '(no name)',
@@ -37,4 +37,4 @@ const showModal = ( event, removeEventCallback ) => {
    } );
 };
 
-export default showModal;
+export default showEventDetailsModal;
