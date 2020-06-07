@@ -2,6 +2,7 @@ const yup = require( 'yup' );
 const CalendarClient = require( '../../calendar/CalendarClient' );
 const FindOrCreateUserService = require( '../../services/FindOrCreateUserService' );
 const EventOwnerService = require( '../../services/EventOwnerService' );
+const UserEventPolicy = require( '../../policies/UserEventPolicy' );
 
 const paramsSchema = yup.object().shape( {
    calendar: yup
@@ -20,14 +21,7 @@ module.exports = async ( req, res ) => {
       const body = await bodySchema.validate( req.body );
 
       const user = await new FindOrCreateUserService().fromRequest( req );
-      const isOwner = await new EventOwnerService().isUserAnOwnerOf(
-         user.id,
-         body.id,
-      );
-
-      if ( !isOwner ) {
-         throw new Error( 'Not authorized' );
-      }
+      new UserEventPolicy( user.id, body.id ).wantsTo( 'delete event' );
 
       const client = new CalendarClient();
       await client.deleteEvent( params.calendar, body.id );
