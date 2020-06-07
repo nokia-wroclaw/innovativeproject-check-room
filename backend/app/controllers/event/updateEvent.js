@@ -14,7 +14,6 @@ const bodySchema = yup.object().shape( {
    id: yup.string().required(),
    summary: yup.string().required().max( 200 ),
    description: yup.string().default( '' ),
-   participants: yup.array( yup.string().email() ).default( [] ),
 } );
 
 module.exports = async ( req, res ) => {
@@ -28,13 +27,12 @@ module.exports = async ( req, res ) => {
       const eventData = {
          summary: body.summary,
          description: body.description,
-         participants: body.participants,
       };
 
       const client = new CalendarClient();
-      const event = await client.updateEvent( params.calendar, body.eventId, eventData );
+      await client.updateEvent( params.calendar, body.id, eventData );
 
-      res.send( event );
+      res.send( {} );
    }
    catch ( e ) {
       res.status( 400 ).send( e.message );
