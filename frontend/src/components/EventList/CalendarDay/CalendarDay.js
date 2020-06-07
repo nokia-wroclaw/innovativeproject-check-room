@@ -14,7 +14,7 @@ import {
 import DayName from './DayName/DayName';
 import Event from './Event/Event';
 
-const CalendarDay = ( { day, events, isCompact, hourRangeWhenNotFullDay, onEventDeleted } ) => {
+const CalendarDay = ( { day, events, isCompact, hourRangeWhenNotFullDay, onUpdate } ) => {
    const [ isFullDay, toggleFullDay ] = useReducer( ( state ) => !state, false );
    if( isCompact && isFullDay )
       toggleFullDay( false );
@@ -61,7 +61,7 @@ const CalendarDay = ( { day, events, isCompact, hourRangeWhenNotFullDay, onEvent
                      key={ event.id }
                      isCompact={ isCompact }
                      event={ event }
-                     onEventDeleted={ onEventDeleted } />
+                     onUpdate={ onUpdate } />
                ) ) }
             </EventsGrid>
          </Day>
@@ -74,11 +74,11 @@ CalendarDay.propTypes = {
    events: PropTypes.arrayOf( PropTypes.object ).isRequired,
    isCompact: PropTypes.bool,
    hourRangeWhenNotFullDay: PropTypes.arrayOf( PropTypes.number ).isRequired,
-   onEventDeleted: PropTypes.func,
+   onUpdate: PropTypes.func,
 };
 CalendarDay.defaultProps = {
    isCompact: false,
-   onEventDeleted: () => {},
+   onUpdate: () => {},
 };
 
 export default CalendarDay;
