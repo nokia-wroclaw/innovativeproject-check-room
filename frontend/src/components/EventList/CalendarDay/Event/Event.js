@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { message } from 'antd';
 import BackendContext from '../../../../services/communication/BackendContext';
 import CalendarID from '../../../../services/communication/CalendarID';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
-import showModal from './showModal/showModal';
+import showEventDetailsModal from './EventDetailsModal/EventDetailsModal';
 
-const Event = ( { event, isCompact, onEventDeleted } ) => {
+const Event = ( { event, isCompact, onUpdate } ) => {
    const backend = useContext( BackendContext );
 
    const startDateTime = moment( event.start.dateTime );
@@ -27,12 +28,24 @@ const Event = ( { event, isCompact, onEventDeleted } ) => {
 
    const shouldDisplaySummary = gridRowEnd - gridRowStart >= 2;
 
-   const deleteEvent = () => {
-      const calendarMail = event.organizer.email;
-      // FIXME: pass calendar ID via React component tree.
-      const calendarId = CalendarID.toId( calendarMail );
+   const calendarMail = event.organizer.email;
+   // FIXME: pass calendar ID via React component tree.
+   const calendarId = CalendarID.toId( calendarMail );
+
+   const removeEvent = () => {
       const [ promise, ] = backend.command.deleteEvent( calendarId, event.id );
-      promise.then( () => onEventDeleted( event.id ) );
+      promise.then( () => {
+         message.success( 'Event removed!' );
+         onUpdate();
+      } );
+   };
+
+   const updateEvent = ( eventData ) => {
+      const [ promise, ] = backend.command.updateEvent( calendarId, event.id, eventData );
+      promise.then( () => {
+         message.success( 'Event updated!' );
+         onUpdate();
+      } );
    };
 
    return (
@@ -41,7 +54,7 @@ const Event = ( { event, isCompact, onEventDeleted } ) => {
          isOwned={ event.ownedByCurrentUser }
          style={ { gridRow: `${gridRowStart}/${gridRowEnd}` } }
       >
-         <EventButton onClick={ () => showModal( event, deleteEvent ) }>
+         <EventButton onClick={ () => showEventDetailsModal( event, removeEvent, updateEvent ) }>
             <EventName isCompact={ isCompact }>
                { shouldDisplaySummary ? event.summary || '(no name)' : '' }
             </EventName>
@@ -68,11 +81,11 @@ Event.propTypes = {
       } ).isRequired,
    } ).isRequired,
    isCompact: PropTypes.bool.isRequired,
-   onEventDeleted: PropTypes.func,
+   onUpdate: PropTypes.func,
 };
 
 Event.defaultProps = {
-   onEventDeleted: () => { },
+   onUpdate: () => { },
 };
 
 export default Event;

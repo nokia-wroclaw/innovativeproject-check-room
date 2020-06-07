@@ -1,8 +1,7 @@
-const moment = require( 'moment' );
 const yup = require( 'yup' );
 const CalendarClient = require( '../../calendar/CalendarClient' );
 const FindOrCreateUserService = require( '../../services/FindOrCreateUserService' );
-const UserPolicy = require( '../../policies/UserPolicy' );
+const UserEventPolicy = require( '../../policies/UserEventPolicy' );
 
 const paramsSchema = yup.object().shape( {
    calendar: yup
@@ -12,15 +11,9 @@ const paramsSchema = yup.object().shape( {
 } );
 
 const bodySchema = yup.object().shape( {
-   eventId: yup.string().required(),
-   startDate: yup.string().required(),
-   endDate: yup.string().required(),
-   summary: yup
-      .string()
-      .required()
-      .max( 200 ),
+   id: yup.string().required(),
+   summary: yup.string().required().max( 200 ),
    description: yup.string().default( '' ),
-   participants: yup.array( yup.string().email() ).default( [] ),
 } );
 
 module.exports = async ( req, res ) => {
@@ -29,21 +22,17 @@ module.exports = async ( req, res ) => {
       const body = await bodySchema.validate( req.body );
 
       const user = await new FindOrCreateUserService().fromRequest( req );
-      new UserPolicy( user ).wantsTo( 'add event' );
+      new UserEventPolicy( user.id, body.id ).wantsTo( 'edit event' );
 
       const eventData = {
-         calendar: params.calendar,
-         start: moment( body.startDate ),
-         end: moment( body.endDate ),
          summary: body.summary,
          description: body.description,
-         participants: body.participants,
       };
 
       const client = new CalendarClient();
-      const event = await client.updateEvent( params.calendar, body.eventId, eventData );
+      await client.updateEvent( params.calendar, body.id, eventData );
 
-      res.send( event );
+      res.send( {} );
    }
    catch ( e ) {
       res.status( 400 ).send( e.message );

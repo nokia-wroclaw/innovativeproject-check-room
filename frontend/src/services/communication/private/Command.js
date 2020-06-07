@@ -39,6 +39,15 @@ class Command {
       return [ newPromise, abort ];
    }
 
+   updateEvent( calendar, eventId, eventData ) {
+      const body = {
+         id: eventId,
+         ...eventData
+      };
+
+      return this.fetcher.post( `events/update/${calendar}`, { body, auth: this.auth } );
+   }
+
    deleteEvent( calendar, eventId ) {
       const body = {
          id: eventId,
