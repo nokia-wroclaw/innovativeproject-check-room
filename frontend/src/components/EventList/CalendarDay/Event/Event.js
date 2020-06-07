@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { message } from 'antd';
 import BackendContext from '../../../../services/communication/BackendContext';
 import CalendarID from '../../../../services/communication/CalendarID';
 import { StyledEvent, EventName, EventButton } from './Event_styles';
@@ -33,12 +34,18 @@ const Event = ( { event, isCompact, onUpdate } ) => {
 
    const removeEvent = () => {
       const [ promise, ] = backend.command.deleteEvent( calendarId, event.id );
-      promise.then( () => onUpdate() );
+      promise.then( () => {
+         message.success( 'Event removed!' );
+         onUpdate();
+      } );
    };
 
    const updateEvent = ( eventData ) => {
       const [ promise, ] = backend.command.updateEvent( calendarId, event.id, eventData );
-      promise.then( () => onUpdate() );
+      promise.then( () => {
+         message.success( 'Event updated!' );
+         onUpdate();
+      } );
    };
 
    return (
