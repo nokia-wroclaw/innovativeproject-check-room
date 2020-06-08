@@ -11,7 +11,7 @@ const deleteCalendar = require( '../app/controllers/calendar/deleteCalendar' );
 router.get( '/calendars', listCalendars );
 router.post( '/calendars/free', getFreeCalendars );
 router.post( '/calendars', addCalendar );
-router.post( '/calendars/update/:calendar', updateCalendar );
+router.post( '/calendars/update', updateCalendar );
 router.post( '/calendars/delete', deleteCalendar );
 
 const fetchCalendar = require( '../app/controllers/event/fetchCalendar' );
