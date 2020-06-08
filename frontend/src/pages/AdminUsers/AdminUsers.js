@@ -3,7 +3,7 @@ import UserList from '../../components/UserList/UserList';
 import BackendContext from '../../services/communication/BackendContext';
 import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
-const Users = () => {
+const AdminUsers = () => {
    const [ users, setUsers ] = useState( [] );
    const [ isLoading, setIsLoading ] = useState( true );
    const backend = useContext( BackendContext );
@@ -22,4 +22,4 @@ const Users = () => {
       : <UserList usersData={ users } />;
 };
 
-export default Users;
+export default AdminUsers;

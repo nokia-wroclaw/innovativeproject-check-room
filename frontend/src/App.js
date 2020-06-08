@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Rooms from './pages/Rooms/Rooms';
-import Users from './pages/Users/Users';
+import AdminUsers from './pages/AdminUsers/AdminUsers';
 import RoomDetails from './pages/RoomDetails/RoomDetails';
 import PageTemplate from './templates/PageTemplate/PageTemplate';
 import Backend from './services/communication/Backend';
@@ -30,8 +30,8 @@ const App = () => {
                   <Route path="/room/:roomId">
                      <RoomDetails />
                   </Route>
-                  <ProtectedRoute path="/users" permission="manage users">
-                     <Users />
+                  <ProtectedRoute path="/admin/users" permission="manage users">
+                     <AdminUsers />
                   </ProtectedRoute>
                   <Route path="/" exact>
                      <Rooms />

@@ -105,10 +105,10 @@ const NavBar = () => {
                                  <DropdownMenuItem>
                                     <DropdownLink
                                        onClick={ () => {
-                                          closeMenu();
                                           toggleIsUserDropdownOpen();
+                                          closeMenu();
                                        } }
-                                       to="/users"
+                                       to="/admin/users"
                                     >
                                        Users
                                     </DropdownLink>
