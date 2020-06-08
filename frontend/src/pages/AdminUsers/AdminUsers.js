@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import UserList from '../../components/UserList/UserList';
+import AdminUserList from '../../components/AdminUserList/AdminUserList';
 import BackendContext from '../../services/communication/BackendContext';
 import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
@@ -19,7 +19,7 @@ const AdminUsers = () => {
    }, [ backend ] );
 
    return isLoading ? <LoadingPage />
-      : <UserList usersData={ users } />;
+      : <AdminUserList usersData={ users } />;
 };
 
 export default AdminUsers;

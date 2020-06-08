@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const StyledUserListItem = styled.div`
+export const StyledAdminUserListItem = styled.div`
    padding: 8px;
    display: grid;
    grid-gap: 2px;
