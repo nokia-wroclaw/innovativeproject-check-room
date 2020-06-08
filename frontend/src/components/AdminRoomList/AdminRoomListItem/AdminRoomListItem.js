@@ -19,6 +19,7 @@ const AdminRoomListItem = ( { room } ) => {
       promise.then( () => {
          setIsSaving( false );
          setIsDeleted( true );
+         backend.cache.reset();
       } );
    };
 
