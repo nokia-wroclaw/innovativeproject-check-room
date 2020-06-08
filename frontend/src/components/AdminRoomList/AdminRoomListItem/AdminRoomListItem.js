@@ -7,11 +7,13 @@ import {
    UserActions,
 } from './AdminRoomListItem_styles';
 import BackendContext from '../../../services/communication/BackendContext';
+import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
 
 const AdminRoomListItem = ( { room } ) => {
    const [ isSaving, setIsSaving ] = useState( false );
    const [ isDeleted, setIsDeleted ] = useState( false );
    const backend = useContext( BackendContext );
+   const metadata = RoomMetadataDTO.from( room );
 
    const deleteRoom = () => {
       setIsSaving( true );
@@ -27,7 +29,7 @@ const AdminRoomListItem = ( { room } ) => {
 
    return (
       <StyledAdminRoomListItem>
-         <UserInfo>{ room.summary }</UserInfo>
+         <UserInfo>{ metadata.name } ({ room.summary })</UserInfo>
          <UserActions>
             <Button
                disabled={ isSaving }
