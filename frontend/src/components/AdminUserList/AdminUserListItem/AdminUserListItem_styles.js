@@ -21,6 +21,6 @@ export const UserInfo = styled.div`
 
 export const UserType = styled.div``;
 
-export const UserActions = styled.div`
+export const UserAction = styled.div`
    text-align: center;
 `;

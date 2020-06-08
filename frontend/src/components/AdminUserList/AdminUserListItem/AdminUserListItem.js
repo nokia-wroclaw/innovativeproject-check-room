@@ -5,7 +5,7 @@ import {
    StyledAdminUserListItem,
    UserInfo,
    UserType,
-   UserActions,
+   UserAction,
 } from './AdminUserListItem_styles';
 import { FullWidthSelect } from '../../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../../services/communication/BackendContext';
@@ -52,7 +52,7 @@ const AdminUserListItem = ( { user } ) => {
                <Select.Option value="guest">guest</Select.Option>
             </FullWidthSelect>
          </UserType>
-         <UserActions>
+         <UserAction>
             <Button
                disabled={ ourselves || isSaving }
                loading={ isSaving }
@@ -61,7 +61,7 @@ const AdminUserListItem = ( { user } ) => {
             >
                Delete
             </Button>
-         </UserActions>
+         </UserAction>
       </StyledAdminUserListItem>
    );
 };

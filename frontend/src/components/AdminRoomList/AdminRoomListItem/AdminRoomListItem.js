@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import {
    StyledAdminRoomListItem,
    UserInfo,
-   UserActions,
+   UserAction,
 } from './AdminRoomListItem_styles';
 import BackendContext from '../../../services/communication/BackendContext';
 import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
@@ -30,7 +30,16 @@ const AdminRoomListItem = ( { room } ) => {
    return (
       <StyledAdminRoomListItem>
          <UserInfo>{ metadata.name } ({ room.summary })</UserInfo>
-         <UserActions>
+         <UserAction>
+            <Button
+               disabled={ isSaving }
+               loading={ isSaving }
+               primary
+            >
+               Edit
+            </Button>
+         </UserAction>
+         <UserAction>
             <Button
                disabled={ isSaving }
                loading={ isSaving }
@@ -39,7 +48,7 @@ const AdminRoomListItem = ( { room } ) => {
             >
                Delete
             </Button>
-         </UserActions>
+         </UserAction>
       </StyledAdminRoomListItem>
    );
 };

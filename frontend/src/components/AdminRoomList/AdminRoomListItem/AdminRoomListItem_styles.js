@@ -19,6 +19,6 @@ export const UserInfo = styled.div`
    word-wrap: break-word;
 `;
 
-export const UserActions = styled.div`
+export const UserAction = styled.div`
    text-align: center;
 `;
