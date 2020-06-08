@@ -149,6 +149,12 @@ class CalendarClient {
 
       return this.updateCalendar( res.data.id, calendarData );
    }
+
+   async deleteCalendar( calendar ) {
+      await this.calendar.calendars.delete( {
+         calendarId: this.calendarId( calendar ),
+      } );
+   }
 }
 
 CalendarClient.connection = null;

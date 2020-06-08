@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const StyledUserListItem = styled.div`
+export const StyledAdminRoomListItem = styled.div`
    padding: 8px;
    display: grid;
    grid-gap: 2px;
@@ -19,8 +19,6 @@ export const UserInfo = styled.div`
    word-wrap: break-word;
 `;
 
-export const UserType = styled.div``;
-
-export const UserActions = styled.div`
+export const UserAction = styled.div`
    text-align: center;
 `;

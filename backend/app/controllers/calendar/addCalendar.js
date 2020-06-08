@@ -41,7 +41,7 @@ module.exports = async ( req, res ) => {
       const body = await bodySchema.validate( req.body );
 
       const user = await new FindOrCreateUserService().fromRequest( req );
-      new UserPolicy( user ).wantsTo( 'add calendar' );
+      new UserPolicy( user ).wantsTo( 'manage rooms' );
 
       const calendarData = {
          summary: body.summary,

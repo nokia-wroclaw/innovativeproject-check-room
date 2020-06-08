@@ -2,15 +2,15 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Select, Button } from 'antd';
 import {
-   StyledUserListItem,
+   StyledAdminUserListItem,
    UserInfo,
    UserType,
-   UserActions,
-} from './UserListItem_styles';
+   UserAction,
+} from './AdminUserListItem_styles';
 import { FullWidthSelect } from '../../StyledFormComponents/StyledFormComponents';
 import BackendContext from '../../../services/communication/BackendContext';
 
-const UserList = ( { user } ) => {
+const AdminUserListItem = ( { user } ) => {
    const [ isSaving, setIsSaving ] = useState( false );
    const [ isDeleted, setIsDeleted ] = useState( false );
    const backend = useContext( BackendContext );
@@ -36,7 +36,7 @@ const UserList = ( { user } ) => {
    if ( isDeleted ) return null;
 
    return (
-      <StyledUserListItem>
+      <StyledAdminUserListItem>
          <UserInfo>
             { user.name } ({ user.email })
          </UserInfo>
@@ -52,7 +52,7 @@ const UserList = ( { user } ) => {
                <Select.Option value="guest">guest</Select.Option>
             </FullWidthSelect>
          </UserType>
-         <UserActions>
+         <UserAction>
             <Button
                disabled={ ourselves || isSaving }
                loading={ isSaving }
@@ -61,12 +61,12 @@ const UserList = ( { user } ) => {
             >
                Delete
             </Button>
-         </UserActions>
-      </StyledUserListItem>
+         </UserAction>
+      </StyledAdminUserListItem>
    );
 };
 
-UserList.propTypes = {
+AdminUserListItem.propTypes = {
    user: PropTypes.shape( {
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
@@ -75,4 +75,4 @@ UserList.propTypes = {
    } ).isRequired,
 };
 
-export default UserList;
+export default AdminUserListItem;
