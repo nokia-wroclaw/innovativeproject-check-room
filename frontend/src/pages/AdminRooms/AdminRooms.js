@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import RoomList from '../../components/RoomList/RoomList';
+import AdminRoomList from '../../components/AdminRoomList/AdminRoomList';
 import BackendContext from '../../services/communication/BackendContext';
 import LoadingPage from '../../components/LoadingPage/LoadingPage';
 
@@ -19,7 +19,7 @@ const AdminRooms = () => {
    }, [ backend ] );
 
    return isLoading ? <LoadingPage />
-      : <RoomList roomsData={ rooms } />;
+      : <AdminRoomList roomsData={ rooms } />;
 };
 
 export default AdminRooms;

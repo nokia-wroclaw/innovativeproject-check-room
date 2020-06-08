@@ -65,6 +65,14 @@ class Command {
 
       return this.fetcher.post( `calendars/update/${calendar}`, { body: calendarData, auth: this.auth } );
    }
+
+   deleteCalendar( calendarOrCalendarUri ) {
+      const body = {
+         id: CalendarID.toId( calendarOrCalendarUri ),
+      };
+
+      return this.fetcher.post( 'calendars/delete', { body, auth: this.auth } );
+   }
 }
 
 export default Command;
