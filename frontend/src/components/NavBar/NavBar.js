@@ -63,6 +63,7 @@ const NavBar = () => {
    }, [] );
 
    const canManageUsers = backend.auth.can( 'manage users' );
+   const canManageRooms = backend.auth.can( 'manage rooms' );
 
    return (
       <StyledHeader ref={ navRef }>
@@ -110,7 +111,21 @@ const NavBar = () => {
                                        } }
                                        to="/admin/users"
                                     >
-                                       Users
+                                       Manage users
+                                    </DropdownLink>
+                                 </DropdownMenuItem>
+                              ) : null }
+
+                              { canManageRooms ? (
+                                 <DropdownMenuItem>
+                                    <DropdownLink
+                                       onClick={ () => {
+                                          toggleIsUserDropdownOpen();
+                                          closeMenu();
+                                       } }
+                                       to="/admin/rooms"
+                                    >
+                                       Manage rooms
                                     </DropdownLink>
                                  </DropdownMenuItem>
                               ) : null }
