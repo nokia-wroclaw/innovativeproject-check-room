@@ -8,12 +8,23 @@ import {
 } from './AdminRoomListItem_styles';
 import BackendContext from '../../../services/communication/BackendContext';
 import RoomMetadataDTO from '../../../services/parsing/RoomMetadataDTO';
+import showRoomUpdatingModal from './RoomUpdatingModal/RoomUpdatingModal';
 
 const AdminRoomListItem = ( { room } ) => {
    const [ isSaving, setIsSaving ] = useState( false );
    const [ isDeleted, setIsDeleted ] = useState( false );
    const backend = useContext( BackendContext );
-   const metadata = RoomMetadataDTO.from( room );
+   const [ metadata, setMetadata ] = useState( RoomMetadataDTO.from( room ) );
+
+   const updateRoom = ( newMetadata ) => {
+      setIsSaving( true );
+      const [ promise ] = backend.command.updateCalendar( room.id, room.summary, newMetadata );
+      promise.then( () => {
+         setIsSaving( false );
+         setMetadata( newMetadata );
+         backend.cache.reset();
+      } );
+   };
 
    const deleteRoom = () => {
       setIsSaving( true );
@@ -34,7 +45,9 @@ const AdminRoomListItem = ( { room } ) => {
             <Button
                disabled={ isSaving }
                loading={ isSaving }
-               primary
+               onClick={ () => {
+                  showRoomUpdatingModal( metadata, updateRoom );
+               } }
             >
                Edit
             </Button>

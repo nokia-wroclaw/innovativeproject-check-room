@@ -14,6 +14,7 @@ class RoomMetadataDTO {
       };
       const room = JsonParser.parseOrDefault( description, fallback );
       room.id = CalendarID.toId( roomData.id );
+      room.summary = summary;
 
       return this.fromJSON( room );
    }
