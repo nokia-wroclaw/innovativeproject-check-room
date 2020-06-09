@@ -60,10 +60,15 @@ class Command {
       return this.fetcher.post( 'calendars', { body: calendarData, auth: this.auth } );
    }
 
-   updateCalendar( calendarOrCalendarUri, calendarData ) {
+   updateCalendar( calendarOrCalendarUri, summary, calendarData ) {
       const calendar = CalendarID.toId( calendarOrCalendarUri );
+      const body = {
+         calendar,
+         summary,
+         ...calendarData,
+      };
 
-      return this.fetcher.post( `calendars/update/${calendar}`, { body: calendarData, auth: this.auth } );
+      return this.fetcher.post( 'calendars/update', { body, auth: this.auth } );
    }
 
    deleteCalendar( calendarOrCalendarUri ) {
