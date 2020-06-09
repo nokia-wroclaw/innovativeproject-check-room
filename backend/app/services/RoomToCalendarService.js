@@ -5,7 +5,7 @@ class RoomToCalendarService {
       room.nm = roomMetadata.name;
       room.dc = roomMetadata.description;
       room.lc.b = roomMetadata.building;
-      room.lc.f = roomMetadata.floor;
+      room.lc.f = roomMetadata.floorNo;
       room.st = roomMetadata.seatsNo;
       room.pj = roomMetadata.hasProjector;
       room.wb = roomMetadata.hasWhiteboard;

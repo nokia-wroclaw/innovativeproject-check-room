@@ -20,7 +20,7 @@ const bodySchema = yup.object().shape( {
       .max( 30 ),
    description: yup.string().max( 50 ),
    building: yup.string().max( 30 ),
-   floor: yup.number(),
+   floorNo: yup.number(),
    seatsNo: yup.number(),
    hasProjector: yup.bool(),
    hasWhiteboard: yup.bool(),
