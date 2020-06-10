@@ -1,15 +1,15 @@
 # Check Room
 
-Site that lets you can quickly check room availability, and create events.
+Site that lets you can quickly check room availability and make reservations.
 
 Features:
 
 - integration with Google Calendar,
 - logging in with Google accounts,
 - searching and filtering rooms,
-- adding event,
+- adding events, with room suggestions shown automatically,
 - generating QR codes,
-- admin panel.
+- admin panel for user and room management.
 
 Project made under the Innovative Projects program.
 
@@ -60,9 +60,3 @@ ESLint settings are picked up only when the config is in the root folder,
 so we run editors for frontend and backend separately.
 
 [ESLint extension]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
-
-The app is in English only, but we try to display the dates in user's language. To try it out on Linux, you can run your browser in different language with:
-
-```bash
-LC_ALL=pl_PL.UTF-8 google-chrome
-```
