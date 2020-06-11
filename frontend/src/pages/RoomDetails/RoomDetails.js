@@ -85,6 +85,7 @@ const RoomDetails = () => {
                <RoomHeader roomData={ room.calendar } />
                <FlexCenter style={ { display: 'flex' } }>
                   <Button
+                     loading={ isLoading }
                      type="primary"
                      onClick={ () => setStartDate( 'prevThree' ) }
                      icon={ <CaretLeftOutlined /> }
@@ -100,6 +101,7 @@ const RoomDetails = () => {
                      <AddNewEventButton openDrawer={ openDrawer } />
                   ) : null }
                   <Button
+                     loading={ isLoading }
                      type="primary"
                      onClick={ () => setStartDate( 'nextThree' ) }
                      icon={ <CaretRightOutlined /> }
