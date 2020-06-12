@@ -96,6 +96,7 @@ class CalendarClient {
 
          const res = await this.calendar.events.insert( {
             calendarId,
+            sendUpdates: 'all',
             resource: {
                start: {
                   dateTime: event.start.format(),
@@ -122,6 +123,7 @@ class CalendarClient {
       await this.calendar.events.patch( {
          calendarId: this.calendarId( calendar ),
          eventId,
+         sendUpdates: 'all',
          resource: eventData,
       } );
    }
@@ -130,6 +132,7 @@ class CalendarClient {
       await this.calendar.events.delete( {
          calendarId: this.calendarId( calendar ),
          eventId,
+         sendUpdates: 'all',
       } );
    }
 
