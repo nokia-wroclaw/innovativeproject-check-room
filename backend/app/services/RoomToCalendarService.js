@@ -7,8 +7,8 @@ class RoomToCalendarService {
       room.lc.b = roomMetadata.building;
       room.lc.f = roomMetadata.floorNo;
       room.st = roomMetadata.seatsNo;
-      room.pj = roomMetadata.hasProjector;
-      room.wb = roomMetadata.hasWhiteboard;
+      room.pj = roomMetadata.hasProjector ? 1 : 0;
+      room.wb = roomMetadata.hasWhiteboard ? 1 : 0;
 
       if ( !room.lc.b || !room.lc.f ) room.lc = undefined;
 
