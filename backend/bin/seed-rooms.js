@@ -73,6 +73,7 @@ async function seedEvents( days, room, eventsPerDay ) {
                end,
                summary,
                description,
+               participants: [],
             } );
          }
       }
