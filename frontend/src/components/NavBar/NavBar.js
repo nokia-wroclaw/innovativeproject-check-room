@@ -3,7 +3,6 @@ import React, {
    useEffect,
    useContext,
    useRef,
-   useReducer,
 } from 'react';
 import MyGoogleLogin from './Google/MyGoogleLogin';
 import MyGoogleName from './Google/MyGoogleName';
@@ -33,10 +32,9 @@ const NavBar = () => {
    const [ isMenuOpen, setIsMenuOpen ] = useState( false );
    const handleMenuClick = () => setIsMenuOpen( !isMenuOpen );
    const closeMenu = () => setIsMenuOpen( false );
-   const [ isUserDropdownOpen, toggleIsUserDropdownOpen ] = useReducer(
-      ( state ) => !state,
-      false
-   );
+   const [ isUserDropdownOpen, setUserDropdownOpen ] = useState( false );
+
+   const toggleIsUserDropdownOpen = ( ) => setUserDropdownOpen( !isUserDropdownOpen );
 
    const handleKeyboard = ( e ) => {
       const code = e.keyCode;
@@ -47,18 +45,26 @@ const NavBar = () => {
    };
 
    const navRef = useRef( null );
+   const dropdownRef = useRef( null );
 
-   const closeIfClickOutside = ( e ) => {
+   const closeMenuIfClickOutside = ( e ) => {
       if ( !navRef.current.contains( e.target ) ) setIsMenuOpen( false );
+   };
+
+   const closeDropdownIfClickOutside = ( e ) => {
+      if ( !dropdownRef.current.contains( e.target ) )
+         setUserDropdownOpen( false );
    };
 
    useEffect( () => {
       window.addEventListener( 'keydown', handleKeyboard );
-      document.addEventListener( 'mousedown', closeIfClickOutside );
+      document.addEventListener( 'mousedown', closeMenuIfClickOutside );
+      document.addEventListener( 'mousedown', closeDropdownIfClickOutside );
 
       return () => {
          window.removeEventListener( 'keypress', handleKeyboard );
-         document.removeEventListener( 'mousedown', closeIfClickOutside );
+         document.removeEventListener( 'mousedown', closeMenuIfClickOutside );
+         document.removeEventListener( 'mousedown', closeDropdownIfClickOutside );
       };
    }, [] );
 
@@ -101,7 +107,10 @@ const NavBar = () => {
                               { renderProps.name }
                            </NavButton>
 
-                           <DropdownMenu isOpen={ isUserDropdownOpen }>
+                           <DropdownMenu
+                              ref={ dropdownRef }
+                              isOpen={ isUserDropdownOpen }
+                           >
                               { canManageUsers ? (
                                  <DropdownMenuItem>
                                     <DropdownLink
