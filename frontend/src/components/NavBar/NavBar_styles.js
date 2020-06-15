@@ -18,8 +18,8 @@ export const HeaderWrapper = styled.div`
    justify-content: space-between;
    padding: 10px 10%;
    ${( props ) => props.theme.mdq.sm} {
-      justify-content: space-around;
-      padding: 5px 10px;
+      justify-content: space-between;
+      padding: 5px min(150px, 8%);
    }
 `;
 
