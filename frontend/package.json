@@ -5,6 +5,7 @@
    "dependencies": {
       "@ant-design/icons": "^4.2.1",
       "antd": "^4.3.3",
+      "fontsource-open-sans": "^2.1.4",
       "lodash": "^4.17.15",
       "moment": "^2.26.0",
       "ordinal": "^1.0.3",
@@ -17,8 +18,7 @@
       "react-icons": "^3.10.0",
       "react-router-dom": "^5.2.0",
       "react-scripts": "3.4.0",
-      "styled-components": "^5.1.1",
-      "typeface-open-sans": "0.0.75"
+      "styled-components": "^5.1.1"
    },
    "scripts": {
       "start": "react-scripts start",
