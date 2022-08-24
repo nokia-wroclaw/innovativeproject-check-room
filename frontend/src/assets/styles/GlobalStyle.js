@@ -31,6 +31,11 @@ const GlobalStyle = createGlobalStyle`
    a {
       color: ${( { theme } ) => theme.link};
    }
+
+   .ant-btn-primary {
+      background-color: ${( { theme } ) => theme.primary};
+      border-color: ${( { theme } ) => theme.primary};
+   }
 `;
 
 export default GlobalStyle;
