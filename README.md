@@ -1,6 +1,6 @@
 # Check Room
 
-Site that lets you can quickly check room availability and make reservations.
+Site that lets you quickly check room availability and make reservations.
 
 Features:
 
